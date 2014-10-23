@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_linear_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_list_background">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_title_layout"
+        android:background="@drawable/widget_group_background"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/image_next"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/widget_lecture_group_title"
+            android:layout_width="fill_parent"
+            android:layout_height="38dp"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:typeface="sans"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/image_next"
+            android:visibility="invisible"
+            android:src="@drawable/ic_launcher" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/widget_lecture_day"
+        android:layout_width="fill_parent"
+        android:layout_height="38dp"
+        android:background="@color/date_background"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:typeface="sans"
+        android:textStyle="bold"
+        />
+
+    <ListView
+        android:id="@+id/widget_lecture_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/list_background"
+        android:dividerHeight="1dp"
+        />
+</LinearLayout>

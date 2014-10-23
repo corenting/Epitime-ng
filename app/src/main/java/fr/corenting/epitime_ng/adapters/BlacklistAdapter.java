@@ -1,0 +1,144 @@
+package fr.corenting.epitime_ng.adapters;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.LayerDrawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.data.GroupItem;
+import fr.corenting.epitime_ng.headers.GroupListHeader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by KingGreed on 08/06/2014.
+ */
+public class BlacklistAdapter extends BaseAdapter implements View.OnClickListener {
+
+    private LayoutInflater inflater = null;
+    private List<String> lecturesBlacklisted;
+    private List<GroupItem> items;
+    private GroupListHeader noBlacklistHeader;
+
+    public BlacklistAdapter(GroupListHeader noBlacklistHeader) {
+        this.lecturesBlacklisted = EpiTime.getInstance().getScheduleManager().getBlacklist();
+        this.inflater            = (LayoutInflater)EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.noBlacklistHeader   = noBlacklistHeader;
+        this.items = new ArrayList<GroupItem>();
+
+        this.makeItems();
+
+    }
+
+    private void makeItems() {
+        this.items.clear();
+
+        GroupItem.newSeedColor(42 * 42 + 1);
+
+        for (String aLecturesBlacklisted : this.lecturesBlacklisted) {
+            this.items.add(new GroupItem(aLecturesBlacklisted));
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return this.lecturesBlacklisted.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return this.lecturesBlacklisted.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int index, View convertView, ViewGroup parent) {
+        View view = convertView == null ? inflater.inflate(R.layout.group_select_list_item_image, null) : convertView;
+
+        GroupItem item = this.items.get(index);
+
+        ImageView iv = (ImageView)view.findViewById(R.id.group_select_list_section_short_image);
+        TextView  tv = (TextView)view.findViewById(R.id.group_select_list_section_text);
+
+        iv.setImageResource(R.drawable.ic_action_cancel);
+        tv.setText(item.getLongTitle());
+
+        iv.setTag(index); iv.setOnClickListener(this);
+
+        GroupListAdapter.setBackground((LayerDrawable)iv.getBackground(), item.getShortColor(), item.getShortColorShadow());
+
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.group_select_list_section_short_image: this.onCancelClick((Integer)v.getTag()); break;
+            default: break;
+        }
+    }
+
+    private void onCancelClick(int index) {
+        Activity context = (Activity)EpiTime.getInstance().getCurrentActivity();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater     = context.getLayoutInflater();
+        View v                      = inflater.inflate(R.layout.dialog_alert, null);
+
+        ((TextView)v.findViewById(R.id.dialog_alert_title)).setText(context.getResources().getString(R.string.dialog_alert_blacklist_title));
+        ((TextView)v.findViewById(R.id.dialog_alert_text)) .setText(context.getResources().getString(R.string.dialog_alert_blacklist_text));
+
+        builder.setView(v);
+        builder.setPositiveButton("Valider", new RemoveLectureListener(index));
+        builder.setNegativeButton("Annuler", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#282828"));
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#ffffff"));
+
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.parseColor("#282828"));
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#ffffff"));
+    }
+
+    private void onRemoveLecture(int index) {
+        EpiTime.getInstance().getScheduleManager().removeFromBlacklist(this.lecturesBlacklisted.get(index));
+        this.lecturesBlacklisted.remove(index);
+        this.makeItems();
+        this.notifyDataSetChanged();
+
+        if(this.lecturesBlacklisted.size() == 0) {
+            this.noBlacklistHeader.showHeader();
+        }
+    }
+
+    private class RemoveLectureListener implements DialogInterface.OnClickListener {
+
+        private int index;
+
+        public RemoveLectureListener(int index) {
+            this.index = index;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            BlacklistAdapter.this.onRemoveLecture(this.index);
+        }
+    }
+}

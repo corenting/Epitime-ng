@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:layout_width="match_parent"
+   	android:layout_height="wrap_content"
+ 	android:orientation="horizontal" >
+        
+	<TextView
+		 android:id="@+id/group_select_list_section_short"
+		 android:layout_width="70dp"
+		 android:layout_height="70dp"
+		 android:text="@string/A2"
+		 android:padding="16dp"
+		 android:background="@drawable/group_select_list_short_background"
+		 android:textColor="#fff"
+		 android:textSize="28sp"
+		 android:gravity="center"
+		 android:fontFamily="sans-serif"
+		 android:textStyle="bold" />
+
+	<TextView
+	    android:id="@+id/group_select_list_section_long"
+	    android:layout_width="match_parent"
+	    android:layout_height="70dp"
+	    android:layout_toRightOf="@+id/group_select_list_section_short"
+	    android:background="@drawable/group_select_list_long_background"
+	    android:fontFamily="sans-serif"
+	    android:gravity="center"
+	    android:text="@string/InfoSpeA2"
+	    android:textColor="#fff"
+	    android:textSize="24sp"
+	    android:textStyle="bold" />
+    
+</RelativeLayout>

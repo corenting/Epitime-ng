@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lecture_item_background"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/list_background"
+    android:padding="5dip">
+
+ 
+   	<TextView
+   	    android:id="@+id/CourseTimeBegin"
+   	    android:layout_width="50dp"
+   	    android:layout_height="wrap_content"
+        android:singleLine="true"
+   	    android:text="@string/data_begin"
+   	    android:textColor="#fff"
+   	    android:textSize="15sp"
+   	    android:typeface="sans" />
+    
+    <TextView
+	    android:id="@+id/CourseTime"
+	    android:layout_width="50dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/CourseTimeBegin"
+	    android:layout_below="@+id/CourseTimeBegin"
+	    android:gravity="center"
+        android:singleLine="true"
+	    android:text="@string/data_dash"
+	    android:textColor="#fff"
+	    android:textSize="15sp"
+	    android:typeface="sans" />
+		
+	<TextView
+	    android:id="@+id/CourseTimeEnd"
+	    android:layout_width="50dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/CourseTimeBegin"
+	    android:layout_below="@+id/CourseTime"
+        android:singleLine="true"
+	    android:text="@string/data_end"
+	    android:textColor="#fff"
+	    android:textSize="15sp"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:id="@+id/CourseTitle"
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    android:layout_above="@+id/CourseTimeEnd"
+	    android:layout_toRightOf="@+id/CourseTime"
+	    android:layout_toLeftOf="@+id/Placeholder"
+	    android:gravity="center"
+	    android:layout_centerHorizontal="true"
+	    android:text="@string/data_lecture_name"
+	    android:textColor="#fff"
+	    android:textSize="15sp"
+	    android:ellipsize="end"
+	    android:singleLine="true"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:id="@+id/CourseRoom"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/CourseTimeBegin"
+	    android:layout_alignBottom="@+id/CourseTimeBegin"
+            android:layout_toRightOf="@+id/CourseTimeBegin"
+	    android:layout_alignParentRight="true"
+            android:gravity="right"
+	    android:layout_marginRight="18dp"
+	    android:text="@string/data_lecture_room"
+	    android:textColor="#fff"
+	    android:textSize="15sp"
+	    android:textStyle="bold"
+	    android:typeface="sans" />
+
+	<TextView
+	    android:id="@+id/Placeholder"
+		android:layout_width="49dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/CourseRoom"
+	    android:text="" />
+
+</RelativeLayout> 

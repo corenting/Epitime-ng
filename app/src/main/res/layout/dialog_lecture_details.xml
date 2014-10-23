@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#282828"
+    android:padding="15dip"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/dialog_lecture_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fff"
+        android:text="@string/dialog_lecture_title"
+        android:textSize="@dimen/dialog_lecture_title_size"
+        android:gravity="center" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#34c5fa"/>
+
+    <TableLayout
+        android:id="@+id/mainTable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:shrinkColumns="2"
+        android:stretchColumns="2" >
+
+        <TableRow android:paddingBottom="@dimen/dialog_lecture_textview_row_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_teacher" >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_dots" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/dialog_lecture_teacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="" >
+            </TextView>
+
+        </TableRow>
+
+        <TableRow android:paddingBottom="@dimen/dialog_lecture_textview_row_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_time" >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_dots" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/dialog_lecture_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="" >
+            </TextView>
+        </TableRow>
+
+        <TableRow android:paddingBottom="@dimen/dialog_lecture_textview_row_padding">
+
+            <TextView
+                android:id="@+id/dialog_lecture_group_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_group" >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_dots" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/dialog_lecture_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="" >
+            </TextView>
+        </TableRow>
+
+        <TableRow android:paddingBottom="@dimen/dialog_lecture_textview_row_padding">
+
+            <TextView
+                android:id="@+id/dialog_lecture_room_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_room" >
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:typeface="sans"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="@string/dialog_lecture_dots" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/dialog_lecture_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:typeface="sans"
+                android:textColor="#fff"
+                android:textSize="@dimen/dialog_lecture_textview_size"
+                android:text="" >
+            </TextView>
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

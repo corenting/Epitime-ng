@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Of course in android api < 12 left and right corners are inverted !-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item>
+	    <shape android:shape="rectangle">
+	        <solid android:color="#1c2026" />
+	        <stroke android:color="#1c2026"
+	            android:width="4dp" />
+	        <padding android:bottom="4dp"/>
+	        <corners android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
+	    </shape>
+	</item>
+	
+	<item>
+	    <shape android:shape="rectangle" >
+	        <solid android:color="#1c2026" />
+	        <stroke android:color="#1c2026"
+	            android:width="2dp" />
+	        <padding android:right="2dp"/>
+	        <corners android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
+	    </shape>
+	</item>
+	
+	<item>
+	    <shape android:shape="rectangle" >
+	        <solid android:color="#1c2026" />
+	        <stroke android:color="#1c2026"
+	            android:width="1dp" />
+	        <padding android:top="1dp"/>
+	        <corners android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
+	    </shape>
+	</item>
+	
+	<item>
+	    <shape android:shape="rectangle">
+	        <solid android:color="#272d36" />
+	        <stroke android:color="#272d36" android:width="1dp"/>
+	        <corners android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
+	    </shape>
+	</item>
+    
+</layer-list>
