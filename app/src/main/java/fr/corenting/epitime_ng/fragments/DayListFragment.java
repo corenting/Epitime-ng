@@ -7,12 +7,19 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
@@ -21,23 +28,14 @@ import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.adapters.LectureListAdapter;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
-import fr.corenting.epitime_ng.listeners.TouchListener;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
-import fr.corenting.epitime_ng.utils.PullToRefreshListView;
-import fr.corenting.epitime_ng.utils.PullToRefreshListView.OnRefreshListener;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-public class DayListFragment extends Fragment {
-	
-	private PullToRefreshListView lectureList;
+    private SwipeRefreshLayout swipeLayout;
+	private ListView lectureList;
     private Day day;
     private List<Lecture> displayed;
 
@@ -48,7 +46,6 @@ public class DayListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.initMemberVariables(inflater, container);
-
         this.setup();
         this.setListeners();
         
@@ -59,11 +56,13 @@ public class DayListFragment extends Fragment {
 	private void initMemberVariables(LayoutInflater inflater, ViewGroup container) {
 		this.view      = (ViewGroup) inflater.inflate(R.layout.activity_week_list, container, false);
         this.displayed = new ArrayList<Lecture>();
-		
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+
 		this.day     = ((Day) getArguments().get("Day"));
         this.manager = EpiTime.getInstance().getScheduleManager();
         
-        this.lectureList  = (PullToRefreshListView) this.view.findViewById(R.id.lectures);
+        this.lectureList  = (ListView) this.view.findViewById(R.id.lectures);
 	}
 	
 	private void setup() {
@@ -84,25 +83,21 @@ public class DayListFragment extends Fragment {
     }
 	
 	private void setListeners() {
-		this.lectureList.setOnRefreshListener(new RefreshListener());
         this.lectureList.setOnItemClickListener(new LectureListClickListener());
 	}
 
     public void setLectureListAdapter(List<Lecture> lectures) {
         this.lectureList.setAdapter(new LectureListAdapter(lectures));
     }
-	
-	private class RefreshListener implements OnRefreshListener {
-		@Override
-        public void onRefresh() {
-            if(EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
-                ((DrawerActivity)EpiTime.getInstance().getCurrentActivity()).noInternetShown = false;
-            }
-    		DayListFragment.this.manager.requestLectures(true, -1, 0, 1);
-        	new GetDataTask().execute();
-    	
+
+    @Override
+    public void onRefresh() {
+        if(EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
+            ((DrawerActivity)EpiTime.getInstance().getCurrentActivity()).noInternetShown = false;
         }
-	}
+        DayListFragment.this.manager.requestLectures(true, -1, 0, 1);
+        new GetDataTask().execute();;
+    }
 
     private class LectureListClickListener implements AdapterView.OnItemClickListener {
 
@@ -117,7 +112,7 @@ public class DayListFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             LayoutInflater inflater     = context.getLayoutInflater();
 
-            View v = inflater.inflate(R.layout.dialog_lecture_details, null);
+            View v = inflater.inflate(R.layout.dialog_lecture_details,(ViewGroup)view);
 
             DayListFragment.this.lectureSelected = item.title;
 
@@ -173,10 +168,10 @@ public class DayListFragment extends Fragment {
 	    
 	    @Override
 	    protected void onPostExecute(String[] result) {
-	    	lectureList.onRefreshComplete();
 	    	if(EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
 	    		((DayList)EpiTime.getInstance().getCurrentActivity()).updateAdapter();
 	    	}
+            swipeLayout.setRefreshing(false);
 	        super.onPostExecute(result);
 	    }
 

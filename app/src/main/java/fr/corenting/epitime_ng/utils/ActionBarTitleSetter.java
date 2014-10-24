@@ -1,9 +1,7 @@
 package fr.corenting.epitime_ng.utils;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v7.app.ActionBar;
 
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.activities.DrawerActivity.DrawerActionBarToggle;
@@ -12,13 +10,13 @@ public class ActionBarTitleSetter {
 
     private final DrawerActionBarToggle drawerToggle;
     private final Context context;
-    private android.support.v7.app.ActionBar actionBar;
+    private ActionBar actionBar;
 
     private String titleDrawerClosed;
     private String titleDrawerOpened;
 
 
-    public ActionBarTitleSetter(android.support.v7.app.ActionBar actionBar, DrawerActionBarToggle drawerToggle, Context c) {
+    public ActionBarTitleSetter(ActionBar actionBar, DrawerActionBarToggle drawerToggle, Context c) {
         this.drawerToggle = drawerToggle;
         this.context        = c;
         this.actionBar = actionBar;
@@ -30,13 +28,6 @@ public class ActionBarTitleSetter {
 
     void setTitleBar(String s) {
         actionBar.setTitle(s);
-    }
-
-    public void setTitleBar(String drawerOpened, String drawerClosed) {
-        this.titleDrawerOpened = drawerOpened;
-        this.titleDrawerClosed = drawerClosed;
-
-        this.setTitle();
     }
 
     public void setTitleBarClosed(String drawerClosed) {
@@ -52,17 +43,6 @@ public class ActionBarTitleSetter {
 
     public void resetTitleBarOpened() {
         this.titleDrawerOpened = context.getString(R.string.choose_school);
-        this.setTitle();
-    }
-
-    public void resetTitleBarClosed() {
-        this.titleDrawerClosed = context.getString(R.string.app_name);
-        this.setTitle();
-    }
-
-    public void resetTitleBar() {
-        this.titleDrawerOpened = context.getString(R.string.choose_school);
-        this.titleDrawerClosed = context.getString(R.string.app_name);
         this.setTitle();
     }
 
