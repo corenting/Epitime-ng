@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
@@ -29,8 +27,7 @@ public class GroupListActivity extends DrawerActivity {
 
     private ListView         groupList;
     private GroupListAdapter adapter;
-	private boolean          hasNoGroup;
-	private GroupListHeader  searchHeader;
+    private GroupListHeader  searchHeader;
 
 	GroupListHeader connectingHeader;
 	GroupListHeader noInternetHeader;
@@ -39,7 +36,7 @@ public class GroupListActivity extends DrawerActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		this.hasNoGroup = this.getIntent().getExtras().getBoolean("NoGroup");
+        boolean hasNoGroup = this.getIntent().getExtras().getBoolean("NoGroup");
 		this.school     = this.getIntent().getExtras().getString("School");
 		this.layout     = R.layout.activity_group_select;
 		
@@ -84,15 +81,6 @@ public class GroupListActivity extends DrawerActivity {
 		this.groupList.setAdapter(this.adapter);
 		this.searchInputListener.setAdapter(this.adapter);
 	}
-	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        this.getMenuInflater().inflate(R.menu.groups, menu);
-        menu.findItem(R.id.menu_action_back).setVisible(!this.hasNoGroup);
-        
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     protected void onResume() {
@@ -101,19 +89,7 @@ public class GroupListActivity extends DrawerActivity {
         EpiTime.getInstance().setCurrentActivity(this);
     }
 
-    void onBackClick(View v) {
-		finish();
-	}
-	
-	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_action_back: this.onBackClick(null); return true;
-            default: return super.onOptionsItemSelected(item);
-        }
-    }
-	
-	private void addHeaders() {
+    private void addHeaders() {
  
 		this.searchHeader = new GroupListHeader(this.getLayoutInflater(),
 				R.layout.group_select_list_item_search, R.id.group_select_list_section_short_image,

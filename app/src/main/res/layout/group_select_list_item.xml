@@ -8,7 +8,7 @@
 		 android:id="@+id/group_select_list_section_short"
 		 android:layout_width="70dp"
 		 android:layout_height="70dp"
-		 android:text="@string/A2"
+		 android:text=""
 		 android:padding="16dp"
 		 android:background="@drawable/group_select_list_short_background"
 		 android:textColor="#fff"
@@ -25,7 +25,7 @@
 	    android:background="@drawable/group_select_list_long_background"
 	    android:fontFamily="sans-serif"
 	    android:gravity="center"
-	    android:text="@string/InfoSpeA2"
+	    android:text=""
 	    android:textColor="#fff"
 	    android:textSize="24sp"
 	    android:textStyle="bold" />

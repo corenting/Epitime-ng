@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,41 +33,43 @@ import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
+import static fr.corenting.epitime_ng.R.*;
+
 public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout swipeLayout;
-	private ListView lectureList;
+    private ListView lectureList;
     private Day day;
     private List<Lecture> displayed;
 
     private ScheduleManager manager;
-    private ViewGroup       view;
-    private String          lectureSelected;
+    private ViewGroup view;
+    private String lectureSelected;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.initMemberVariables(inflater, container);
         this.setup();
         this.setListeners();
-        
+
 
         return view;
     }
-	
-	private void initMemberVariables(LayoutInflater inflater, ViewGroup container) {
-		this.view      = (ViewGroup) inflater.inflate(R.layout.activity_week_list, container, false);
+
+    private void initMemberVariables(LayoutInflater inflater, ViewGroup container) {
+        this.view = (ViewGroup) inflater.inflate(layout.activity_week_list, container, false);
         this.displayed = new ArrayList<Lecture>();
-        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
 
-		this.day     = ((Day) getArguments().get("Day"));
+        this.day = ((Day) getArguments().get("Day"));
         this.manager = EpiTime.getInstance().getScheduleManager();
-        
-        this.lectureList  = (ListView) this.view.findViewById(R.id.lectures);
-	}
-	
-	private void setup() {
-        if(this.day == null) {
+
+        this.lectureList = (ListView) this.view.findViewById(id.lectures);
+    }
+
+    private void setup() {
+        if (this.day == null) {
             ArrayList<Lecture> error = new ArrayList<Lecture>
                     (Arrays.asList(new Lecture("Une erreur est survenue"), new Lecture("Veuillez recharger la liste")));
             this.lectureList.setAdapter(new LectureListAdapter(error));
@@ -75,16 +78,16 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
             this.displayed = this.manager.getNonBlacklistedLectures(this.day.lectures);
             this.setLectureListAdapter(this.displayed);
         }
-	}
+    }
 
     public void updateFragment(Day d) {
         this.day = d;
         this.setup();
     }
-	
-	private void setListeners() {
+
+    private void setListeners() {
         this.lectureList.setOnItemClickListener(new LectureListClickListener());
-	}
+    }
 
     public void setLectureListAdapter(List<Lecture> lectures) {
         this.lectureList.setAdapter(new LectureListAdapter(lectures));
@@ -92,58 +95,44 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public void onRefresh() {
-        if(EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
-            ((DrawerActivity)EpiTime.getInstance().getCurrentActivity()).noInternetShown = false;
+        if (EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
+            ((DrawerActivity) EpiTime.getInstance().getCurrentActivity()).noInternetShown = false;
         }
         DayListFragment.this.manager.requestLectures(true, -1, 0, 1);
-        new GetDataTask().execute();;
+        new GetDataTask().execute();
     }
 
     private class LectureListClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Activity context = (Activity)EpiTime.getInstance().getCurrentActivity();
+            Activity context = (Activity) EpiTime.getInstance().getCurrentActivity();
 
             Lecture item = DayListFragment.this.displayed.get(i);
 
-            if(item.isMessage) { return; }
+            if (item.isMessage) {
+                return;
+            }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            LayoutInflater inflater     = context.getLayoutInflater();
-
-            View v = inflater.inflate(R.layout.dialog_lecture_details,(ViewGroup)view);
 
             DayListFragment.this.lectureSelected = item.title;
 
-            if(item.trainee.size() > 1) {
-                ((TextView)v.findViewById(R.id.dialog_lecture_group)).setText(context.getResources().getString(R.string.dialog_lecture_groups));
-            }
-
-            if(item.room.size() > 1) {
-                ((TextView)v.findViewById(R.id.dialog_lecture_room)).setText(context.getResources().getString(R.string.dialog_lecture_rooms));
-            }
-
-            ((TextView)v.findViewById(R.id.dialog_lecture_title))  .setText(item.title);
-            ((TextView)v.findViewById(R.id.dialog_lecture_teacher)).setText(item.instructor);
-            ((TextView)v.findViewById(R.id.dialog_lecture_time))   .setText(item.getBegin() + " - " + item.getEnd());
-            ((TextView)v.findViewById(R.id.dialog_lecture_group))  .setText(item.getTrainee(", "));
-            ((TextView)v.findViewById(R.id.dialog_lecture_room))   .setText(item.getRoom(", "));
-
-            builder.setView(v);
-            builder.setPositiveButton("Ok", null);
-            builder.setNeutralButton("Ignorer ce cours", new onBlacklistClick());
+            builder.setPositiveButton(context.getString(string.ok), null);
+            builder.setNeutralButton(context.getString(string.ignore_class), new onBlacklistClick());
+            builder.setMessage(Html.fromHtml(
+                    context.getString(string.teacher) + item.instructor +
+                            "\n" + context.getString(string.schedule) + item.getBegin() + "-" + item.getEnd() +
+                            "\n" + context.getString(string.group) + item.getTrainee(", ") +
+                            "\n" + context.getString(string.room) + item.getRoom(", ")));
+            builder.setTitle(item.title);
 
             AlertDialog lecturesDetailDialog = builder.create();
             lecturesDetailDialog.show();
-
-
-
-            lecturesDetailDialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#282828"));
-            lecturesDetailDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#ffffff"));
-
-            lecturesDetailDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setBackgroundColor(Color.parseColor("#282828"));
-            lecturesDetailDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#ffffff"));
+            lecturesDetailDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            lecturesDetailDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            lecturesDetailDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+            lecturesDetailDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
 
         }
     }
@@ -155,7 +144,8 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             EpiTime.getInstance().getScheduleManager().addToBlackList(DayListFragment.this.lectureSelected);
 
-            Calendar cal = Calendar.getInstance(Locale.FRANCE); cal.setTime(DayListFragment.this.day.date);
+            Calendar cal = Calendar.getInstance(Locale.FRANCE);
+            cal.setTime(DayListFragment.this.day.date);
             DayListFragment.this.manager.updateWidget(cal);
 
             DayListFragment.this.updateFragment(DayListFragment.this.day);
@@ -164,31 +154,27 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         }
     }
 
-	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
-	    
-	    @Override
-	    protected void onPostExecute(String[] result) {
-	    	if(EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
-	    		((DayList)EpiTime.getInstance().getCurrentActivity()).updateAdapter();
-	    	}
-            swipeLayout.setRefreshing(false);
-	        super.onPostExecute(result);
-	    }
+    private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
-		@Override
-		protected String[] doInBackground(Void... params) {
-			while(QueryLecturesNewTask.isRefreshing()) {
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			return null;
-		}
-	}
-	
-	
-	
-	
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
+                ((DayList) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
+            }
+            swipeLayout.setRefreshing(false);
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String[] doInBackground(Void... params) {
+            while (QueryLecturesNewTask.isRefreshing()) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
 }

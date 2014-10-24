@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textColor="#fff"
-        android:text="@string/dialog_lecture_title"
+        android:text=""
         android:textSize="@dimen/dialog_lecture_title_size"
         android:gravity="center" />
 

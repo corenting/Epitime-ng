@@ -12,7 +12,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:text="@string/data_begin"
+        android:text=""
         android:textColor="#fff"
         android:textSize="15sp"
         android:typeface="sans"
@@ -23,7 +23,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:text="@string/data_end"
+        android:text=""
         android:textColor="#fff"
         android:textSize="15sp"
         android:layout_below="@+id/CourseTitle"
@@ -31,11 +31,11 @@
         android:paddingTop="5dp" />
 
     <LinearLayout
-     android:id="@+id/lecture_item_teacher_time"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:orientation="vertical"
-     android:layout_centerVertical="true"
+        android:id="@+id/lecture_item_teacher_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/data_dash"
+            android:text=""
             android:textColor="#fff"
             android:textSize="15sp"
             android:typeface="sans" />
@@ -72,7 +72,7 @@
         android:id="@+id/CourseRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/data_lecture_room"
+        android:text=""
         android:paddingTop="5dp"
 
         android:textColor="#fff"
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="7dp"
-        android:text="Mathematiques"
+        android:text=""
         android:textColor="#fff"
         android:textSize="15sp"
         android:ellipsize="end"

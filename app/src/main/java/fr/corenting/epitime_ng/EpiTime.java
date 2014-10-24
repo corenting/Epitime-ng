@@ -16,57 +16,61 @@ import fr.corenting.epitime_ng.widget.EpitimeWidgetProvider;
 
 @SuppressWarnings("SameParameterValue")
 public class EpiTime extends Application {
-	
-	public static final String TAG = "EpiTime";
 
-	private static EpiTime instance;
-	private Context context;
-	
-	private ScheduleManager scheduleManager;
-	private GroupManager groupManager;
-	
-	@Override
-	public void onCreate() {
-		EpiTime.instance = this;
+    public static final String TAG = "EpiTime";
 
-		this.scheduleManager = new ScheduleManager();
-		this.groupManager    = new GroupManager();
+    private static EpiTime instance;
+    private Context context;
 
-		super.onCreate();
-	}
-	
-	public Context getCurrentActivity() {
-		return context;
-	}
+    private ScheduleManager scheduleManager;
+    private GroupManager groupManager;
 
-	public void setCurrentActivity(Context currentActivity) {
-		this.context = currentActivity;
-	}
+    @Override
+    public void onCreate() {
+        EpiTime.instance = this;
 
-	public ScheduleManager getScheduleManager() {
-		return this.scheduleManager;
-	}
-	
-	public GroupManager getGroupManager() {
-		return this.groupManager;
-	}
-	
-	public static EpiTime getInstance() {
-		return instance;
-	}
-	
-	public boolean hasInternet() {
-		if(this.context == null) { return false; }
-		ConnectivityManager connMgr = (ConnectivityManager) this.context.getSystemService(
-				Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		return networkInfo != null && networkInfo.isConnected();
-	}
+        this.scheduleManager = new ScheduleManager();
+        this.groupManager = new GroupManager();
+
+        super.onCreate();
+    }
+
+    public Context getCurrentActivity() {
+        return context;
+    }
+
+    public void setCurrentActivity(Context currentActivity) {
+        this.context = currentActivity;
+    }
+
+    public ScheduleManager getScheduleManager() {
+        return this.scheduleManager;
+    }
+
+    public GroupManager getGroupManager() {
+        return this.groupManager;
+    }
+
+    public static EpiTime getInstance() {
+        return instance;
+    }
+
+    public boolean hasInternet() {
+        if (this.context == null) {
+            return false;
+        }
+        ConnectivityManager connMgr = (ConnectivityManager) this.context.getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void updateWidget() {
 
-        if(!context.getResources().getBoolean(R.bool.is_honeycomb)) { return; }
+        if (!context.getResources().getBoolean(R.bool.is_honeycomb)) {
+            return;
+        }
 
         Intent intent = new Intent(this.context, EpitimeWidgetProvider.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");

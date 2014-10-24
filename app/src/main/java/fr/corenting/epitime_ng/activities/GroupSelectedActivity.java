@@ -30,7 +30,7 @@ public class GroupSelectedActivity extends Activity {
         GroupItem item   = ((GroupItem) getIntent().getExtras().get("itemSelected"));
         String    school = getIntent().getStringExtra("school");
 
-        if(school.equals("Enseignants")) { manager.setIsTeacher(true);  }
+        if(school.equals(getString(R.string.Teachers))) { manager.setIsTeacher(true);  }
         else                             { manager.setIsTeacher(false); }
 
 		LinearLayout l = (LinearLayout)this.findViewById(R.id.group_selected_background);
@@ -65,7 +65,6 @@ public class GroupSelectedActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        return ;
     }
 
 

@@ -6,8 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
@@ -105,18 +103,6 @@ public class DayList extends DrawerActivity {
         this.startActivity(new Intent(this, BlackListActivity.class));
     }
 
-    public void onPreviousClick(View view) { this.onPreviousClick(); }
-    public void onNextClick(View view)     { this.onNextClick();     }
-    public void onGoToToday(View view)     { this.onGoToToday();     }
-
-    void onPreviousClick() { this.dayChanged(-7); }
-    void onNextClick() { this.dayChanged(+7); }
-
-    void onGoToToday() {
-    	this.manager.resetCalendar();
-    	this.updateAdapter();
-    }
-
     void dayChanged(int offset) {
     	if(offset == 0) { return ; }
     	this.manager.addToCalendar(offset);
@@ -161,7 +147,6 @@ public class DayList extends DrawerActivity {
         if(blacklisted == -1) { return; }
         this.pageChangeListener.toastShown = true;
 
-        final Toast toast;
         if(blacklisted == 1)     { ToastMaker.makeToast("1 cours a été ignoré", 700);                 }
         else if(blacklisted > 1) { ToastMaker.makeToast(blacklisted + " cours ont été ignorés", 700); }
 

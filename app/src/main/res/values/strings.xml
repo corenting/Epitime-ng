@@ -5,59 +5,49 @@
     <string name="action_blacklist">Blacklist</string>
     <string name="preference_file_key">fr.corenting.epitime_ng.data</string>
 
-    <string name="data_day">Lundi</string>
-    <string name="data_date">31 Mars 2014</string>
-    <string name="data_time">14h15</string>
-    <string name="data_begin">10h45</string>
-    <string name="data_dash">-</string>
-    <string name="data_end">12h30</string>
-    <string name="data_lecture_name">Algorithmique</string>
-    <string name="data_lecture_room">VA 206</string>
-    <string name="image_next">Jour suivant</string>
-    <string name="image_prev">Jour précédent</string>
-
     <string name="api_url">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;num={3}&amp;group={1}&amp;week={2}</string>
     <string name="api_key">3piko</string>
-    
+
     <string name="api_groups">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;getMenu={1}</string>
-    
-    <string name="EPITA">EPITA</string>
-    <string name="Epita">Epita</string>
-    
-    <string name="A2">A2</string>
-    <string name="InfoSpeA2">InfoSpeA2</string>
 
-    <string name="GotIt">SÉLÉCTIONNÉ !</string>
+    <string name="GotIt">SÉLECTIONNÉ !</string>
     <string name="group_selection">Choisissez Votre Groupe</string>
-    
-    <string name="ptr_pull_to_refresh">Pull to refresh</string>
-    <string name="ptr_release_to_refresh">Release to refresh</string>
-    <string name="ptr_refreshing">Refreshing…</string>
-    <string name="ptr_last_updated">Updated: %1$s</string>
-    
+
+
     <string name="search">Rechercher</string>
-    
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    
-    <string name="no_internet">Pas de connection au réseau</string>
+
+    <string name="drawer_open">Ouvrir le menu de navigation</string>
+    <string name="drawer_close">Fermer le menu de navigation</string>
+
+    <string name="no_internet">Connexion à Internet impossible</string>
     <string name="connecting">Chargement en cours</string>
-
-
-    <string name="dialog_lecture_title">Mathematics</string>
-
-    <string name="dialog_lecture_teacher">Enseignant</string>
-    <string name="dialog_lecture_time">Horaires</string>
-    <string name="dialog_lecture_groups">Groupes</string>
-    <string name="dialog_lecture_group">Groupe</string>
-    <string name="dialog_lecture_room">Salle</string>
-    <string name="dialog_lecture_rooms">Salles</string>
 
     <string name="dialog_lecture_dots">" : "</string>
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
-    <string name="dialog_alert_blacklist_text">Voulez vous vraiment rétablir ce cours ?</string>
-    <string name="widget_no_group">Groupe pas encore choisit !</string>
-    <string name="widget_touch_to_select">Cliquez pour le selectionner</string>
+    <string name="dialog_alert_blacklist_text">Voulez-vous vraiment rétablir ce cours ?</string>
+    <string name="widget_no_group">Aucun groupe sélectionné !</string>
+    <string name="widget_touch_to_select">Cliquez pour le sélectionner</string>
     <string name="choose_school">Choisissez une école</string>
+    <string name="blacklist">Blacklist</string>
+    <string name="ok">OK</string>
+    <string name="ignore_class">Ignorer ce cours</string>
+    <string name="teacher">&lt;b>Enseignant : &lt;/b></string>
+    <string name="schedule">&lt;b>Horaires : &lt;/b></string>
+    <string name="group">&lt;b>Groupe : &lt;/b></string>
+    <string name="room">&lt;b>"Salle : &lt;/b></string>
+    <string name="no_blacklisted_class">Aucun cours ignoré</string>
+    <string name="activate_toast">Activer les toasts</string>
+    <string name="toasts_activated">Les toasts ont été activés !</string>
+    <string name="toast_desactivated">Les Toasts ont été désactivés !</string>
+    <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion</string>
+    <string name="chronos_error">Erreur Chronos</string>
+    <string name="chronos_incorrect_data">Les données transmises par Chronos sont incorrectes</string>
+    <string name="error_getting_list">Impossible de récuperer la liste des</string>
+    <string name="rooms">salles</string>
+    <string name="teachers">enseignants</string>
+    <string name="students">groupes étudiants</string>
+    <string name="reload">Recharger</string>
+    <string name="cancel">Annuler</string>
+    <string name="Teachers">Enseignants</string>
 </resources>

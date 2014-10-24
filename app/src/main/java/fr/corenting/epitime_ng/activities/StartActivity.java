@@ -11,7 +11,6 @@ import fr.corenting.epitime_ng.managers.ScheduleManager;
 public class StartActivity extends Activity {
 
     private Intent destination = null;
-    private ScheduleManager manager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,8 +18,8 @@ public class StartActivity extends Activity {
 
         setContentView(R.layout.activity_splash_screen);
         EpiTime.getInstance().setCurrentActivity(this);
-        this.manager = EpiTime.getInstance().getScheduleManager();
-        this.manager.load();
+        ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
+        manager.load();
 
         EpiTime.getInstance().getGroupManager().getGroups();
 
@@ -32,7 +31,7 @@ public class StartActivity extends Activity {
 
         this.destination.putExtras(b);
 
-        if(!this.manager.getGroup().equals(ScheduleManager.defaultGroup)) {
+        if(!manager.getGroup().equals(ScheduleManager.defaultGroup)) {
             this.destination = new Intent(this, DayList.class);
         }
     }

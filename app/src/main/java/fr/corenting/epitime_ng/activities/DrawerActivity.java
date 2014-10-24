@@ -1,6 +1,5 @@
 package fr.corenting.epitime_ng.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -175,44 +174,31 @@ public abstract class DrawerActivity extends ActionBarActivity {
 	public void noInternetConnexion() {
         if(this.noInternetShown) { return; }
         this.noInternetShown = true;
-    	DialogUtils.displaySimpleAlert(this, "Pas de connexion internet", "Nous n'avons pas pu établir une connexion a internet...");
+    	DialogUtils.displaySimpleAlert(this, getString(R.string.no_internet), getString(R.string.no_internet_msg));
     }
     
     public void chronosError() {
-    	DialogUtils.displaySimpleAlert(this, "Erreur Chronos", "Les données transmises par Chronos sont incorrecte (ou l'API a été modifiée)");
-    }
-
-    public void badUrl() {
-        DialogUtils.displaySimpleAlert(this, "Erreur EpiTime", "L'URL fournit est incorrecte");
-    }
-
-    public void ChronosNotUpToDateYet() {
-        DialogUtils.displaySimpleAlert(this, "Erreur Chronos", "Chronos n'a toujours pas mis à jour l'emploi du temps !");
-    }
-
-    // Set lectures to error iaoi
-    public void setError() {
-
+    	DialogUtils.displaySimpleAlert(this, getString(R.string.chronos_error), getString(R.string.chronos_incorrect_data));
     }
 
     public void noInternetConnexion(final String groupFailed) {
         this.drawerListNoConnectionHeader.showHeader();
 
-        String message = "Nous n'avons pas pu établir une connexion à internet...\n";
+        String message = getString(R.string.no_internet) + "\n";
         if(groupFailed.equals("trainnees")) {
-            message += "Nous nous donc pas pu récupérer la liste des groupes étudiants";
+            message += getString(R.string.error_getting_list) +  getString(R.string.students);
         } else if(groupFailed.equals("instructors")) {
-            message += "Nous nous donc pas pu récupérer la liste du groupe enseignants";
+            message += getString(R.string.error_getting_list)+ getString(R.string.teachers);
         } else if(groupFailed.equals("rooms")) {
-            message += "Nous nous donc pas pu récupérer la liste des salles";
+            message += getString(R.string.error_getting_list) +  getString(R.string.rooms);
         }
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message + "\n")
-                .setTitle("Pas de connexion internet")
+                .setTitle(getString(R.string.no_internet))
                 .setInverseBackgroundForced(true)
-                .setPositiveButton("Recharger", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.reload), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         new QueryGroups().execute(groupFailed);
@@ -222,7 +208,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
                             context.reloadListView();
                         }
                     }
-                }).setNegativeButton("Annuler", null).create().show();
+                }).setNegativeButton(getString(R.string.cancel), null).create().show();
 
     }
 	
