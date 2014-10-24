@@ -56,7 +56,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     private void updateData() {
         if(this.manager.getGroup().equals(ScheduleManager.defaultGroup)) {
             this.lectures = new ArrayList<Lecture>
-                    (Arrays.asList(new Lecture("Groupe pas encore choisit !"), new Lecture("Cliquez pour le selectionner")));
+                    (Arrays.asList(new Lecture(context.getString(R.string.widget_no_group)), new Lecture(context.getString(R.string.widget_touch_to_select))));
         } else {
             if(!EpiTime.getInstance().hasInternet()) {
 

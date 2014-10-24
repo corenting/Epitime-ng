@@ -2,7 +2,7 @@
       xmlns:epitime="http://schemas.android.com/apk/res-auto">
     
     <item android:id="@+id/menu_action_back"
-          android:title="@string/action_settings"
+          android:title="@string/action_blacklist"
           android:icon="@drawable/ic_action_undo"
           epitime:showAsAction="always"
  	/>

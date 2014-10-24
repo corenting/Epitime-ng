@@ -41,7 +41,7 @@ public class DayList extends DrawerActivity {
         this.setListeners();
         
         this.setUp();
-        
+
         this.menuTitle.setTitleBarClosed(this.manager.getGroup());
     }
     
@@ -156,7 +156,7 @@ public class DayList extends DrawerActivity {
             return;
         }
 
-        int blacklisted = this.adapter.getBlacklisteSize(index);
+        int blacklisted = this.adapter.getBlacklistSize(index);
 
         if(blacklisted == -1) { return; }
         this.pageChangeListener.toastShown = true;

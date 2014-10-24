@@ -5,8 +5,7 @@
     android:background="#233140"
     tools:context=".SplashScreen" >
 	
-    <ImageView 
-        android:contentDescription="@string/image_next"
+    <ImageView
         android:layout_width="128dp"
 		android:layout_height="128dp"
 		android:layout_gravity="center"

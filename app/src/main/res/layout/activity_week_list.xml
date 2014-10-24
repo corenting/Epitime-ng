@@ -5,76 +5,11 @@
     android:background="@color/list_background"
     android:orientation="vertical"
     tools:context=".WeekList" >
-		
-	<LinearLayout
-		    android:id="@+id/DateContainor"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:orientation="vertical" >	    
-		
-		    <RelativeLayout
-	    		android:layout_width="fill_parent"
-	    		android:layout_height="wrap_content"
-		   	    android:background="@color/date_background"
-	    		android:orientation="horizontal">
-							
-				<TextView
-			   	    android:id="@+id/Day"
-			   	    android:layout_width="fill_parent"
-			   	    android:layout_height="38dp"
-			   	    android:text="@string/data_day"
-			   	    android:background="@color/date_background"
-			   	    android:textColor="#fff"
-			   	    android:textSize="19sp"
-			   	    android:gravity="center"
-			   	    android:fontFamily="sans-serif"
-			   	    android:textStyle="bold"
-			   	     />
-				
-				<ImageView
-				    android:id="@+id/NextWeek"
-				    android:layout_width="50dip"
-				    android:layout_height="38dp"
-				    android:layout_alignParentRight="true"
-				    android:layout_centerVertical="true"
-				    android:layout_marginRight="5dp"
-				    android:onClick="onNextClick"
-				    android:contentDescription="@string/image_next"
-				    android:src="@drawable/ic_action_double_next_item" />
 
-				<ImageView
-				    android:id="@+id/PreviousWeek"
-				    android:layout_width="50dip"
-				    android:layout_height="38dp"
-				    android:layout_alignParentLeft="true"
-				    android:layout_alignTop="@+id/NextWeek"
-				    android:layout_marginLeft="5dp"
-				    android:onClick="onPreviousClick"
-				    android:contentDescription="@string/image_prev"
-				    android:src="@drawable/ic_action_double_previous_item" />
-
-			</RelativeLayout>
-
-			<ImageView
-			    android:id="@+id/GoToToday"
-			    android:layout_width="fill_parent"
-			    android:layout_height="34dp"
-			    android:contentDescription="@string/image_next"
-			    android:gravity="center"
-			    android:background="@color/date_background"
-			    android:onClick="onGoToToday"
-			    android:src="@drawable/ic_action_go_to_today" />
-		</LinearLayout>
-		<LinearLayout
-	        android:layout_width="match_parent"
-	    	android:layout_height="match_parent"
-	    	android:orientation="vertical"
-	    >
-		    <fr.corenting.epitime_ng.utils.PullToRefreshListView
-		        android:id="@+id/lectures"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:divider="@color/list_background"
-		        android:dividerHeight="1dp"/>
-		</LinearLayout>
+        <fr.corenting.epitime_ng.utils.PullToRefreshListView
+            android:id="@+id/lectures"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@color/list_background"
+            android:dividerHeight="1dp"/>
 </LinearLayout>

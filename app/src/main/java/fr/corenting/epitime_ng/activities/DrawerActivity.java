@@ -1,5 +1,6 @@
 package fr.corenting.epitime_ng.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,11 +9,10 @@ import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,16 +20,16 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.List;
+
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.DrawerListAdapter;
 import fr.corenting.epitime_ng.headers.DrawerListHeader;
 import fr.corenting.epitime_ng.managers.GroupManager;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
-import fr.corenting.epitime_ng.utils.ActionMenuTitleBarSetter;
+import fr.corenting.epitime_ng.utils.ActionBarTitleSetter;
 import fr.corenting.epitime_ng.utils.DialogUtils;
-
-import java.util.List;
 
 
 /*
@@ -55,7 +55,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
     GroupManager groupManager;
 	int layout;
     DrawerLayout drawerLayout;
-    ActionMenuTitleBarSetter menuTitle;
+    ActionBarTitleSetter menuTitle;
     DrawerActionBarToggle drawerToggle;
     DrawerListHeader drawerListNoConnectionHeader;
     
@@ -76,9 +76,9 @@ public abstract class DrawerActivity extends ActionBarActivity {
         
         this.drawerToggle = new DrawerActionBarToggle(this, this.drawerLayout);
         this.drawerLayout.setDrawerListener(this.drawerToggle);
-        
-        this.menuTitle = new ActionMenuTitleBarSetter(this.drawerToggle,
-				getSupportActionBar().getCustomView());
+
+        this.menuTitle = new ActionBarTitleSetter(getSupportActionBar(), this.drawerToggle,
+				getApplicationContext());
 		this.menuTitle.setTitle();
         
         this.addHeaders();
@@ -109,7 +109,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			}
 			
 			this.drawerList.setAdapter(new DrawerListAdapter(this.schools));
-			
+
 			this.menuTitle.resetTitleBarOpened();
 		} else {
 			this.setDividerTransparent();
@@ -148,8 +148,10 @@ public abstract class DrawerActivity extends ActionBarActivity {
 	}
 	
 	private void setUp() {
-    	getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);
-        getSupportActionBar().setCustomView(R.layout.menu_title);
+        android.support.v7.app.ActionBar ac = getSupportActionBar();
+    	ac.setDisplayShowTitleEnabled(true);
+        ac.setDisplayHomeAsUpEnabled(true);
+        ac.setHomeButtonEnabled(true);
 	}
 	
 	@Override

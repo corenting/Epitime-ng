@@ -11,7 +11,7 @@ import android.widget.RemoteViews;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.activities.SplashScreen;
+import fr.corenting.epitime_ng.activities.StartActivity;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 
 import java.text.SimpleDateFormat;
@@ -60,7 +60,7 @@ public class EpitimeWidgetProvider extends AppWidgetProvider {
 
             rv.setRemoteAdapter(appWidgetIds[i], R.id.widget_lecture_list, intent);
 
-            Intent configIntent               = new Intent(context, SplashScreen.class);
+            Intent configIntent               = new Intent(context, StartActivity.class);
             PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
 
             rv.setPendingIntentTemplate(R.id.widget_lecture_list, configPendingIntent);

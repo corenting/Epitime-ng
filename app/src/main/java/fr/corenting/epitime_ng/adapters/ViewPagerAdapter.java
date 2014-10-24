@@ -10,12 +10,15 @@ import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.fragments.DayListFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 	
 	private List<Day> pages;
-    private DayListFragment[] fragements = new DayListFragment[3];
+    private int currentDayIndex;
+    private DayListFragment[] fragments = new DayListFragment[3];
 
     public ViewPagerAdapter(FragmentManager fm, List<Day> days) {
         super(fm);
@@ -26,25 +29,27 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 		this.pages = days;
 
         for (int i = 0; i < days.size(); ++i) {
-            if(this.fragements[i] == null) {
+            if(this.fragments[i] == null) {
                 this.makeFragment(i, this.pages.get(i));
             } else {
-                this.fragements[i].updateFragement(days.get(i));
+                this.fragments[i].updateFragment(days.get(i));
             }
         }
     }
 
     private void makeFragment(int position, Day d) {
-        this.fragements[position] = new DayListFragment();
+        this.fragments[position] = new DayListFragment();
 
         Bundle args = new Bundle();
         args.putParcelable("Day", d);
-        args.putInt("DateOffset", position - 1);
+        currentDayIndex = position - 1;
+        args.putInt("DateOffset", currentDayIndex);
 
-        this.fragements[position].setArguments(args);
+        this.fragments[position].setArguments(args);
     }
 
-    public int getBlacklisteSize(int index) {
+    public int getBlacklistSize(int index) {
+
 
         if(this.pages.size() <= index) {
             return 0;
@@ -66,15 +71,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return num;
     }
 
-
+    @Override
+    public CharSequence getPageTitle(int position) {
+        Date currentDate = pages.get(position).date;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM");
+        return dateFormat.format(currentDate);
+    }
 
     @Override
     public Fragment getItem(int position) {
-        if(this.fragements[position] == null) {
+        if(this.fragments[position] == null) {
             this.makeFragment(position, this.pages.get(position));
         }
 
-        return this.fragements[position];
+        return this.fragments[position];
     }
 
     @Override

@@ -1,0 +1,47 @@
+package fr.corenting.epitime_ng.activities;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.managers.ScheduleManager;
+
+public class StartActivity extends Activity {
+
+    private Intent destination = null;
+    private ScheduleManager manager;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_splash_screen);
+        EpiTime.getInstance().setCurrentActivity(this);
+        this.manager = EpiTime.getInstance().getScheduleManager();
+        this.manager.load();
+
+        EpiTime.getInstance().getGroupManager().getGroups();
+
+        this.destination = new Intent(this, GroupListActivity.class);
+
+        Bundle b = new Bundle();
+        b.putBoolean("NoGroup", true);
+        b.putString("School", "EPITA");
+
+        this.destination.putExtras(b);
+
+        if(!this.manager.getGroup().equals(ScheduleManager.defaultGroup)) {
+            this.destination = new Intent(this, DayList.class);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startActivity(StartActivity.this.destination);
+        finish();
+    }
+
+}

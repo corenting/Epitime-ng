@@ -43,8 +43,6 @@ public class DayListFragment extends Fragment {
 
     private ScheduleManager manager;
     private ViewGroup       view;
-    private ImageView       previousWeek;
-    private ImageView       nextWeek;
     private String          lectureSelected;
 
     @Override
@@ -53,8 +51,6 @@ public class DayListFragment extends Fragment {
 
         this.setup();
         this.setListeners();
-        
-        this.setTime();
         
 
         return view;
@@ -68,8 +64,6 @@ public class DayListFragment extends Fragment {
         this.manager = EpiTime.getInstance().getScheduleManager();
         
         this.lectureList  = (PullToRefreshListView) this.view.findViewById(R.id.lectures);
-        this.previousWeek = (ImageView) 			this.view.findViewById(R.id.PreviousWeek);
-        this.nextWeek     = (ImageView) 			this.view.findViewById(R.id.NextWeek);
 	}
 	
 	private void setup() {
@@ -84,34 +78,15 @@ public class DayListFragment extends Fragment {
         }
 	}
 
-    public void updateFragement(Day d) {
+    public void updateFragment(Day d) {
         this.day = d;
-        this.setup(); this.setTime();
+        this.setup();
     }
 	
 	private void setListeners() {
 		this.lectureList.setOnRefreshListener(new RefreshListener());
-		
-		this.previousWeek.setOnTouchListener(new TouchListener(this.previousWeek,
-				R.color.date_background, R.color.date_background_pressed));
-		
-		this.nextWeek.setOnTouchListener(new TouchListener(this.nextWeek,
-				R.color.date_background, R.color.date_background_pressed));
-
         this.lectureList.setOnItemClickListener(new LectureListClickListener());
 	}
-	
-	void setTime() {
-        if(day == null) {
-            ((TextView) view.findViewById(R.id.Day)).setText("erreur");
-            return;
-        }
-    	String day  = new SimpleDateFormat("EEEE dd MMMM yyyy", Locale.FRANCE).format(this.day.date);
-    	
-    	day = day.substring(0, 1).toUpperCase(Locale.FRANCE) + day.substring(1);
-    	
-    	((TextView) view.findViewById(R.id.Day)).setText(day);
-    }
 
     public void setLectureListAdapter(List<Lecture> lectures) {
         this.lectureList.setAdapter(new LectureListAdapter(lectures));
@@ -188,7 +163,7 @@ public class DayListFragment extends Fragment {
             Calendar cal = Calendar.getInstance(Locale.FRANCE); cal.setTime(DayListFragment.this.day.date);
             DayListFragment.this.manager.updateWidget(cal);
 
-            DayListFragment.this.updateFragement(DayListFragment.this.day);
+            DayListFragment.this.updateFragment(DayListFragment.this.day);
             ToastMaker.makeToast("Le cours " + DayListFragment.this.lectureSelected + " a été ignoré", 750);
 
         }
