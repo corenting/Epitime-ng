@@ -3,7 +3,6 @@ package fr.corenting.epitime_ng.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.Locale;
 
 import fr.corenting.epitime_ng.EpiTime;
-import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.activities.DayList;
 import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.adapters.LectureListAdapter;
@@ -33,7 +30,9 @@ import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
-import static fr.corenting.epitime_ng.R.*;
+import static fr.corenting.epitime_ng.R.id;
+import static fr.corenting.epitime_ng.R.layout;
+import static fr.corenting.epitime_ng.R.string;
 
 public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 

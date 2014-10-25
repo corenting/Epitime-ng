@@ -12,7 +12,7 @@ public class UrlUtils {
 	private static String formatSpecialUrlChars(String url) {
 		try {
 			return URLEncoder.encode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e) { //TODO log the error
+		} catch (UnsupportedEncodingException e) {
 			return url;
 		}		
 	}

@@ -90,47 +90,31 @@ public class GroupListActivity extends DrawerActivity {
     }
 
     private void addHeaders() {
- 
-		this.searchHeader = new GroupListHeader(this.getLayoutInflater(),
-				R.layout.group_select_list_item_search, R.id.group_select_list_section_short_image,
-				R.id.group_select_list_section_input);
-		this.searchHeader.setShortBackground("#27ae60", "#1d8046");
+
+        this.searchHeader = new GroupListHeader(this.getLayoutInflater(),
+                R.layout.group_select_list_item_search, R.id.group_select_list_section_short_image,
+                R.id.group_select_list_section_input);
         EditText search = (EditText) this.searchHeader.longTitle;
 
-		this.searchInputListener = new InputListener(this.adapter);
-		search.addTextChangedListener(this.searchInputListener);
-		search.setOnFocusChangeListener(new SearchFocusChanged());
-		
-		this.searchHeader.addHeader(this.groupList);
+        this.searchInputListener = new InputListener(this.adapter);
+        search.addTextChangedListener(this.searchInputListener);
 
-				
-				
-		this.connectingHeader = new GroupListHeader(this.getLayoutInflater(),
-				R.layout.group_select_list_item_connecting, R.id.group_select_list_section_spinner,
-				R.id.group_select_list_connecting_text);
-		this.connectingHeader.setShortBackground("#d35400", "#ba4a00");
-		this.connectingHeader.setLongTitleText(this.getResources().getString(R.string.connecting));
-		this.connectingHeader.addHeader(this.groupList);
-		
-		this.noInternetHeader = new GroupListHeader(this.getLayoutInflater(),
-				R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
-				R.id.group_select_list_section_text);
-		this.noInternetHeader.setShortBackground("#c0392b", "#992d22");
-		this.noInternetHeader.setLongTitleText(this.getResources().getString(R.string.no_internet));
-		this.noInternetHeader.addHeader(this.groupList);
-	}
-		
-	private class SearchFocusChanged implements OnFocusChangeListener {
-		@Override
-		public void onFocusChange(View v, boolean hasFocus) {
-			EditText input = (EditText) v.findViewById(R.id.group_select_list_section_input);
-			if(hasFocus) {
-				input.setHint("");
-			} else {
-				input.setHint(GroupListActivity.this.getResources().getText(R.string.search));
-			}
-		}
-	}
+        this.searchHeader.addHeader(this.groupList);
+
+
+
+        this.connectingHeader = new GroupListHeader(this.getLayoutInflater(),
+                R.layout.group_select_list_item_connecting, R.id.group_select_list_section_spinner,
+                R.id.group_select_list_connecting_text);
+        this.connectingHeader.setLongTitleText(this.getResources().getString(R.string.connecting));
+        this.connectingHeader.addHeader(this.groupList);
+
+        this.noInternetHeader = new GroupListHeader(this.getLayoutInflater(),
+                R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
+                R.id.group_select_list_section_text);
+        this.noInternetHeader.setLongTitleText(this.getResources().getString(R.string.no_internet));
+        this.noInternetHeader.addHeader(this.groupList);
+    }
 
 	private class InputListener implements TextWatcher {
 

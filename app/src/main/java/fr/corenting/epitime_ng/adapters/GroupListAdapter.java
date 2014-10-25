@@ -126,21 +126,9 @@ public class GroupListAdapter extends BaseAdapter {
 
 				
 		TextView longTitle = (TextView)view.findViewById(R.id.group_select_list_section_long);
-		TextView shortTitle = (TextView)view.findViewById(R.id.group_select_list_section_short);
 		
 		longTitle.setText(item.getLongTitle());
-		shortTitle.setText(item.getShortTitle());
-		
-		if(item.getShortTitle().equals("")) {
-			ViewGroup.LayoutParams params = shortTitle.getLayoutParams();
-			params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-			shortTitle.setLayoutParams(params);
-		}
-		
-		
-		setBackground((LayerDrawable)shortTitle.getBackground(), item.getShortColor(), item.getShortColorShadow());
-		
-		
+
 		return view;
 	}
 	
@@ -148,12 +136,8 @@ public class GroupListAdapter extends BaseAdapter {
 		setBackground(ld, Color.parseColor(shortColor), Color.parseColor(shortColorShadow));
 	}
 
+    //TODO : remove
     public static void setBackground(LayerDrawable ld, int shortColor, int shortColorShadow) {
-		GradientDrawable gd  = (GradientDrawable) ld.findDrawableByLayerId(R.id.short_title_color);
-		GradientDrawable gd2 = (GradientDrawable) ld.findDrawableByLayerId(R.id.short_title_shadow);
-		
-		gd.setStroke(4, shortColor); gd.setColor(shortColor);
-		gd2.setStroke(4, shortColorShadow); gd2.setColor(shortColorShadow);
 	}
 	
 }

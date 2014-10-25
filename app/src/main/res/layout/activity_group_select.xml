@@ -6,19 +6,10 @@
     android:background="@color/list_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!--Fadding edges gives a weird white bar in android api < 12 -->
 	<ListView
 		android:id="@+id/group_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-        android:fadingEdge="none"
-		android:divider="@android:color/transparent"
-		android:dividerHeight="10.0sp"
-		android:layout_marginRight="10dp"
-		android:layout_marginLeft="10dp"
-		android:paddingTop="16dip"
-		android:clipToPadding="false"
        />
 
 	<ListView

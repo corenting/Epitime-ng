@@ -3,13 +3,12 @@
    	android:layout_width="match_parent"
    	android:layout_height="wrap_content"
  	android:orientation="horizontal" >
-        
+
 	<ImageView
 		 android:id="@+id/group_select_list_section_short_image"
 		 android:layout_width="70dp"
 		 android:layout_height="70dp"
 		 android:padding="16dp"
-		 android:background="@drawable/group_select_list_short_background"
 		 android:gravity="center"
 		 android:contentDescription="@string/search"
 		 android:src="@drawable/ic_action_about"
@@ -21,7 +20,6 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="70dp"
 	    android:layout_toRightOf="@+id/group_select_list_section_short_image"
-	    android:background="@drawable/group_select_list_long_background"
 	    android:fontFamily="sans-serif"
 	    android:gravity="center"
 	    android:text=""

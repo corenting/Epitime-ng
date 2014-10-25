@@ -23,7 +23,7 @@ public class BlackListActivity extends DrawerActivity {
         super.onCreate(savedInstanceState);
 
         EpiTime.getInstance().setCurrentActivity(this);
-        this.menuTitle.setTitleBarClosed("Black List");
+        this.menuTitle.setTitleBarClosed(getResources().getString(R.string.blacklist));
 
         this.blacklist = (ListView)this.findViewById(R.id.blacklist);
         this.setAdapter();
@@ -38,10 +38,7 @@ public class BlackListActivity extends DrawerActivity {
         this.noBlacklistHeader = new GroupListHeader(this.getLayoutInflater(),
                 R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
                 R.id.group_select_list_section_text);
-        this.noBlacklistHeader.setShortBackground("#27ae60", "#1d8046");
         this.noBlacklistHeader.setLongTitleText(getString(R.string.no_blacklisted_class));
-
-        ((ImageView)this.noBlacklistHeader.shortTitle).setImageResource(R.drawable.ic_action_about);
         this.noBlacklistHeader.addHeader(this.blacklist);
         if(EpiTime.getInstance().getScheduleManager().getBlacklist().size() > 0) {
             this.noBlacklistHeader.hideHeader();
@@ -50,7 +47,6 @@ public class BlackListActivity extends DrawerActivity {
         GroupListHeader disableToastHeader = new GroupListHeader(this.getLayoutInflater(),
                 R.layout.group_select_list_item_checkbox, R.id.group_select_list_section_checkbox_layout,
                 R.id.group_select_list_connecting_text);
-        disableToastHeader.setShortBackground("#27ae60", "#1d8046");
         disableToastHeader.setLongTitleText(getString(R.string.activate_toast));
 
         ((CheckBox) disableToastHeader.getLayout().findViewById(R.id.group_select_list_checkbox))
