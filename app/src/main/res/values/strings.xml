@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">EpiTime-ng</string>
-    <string name="action_blacklist">Blacklist</string>
     <string name="preference_file_key">fr.corenting.epitime_ng.data</string>
 
     <string name="api_url">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;num={3}&amp;group={1}&amp;week={2}</string>
@@ -10,7 +9,6 @@
 
     <string name="api_groups">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;getMenu={1}</string>
 
-    <string name="GotIt">SÉLECTIONNÉ !</string>
     <string name="group_selection">Choisissez Votre Groupe</string>
 
 
@@ -20,7 +18,7 @@
     <string name="drawer_close">Fermer le menu de navigation</string>
 
     <string name="no_internet">Connexion à Internet impossible</string>
-    <string name="connecting">Chargement en cours</string>
+    <string name="loading">Chargement en cours...</string>
 
     <string name="dialog_lecture_dots">" : "</string>
 

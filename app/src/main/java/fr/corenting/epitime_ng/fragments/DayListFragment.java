@@ -121,9 +121,9 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
             builder.setNeutralButton(context.getString(string.ignore_class), new onBlacklistClick());
             builder.setMessage(Html.fromHtml(
                     context.getString(string.teacher) + item.instructor +
-                            "\n" + context.getString(string.schedule) + item.getBegin() + "-" + item.getEnd() +
-                            "\n" + context.getString(string.group) + item.getTrainee(", ") +
-                            "\n" + context.getString(string.room) + item.getRoom(", ")));
+                            "<br />" + context.getString(string.schedule) + item.getBegin() + "-" + item.getEnd() +
+                            "<br />" + context.getString(string.group) + item.getTrainee(", ") +
+                            "<br />" + context.getString(string.room) + item.getRoom(", ")));
             builder.setTitle(item.title);
 
             AlertDialog lecturesDetailDialog = builder.create();

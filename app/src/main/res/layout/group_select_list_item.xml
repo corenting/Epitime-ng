@@ -8,6 +8,8 @@
 	    android:id="@+id/group_select_list_section_long"
 	    android:layout_width="match_parent"
 	    android:layout_height="44sp"
-	    android:textColor="#fff"/>
+	    android:textColor="#fff"
+        android:gravity="center_vertical"
+        android:textSize="22sp" />
 
 </RelativeLayout>

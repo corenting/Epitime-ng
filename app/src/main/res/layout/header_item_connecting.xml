@@ -9,7 +9,7 @@
         android:id="@+id/drawer_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/connecting"
+        android:text="@string/loading"
         android:textColor="#fff"
         android:gravity="center"
         android:fontFamily="sans-serif" />

@@ -8,7 +8,7 @@
 	<EditText
 	    android:id="@+id/group_select_list_section_input"
 	    android:layout_width="wrap_content"
-	    android:layout_height="44sp"
+	    android:layout_height="wrap_content"
 	    android:hint="@string/search"
         android:textColorHint="@color/hint_foreground_material_dark"
         android:inputType="text"

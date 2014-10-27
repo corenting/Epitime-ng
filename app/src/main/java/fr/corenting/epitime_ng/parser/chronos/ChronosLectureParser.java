@@ -86,8 +86,6 @@ public class ChronosLectureParser {
             lectures.add(getLecture((Element)n, date));
         }
 
-        if(lectures.size() == 0) { lectures.add(new Lecture("Pas de cours")); }
-
         return lectures;
     }
 

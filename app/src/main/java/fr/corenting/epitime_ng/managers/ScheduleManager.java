@@ -185,11 +185,11 @@ public class ScheduleManager {
     public List<Lecture> getNonBlacklistedLectures(List<Lecture> lectures) {
         List<Lecture> display = new ArrayList<Lecture>();
 
-        for (Lecture l :  lectures) {
-            if(!this.isLectureBlacklisted(l)) { display.add(l); }
+        for (Lecture l : lectures) {
+            if (!this.isLectureBlacklisted(l)) {
+                display.add(l);
+            }
         }
-
-        if(display.size() == 0) { display.add(new Lecture("Pas de cours")); }
 
         return display;
     }

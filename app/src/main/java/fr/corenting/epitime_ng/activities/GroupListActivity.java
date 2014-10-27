@@ -1,12 +1,14 @@
 package fr.corenting.epitime_ng.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -18,7 +20,9 @@ import fr.corenting.epitime_ng.adapters.GroupListAdapter;
 import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.headers.GroupListHeader;
+import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
+import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
 
 public class GroupListActivity extends DrawerActivity {
 
@@ -65,7 +69,7 @@ public class GroupListActivity extends DrawerActivity {
 			if(QueryGroups.isLoading()) {
 				this.connectingHeader.showHeader();
 
-				this.menuTitle.setTitleBarClosed(this.getResources().getString(R.string.connecting));
+				this.menuTitle.setTitleBarClosed(this.getResources().getString(R.string.loading));
 			} else {
 				this.noInternetHeader.showHeader();
 
@@ -106,7 +110,7 @@ public class GroupListActivity extends DrawerActivity {
         this.connectingHeader = new GroupListHeader(this.getLayoutInflater(),
                 R.layout.group_select_list_item_connecting, R.id.group_select_list_section_spinner,
                 R.id.group_select_list_connecting_text);
-        this.connectingHeader.setLongTitleText(this.getResources().getString(R.string.connecting));
+        this.connectingHeader.setLongTitleText(this.getResources().getString(R.string.loading));
         this.connectingHeader.addHeader(this.groupList);
 
         this.noInternetHeader = new GroupListHeader(this.getLayoutInflater(),
@@ -148,26 +152,59 @@ public class GroupListActivity extends DrawerActivity {
 	}
 	
 	private class OnGroupListItemClick implements OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-			
-			if(position <  2) { return; }
-			if(position == 2) {
-				GroupListActivity.this.drawerListNoConnectionHeader.specialItem.performClick();
-				return;
-			}
-			
-			// Header items (Search, connecting, no Internet)
-			GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position - 3); 
-			
-			Intent intent = new Intent(GroupListActivity.this, GroupSelectedActivity.class);
-			
-			Bundle b = new Bundle();
-			b.putParcelable("itemSelected", item);
-            b.putString("school", GroupListActivity.this.school);
-			
-			intent.putExtras(b);
-			startActivity(intent);
-		}
-	}
+        @Override
+        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+            if (position < 2) {
+                return;
+            }
+            if (position == 2) {
+                GroupListActivity.this.drawerListNoConnectionHeader.specialItem.performClick();
+                return;
+            }
+
+            // Header items (Search, connecting, no Internet)
+            GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position - 3);
+            ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
+
+            manager.setGroup(item.getLongTitle());
+            manager.resetCalendar();
+            manager.requestLectures(true, -1, 0, 1);
+
+            new GetDataTask().execute();
+
+        }
+    }
+
+    private class GetDataTask extends AsyncTask<Void, Void, String[]> {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(GroupListActivity.this);
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if(EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
+                ((DayList)EpiTime.getInstance().getCurrentActivity()).updateAdapter();
+            }
+            progressDialog.dismiss();
+            super.onPostExecute(result);
+            Intent intent = new Intent(GroupListActivity.this, DayList.class);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        protected String[] doInBackground(Void... params) {
+
+            while(QueryLecturesNewTask.isRefreshing()) {
+            }
+            return null;
+        }
+    }
 }

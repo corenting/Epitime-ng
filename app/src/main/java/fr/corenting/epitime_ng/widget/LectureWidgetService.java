@@ -109,14 +109,11 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
         if(item.isMessage) {
             rv.setTextViewText(R.id.CourseTitle, item.title);
-            rv.setTextViewText(R.id.CourseTimeBegin, "");
             rv.setTextViewText(R.id.CourseTime, "");
-            rv.setTextViewText(R.id.CourseTimeEnd, "");
             rv.setTextViewText(R.id.CourseRoom, "");
         } else {
             rv.setTextViewText(R.id.CourseTitle, item.title);
-            rv.setTextViewText(R.id.CourseTimeBegin, item.getBegin());
-            rv.setTextViewText(R.id.CourseTimeEnd, item.getEnd());
+            rv.setTextViewText(R.id.CourseTime, item.getBegin() + " - " + item.getEnd());
             rv.setTextViewText(R.id.CourseRoom, item.room.get(0));
         }
 

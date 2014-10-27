@@ -19,7 +19,7 @@
 	    android:layout_toRightOf="@+id/group_select_list_section_spinner"
 	    android:fontFamily="sans-serif"
 	    android:gravity="center"
-	    android:text="@string/connecting"
+	    android:text="@string/loading"
 	    android:textColor="#fff"
 	    android:textSize="20sp"
 	    android:textStyle="bold" />

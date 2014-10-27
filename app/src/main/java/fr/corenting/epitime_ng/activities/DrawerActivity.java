@@ -115,7 +115,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			
 			if(QueryGroups.isLoading()) {
 				this.drawerListConnectingHeader.showHeader();
-				this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.connecting));
+				this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.loading));
 			} else {
 				this.drawerListNoConnectionHeader.showHeader();
 				this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.no_internet));
