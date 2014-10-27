@@ -1,5 +1,6 @@
 package fr.corenting.epitime_ng.managers;
 
+import android.content.Context;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.widget.Toast;
@@ -29,46 +30,48 @@ import java.util.Set;
 
 public class ScheduleManager {
 
+    private final Context context;
     private Set<String> lectureBlacklisted = new HashSet<String>();
     private final Calendar selectedDate;
     private final Map<String, SparseArray<Day>> lectures = new HashMap<String, SparseArray<Day>>();
-	private static final Date FIRST_WEEK;
+    private static final Date FIRST_WEEK;
 
     public int offset = 0;
     public ConfigManager configs;
     public final SparseBooleanArray fetchingWeek;
     public static final String defaultGroup = "NotAGroup";
 
-	static {
-		Calendar cal = Calendar.getInstance(Locale.FRANCE);
-		if (cal.get(Calendar.MONTH) < Calendar.SEPTEMBER) {
-			cal.add(Calendar.YEAR, -1);
-		}
+    static {
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        if (cal.get(Calendar.MONTH) < Calendar.SEPTEMBER) {
+            cal.add(Calendar.YEAR, -1);
+        }
 
-		cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
-		cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MONTH, Calendar.SEPTEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
 
         while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
             cal.add(Calendar.DAY_OF_MONTH, 1);
         }
-		
-		FIRST_WEEK = cal.getTime();
-    	
-	}
-	
-	public ScheduleManager() {
-        this.configs      = new ConfigManager();
-		this.selectedDate = Calendar.getInstance(Locale.FRANCE);
-		this.fetchingWeek = new SparseBooleanArray();
 
-	}
+        FIRST_WEEK = cal.getTime();
+
+    }
+
+    public ScheduleManager(Context c) {
+        this.context = c;
+        this.configs      = new ConfigManager();
+        this.selectedDate = Calendar.getInstance(Locale.FRANCE);
+        this.fetchingWeek = new SparseBooleanArray();
+
+    }
 
     public void load() {
         this.readBlacklist();
     }
 
     public void setIsTeacher     (boolean value) { this.configs.writeBoolean("isTeacher", value);      }
-	public void setGroup         (String group)  { this.configs.writeString("group", group);           }
+    public void setGroup         (String group)  { this.configs.writeString("group", group);           }
     public void setHasToastActive(boolean value) { this.configs.writeBoolean("hasToastActive", value); }
 
     public String getGroup()           { return this.configs.readString("group", defaultGroup);   }
@@ -77,8 +80,8 @@ public class ScheduleManager {
 
 
     public void addToCalendar(int days) {
-		this.offset += days;
-		this.selectedDate.add(Calendar.DATE, days);
+        this.offset += days;
+        this.selectedDate.add(Calendar.DATE, days);
 
         int week = getCurrentWeek(this.selectedDate.getTime());
         if(week >= 52 || week < 0) {
@@ -88,12 +91,12 @@ public class ScheduleManager {
 
     }
 
-	public void resetCalendar() {
-		this.addToCalendar(-this.offset);
-	}
+    public void resetCalendar() {
+        this.addToCalendar(-this.offset);
+    }
 
-	public static int getCurrentWeek(Date selectedDate) {
-    	return selectedDate.getTime() - FIRST_WEEK.getTime() > 0 ?
+    public static int getCurrentWeek(Date selectedDate) {
+        return selectedDate.getTime() - FIRST_WEEK.getTime() > 0 ?
                 (int) ((selectedDate.getTime() - FIRST_WEEK.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1 :
                 -1;
     }
@@ -112,57 +115,57 @@ public class ScheduleManager {
         return getCurrentWeek(cal.getTime());
     }
 
-	public Day getLectures(String group, Calendar cal) {
-		SparseArray<Day> days = this.lectures.get(group);
-		return days == null ? null : days.get(cal.get(Calendar.DAY_OF_YEAR));
-	}
+    public Day getLectures(String group, Calendar cal) {
+        SparseArray<Day> days = this.lectures.get(group);
+        return days == null ? null : days.get(cal.get(Calendar.DAY_OF_YEAR));
+    }
 
 
     @SuppressWarnings("unused")
     public Day getLectures(String group, Date date) {
-		Calendar cal = Calendar.getInstance(Locale.FRANCE);
-		cal.setTime(date);
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTime(date);
 
-		return this.getLectures(group, cal);
-	}
+        return this.getLectures(group, cal);
+    }
 
     public Day getLectures(String group, Date date, int offset) {
-		Calendar cal = Calendar.getInstance(Locale.FRANCE);
-		cal.setTime(date); cal.add(Calendar.DATE, offset);
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTime(date); cal.add(Calendar.DATE, offset);
 
-		return this.getLectures(group, cal);
-	}
+        return this.getLectures(group, cal);
+    }
 
     public void setLectures(String group, Calendar cal, Day value) {
         this.updateWidget(cal);
-		SparseArray<Day> days = this.lectures.get(group);
-		if (days == null) {
-			this.lectures.put(group, days = new SparseArray<Day>());
-		}
+        SparseArray<Day> days = this.lectures.get(group);
+        if (days == null) {
+            this.lectures.put(group, days = new SparseArray<Day>());
+        }
 
-		days.put(cal.get(Calendar.DAY_OF_YEAR), value);
-	}
+        days.put(cal.get(Calendar.DAY_OF_YEAR), value);
+    }
 
-	public void setLectures(String group, Date date, Day value) {
+    public void setLectures(String group, Date date, Day value) {
 
-		Calendar cal = Calendar.getInstance(Locale.FRANCE);
-		cal.setTime(date);
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTime(date);
 
-		this.setLectures(group, cal, value);
-	}
+        this.setLectures(group, cal, value);
+    }
 
     @SuppressWarnings("unused")
-	public void setLectures(String group, Date date, Integer offset, Day value) {
+    public void setLectures(String group, Date date, Integer offset, Day value) {
 
-		Calendar cal = Calendar.getInstance(Locale.FRANCE);
-		cal.setTime(date); cal.add(Calendar.DATE, offset);
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTime(date); cal.add(Calendar.DATE, offset);
 
-		this.setLectures(group, cal, value);
-	}
+        this.setLectures(group, cal, value);
+    }
 
-	public Date getDay() {
-		return this.selectedDate.getTime();
-	}
+    public Date getDay() {
+        return this.selectedDate.getTime();
+    }
 
     public void addToBlackList(String lecture) {
         this.lectureBlacklisted.add(lecture);
@@ -227,21 +230,21 @@ public class ScheduleManager {
         this.lectureBlacklisted = save.readSet("blacklist", "NotAGroup", size);
     }
 
-	public boolean hasCache(int week, String group) {
-		String filename = FileUtils.makeLecturesFilename(week, group);
-		File file = EpiTime.getInstance().getCurrentActivity().getFileStreamPath(filename);
-		return file.exists();
-	}
-	
-	
-	// @return : false if there is no cache
+    public boolean hasCache(int week, String group) {
+        String filename = FileUtils.makeLecturesFilename(week, group);
+        File file = EpiTime.getInstance().getCurrentActivity().getFileStreamPath(filename);
+        return file.exists();
+    }
+
+
+    // @return : false if there is no cache
     boolean loadLecturesFromFile(int week, String group) {
-		
-		try {
-			Document xml = QueryLecturesNewTask.retrieveXMLFromFile(week, group);
-			if(xml == null) { return false; }
-			
-			List<Day> days = new ChronosLectureParser().parse(xml);
+
+        try {
+            Document xml = QueryLecturesNewTask.retrieveXMLFromFile(week, group);
+            if(xml == null) { return false; }
+
+            List<Day> days = new ChronosLectureParser().parse(xml);
 
             Calendar cal = Calendar.getInstance(Locale.FRANCE);
             cal.setTime(getWeek(week));
@@ -251,20 +254,20 @@ public class ScheduleManager {
                 this.setLectures(group, cal.getTime(), day);
                 cal.add(Calendar.DAY_OF_YEAR, 1);
             }
-			
-			return true;
-			
-		} catch(Exception e) {
-			Toast.makeText(EpiTime.getInstance(), "Could not load lecture list from file.", Toast.LENGTH_SHORT).show();
-		}
-		
-		return false;
-	}
+
+            return true;
+
+        } catch(Exception e) {
+            Toast.makeText(EpiTime.getInstance(), "Could not load lecture list from file.", Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
+    }
 
     // Request before get !
-	public List<Day> getPreviousCurrentAndNextDay(Date day, String group) {
-		
-		List<Day> l = new ArrayList<Day>();
+    public List<Day> getPreviousCurrentAndNextDay(Date day, String group) {
+
+        List<Day> l = new ArrayList<Day>();
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
 
 
@@ -277,21 +280,21 @@ public class ScheduleManager {
             l.add(this.getLectures(group, day, i));
 
         }
-		return l;
-	}
-	
-	
-	public void requestLectures(boolean forceUpdate, Integer... offsets) {
-		this.requestLectures(this.getDay(), forceUpdate, offsets);
-	}
+        return l;
+    }
+
+
+    public void requestLectures(boolean forceUpdate, Integer... offsets) {
+        this.requestLectures(this.getDay(), forceUpdate, offsets);
+    }
 
 
     // Loads lectures from file if they exists
     // Else gets them from chronos.
     // Note : While lectures are beeing downloaded day's lectures are set to "Loading"
-	void requestLectures(Date day, boolean forceUpdate, Integer... offsets) {
-		Calendar cal = Calendar.getInstance(Locale.FRANCE);
-		HashSet<Integer> weeksToUpdate = new HashSet<Integer>();
+    void requestLectures(Date day, boolean forceUpdate, Integer... offsets) {
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        HashSet<Integer> weeksToUpdate = new HashSet<Integer>();
 
         for (Integer offset1 : offsets) {
             //Date operations
@@ -318,17 +321,17 @@ public class ScheduleManager {
                 }
             }
         }
-		
-		if(!EpiTime.getInstance().hasInternet()) {
-			if(EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
-				DrawerActivity context = (DrawerActivity)EpiTime.getInstance().getCurrentActivity();
-				context.noInternetConnexion();
-			}
+
+        if(!EpiTime.getInstance().hasInternet()) {
+            if(EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
+                DrawerActivity context = (DrawerActivity)EpiTime.getInstance().getCurrentActivity();
+                context.noInternetConnexion();
+            }
             for (Integer week : weeksToUpdate) {
                 this.setWeekTo(week, this.getGroup(), makeNoInternetDay(getWeek(week)));
             }
-			return;
-		}
+            return;
+        }
         for (Integer week : weeksToUpdate) {
             if (this.fetchingWeek.get(week)) {
                 continue;
@@ -336,17 +339,17 @@ public class ScheduleManager {
 
             this.setWeekTo(week, this.getGroup(), makeLoadingDay(getWeek(week)));
             this.fetchingWeek.put(week, true);
-            new QueryLecturesNewTask(this, week, this.getGroup()).execute();
+            new QueryLecturesNewTask(context, this, week, this.getGroup()).execute();
         }
-	}
+    }
 
 
-	public static Day makeLoadingDay(Date date) {
-		ArrayList<Lecture> loading = new ArrayList<Lecture>
-    	(Arrays.asList(new Lecture("En cours de chargement !", true)));
+    public static Day makeLoadingDay(Date date) {
+        ArrayList<Lecture> loading = new ArrayList<Lecture>
+                (Arrays.asList(new Lecture("En cours de chargement !", true)));
 
-		return new Day(date, loading);
-	}
+        return new Day(date, loading);
+    }
 
     public static Day makeNoInternetDay(Date date) {
         ArrayList<Lecture> loading = new ArrayList<Lecture>
@@ -359,7 +362,7 @@ public class ScheduleManager {
         Calendar today = Calendar.getInstance();
 
         if(cal.get(Calendar.DAY_OF_YEAR) != today.get(Calendar.DAY_OF_YEAR)
-        || cal.get(Calendar.YEAR) != today.get(Calendar.YEAR)) {
+                || cal.get(Calendar.YEAR) != today.get(Calendar.YEAR)) {
             return;
         }
 
@@ -411,4 +414,3 @@ public class ScheduleManager {
 
     }
 }
-

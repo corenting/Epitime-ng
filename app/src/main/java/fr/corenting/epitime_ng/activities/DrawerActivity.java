@@ -174,11 +174,11 @@ public abstract class DrawerActivity extends ActionBarActivity {
 	public void noInternetConnexion() {
         if(this.noInternetShown) { return; }
         this.noInternetShown = true;
-    	DialogUtils.displaySimpleAlert(this, getString(R.string.no_internet), getString(R.string.no_internet_msg));
+    	DialogUtils.displaySimpleAlert(getString(R.string.no_internet), getString(R.string.no_internet_msg));
     }
     
     public void chronosError() {
-    	DialogUtils.displaySimpleAlert(this, getString(R.string.chronos_error), getString(R.string.chronos_incorrect_data));
+    	DialogUtils.displaySimpleAlert(getString(R.string.chronos_error), getString(R.string.chronos_incorrect_data));
     }
 
     public void noInternetConnexion(final String groupFailed) {
@@ -186,13 +186,12 @@ public abstract class DrawerActivity extends ActionBarActivity {
 
         String message = getString(R.string.no_internet) + "\n";
         if(groupFailed.equals("trainnees")) {
-            message += getString(R.string.error_getting_list) +  getString(R.string.students);
+            message += getString(R.string.error_getting_list) + " "  + getString(R.string.students);
         } else if(groupFailed.equals("instructors")) {
-            message += getString(R.string.error_getting_list)+ getString(R.string.teachers);
+            message += getString(R.string.error_getting_list)+ " "  + getString(R.string.teachers);
         } else if(groupFailed.equals("rooms")) {
-            message += getString(R.string.error_getting_list) +  getString(R.string.rooms);
+            message += getString(R.string.error_getting_list) + " "  + getString(R.string.rooms);
         }
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message + "\n")
@@ -225,8 +224,6 @@ public abstract class DrawerActivity extends ActionBarActivity {
 				
 				if(DrawerActivity.this instanceof GroupListActivity) {
 					GroupListActivity context = (GroupListActivity) DrawerActivity.this;
-					context.connectingHeader.showHeader();
-					context.noInternetHeader.hideHeader();
 				}
 				
 				Handler handler   = new Handler ();
@@ -237,8 +234,6 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			        	 
 			        	 if(DrawerActivity.this instanceof GroupListActivity) {
 			        		 GroupListActivity context = (GroupListActivity) DrawerActivity.this;
-			        		 context.connectingHeader.hideHeader();
-			        		 context.noInternetHeader.showHeader();
 						}
 			         } 
 			    }; 

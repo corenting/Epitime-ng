@@ -97,24 +97,16 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
         Activity context = (Activity)EpiTime.getInstance().getCurrentActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater     = context.getLayoutInflater();
-        View v                      = inflater.inflate(R.layout.dialog_alert, null);
-
-        ((TextView)v.findViewById(R.id.dialog_alert_title)).setText(context.getResources().getString(R.string.dialog_alert_blacklist_title));
-        ((TextView)v.findViewById(R.id.dialog_alert_text)) .setText(context.getResources().getString(R.string.dialog_alert_blacklist_text));
-
-        builder.setView(v);
-        builder.setPositiveButton("Valider", new RemoveLectureListener(index));
-        builder.setNegativeButton("Annuler", null);
-
+        builder.setPositiveButton(context.getString(R.string.validate), new RemoveLectureListener(index));
+        builder.setNegativeButton(context.getString(R.string.cancel), null);
         AlertDialog dialog = builder.create();
+        dialog.setTitle(context.getString(R.string.dialog_alert_blacklist_title));
+        dialog.setMessage(context.getString(R.string.dialog_alert_blacklist_text));
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
         dialog.show();
-
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#282828"));
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#ffffff"));
-
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(Color.parseColor("#282828"));
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#ffffff"));
     }
 
     private void onRemoveLecture(int index) {

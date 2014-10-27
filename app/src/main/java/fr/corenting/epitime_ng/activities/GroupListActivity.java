@@ -32,9 +32,6 @@ public class GroupListActivity extends DrawerActivity {
     private ListView         groupList;
     private GroupListAdapter adapter;
     private GroupListHeader  searchHeader;
-
-	GroupListHeader connectingHeader;
-	GroupListHeader noInternetHeader;
 	
 	private InputListener searchInputListener;
 	
@@ -61,27 +58,13 @@ public class GroupListActivity extends DrawerActivity {
 	
 	public void reloadListView() {
 		this.searchHeader    .hideHeader();
-		this.connectingHeader.hideHeader();
-		this.noInternetHeader.hideHeader();
 		
 		School school = this.groupManager.getSchool(this.school);
-		if(school == null || school.groups == null || school.groups.size() == 0) {
-			if(QueryGroups.isLoading()) {
-				this.connectingHeader.showHeader();
-
-				this.menuTitle.setTitleBarClosed(this.getResources().getString(R.string.loading));
-			} else {
-				this.noInternetHeader.showHeader();
-
-				this.menuTitle.setTitleBarClosed(this.getResources().getString(R.string.no_internet));
-			}
-		} else {
-			this.searchHeader.showHeader();
-
-			this.menuTitle.setTitleBarClosed(this.school);
-		}
-		
-		this.adapter = new GroupListAdapter(school);
+        if (school != null && school.groups != null && school.groups.size() != 0) {
+            this.searchHeader.showHeader();
+            this.menuTitle.setTitleBarClosed(this.school);
+        }
+        this.adapter = new GroupListAdapter(school);
 		this.groupList.setAdapter(this.adapter);
 		this.searchInputListener.setAdapter(this.adapter);
 	}
@@ -99,25 +82,9 @@ public class GroupListActivity extends DrawerActivity {
                 R.layout.group_select_list_item_search, R.id.group_select_list_section_short_image,
                 R.id.group_select_list_section_input);
         EditText search = (EditText) this.searchHeader.longTitle;
-
         this.searchInputListener = new InputListener(this.adapter);
         search.addTextChangedListener(this.searchInputListener);
-
         this.searchHeader.addHeader(this.groupList);
-
-
-
-        this.connectingHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_connecting, R.id.group_select_list_section_spinner,
-                R.id.group_select_list_connecting_text);
-        this.connectingHeader.setLongTitleText(this.getResources().getString(R.string.loading));
-        this.connectingHeader.addHeader(this.groupList);
-
-        this.noInternetHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
-                R.id.group_select_list_section_text);
-        this.noInternetHeader.setLongTitleText(this.getResources().getString(R.string.no_internet));
-        this.noInternetHeader.addHeader(this.groupList);
     }
 
 	private class InputListener implements TextWatcher {
@@ -155,16 +122,8 @@ public class GroupListActivity extends DrawerActivity {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
-            if (position < 2) {
-                return;
-            }
-            if (position == 2) {
-                GroupListActivity.this.drawerListNoConnectionHeader.specialItem.performClick();
-                return;
-            }
-
             // Header items (Search, connecting, no Internet)
-            GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position - 3);
+            GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position - 1);
             ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
 
             manager.setGroup(item.getLongTitle());

@@ -29,7 +29,7 @@ public class EpiTime extends Application {
     public void onCreate() {
         EpiTime.instance = this;
 
-        this.scheduleManager = new ScheduleManager();
+        this.scheduleManager = new ScheduleManager(getApplicationContext());
         this.groupManager = new GroupManager();
 
         super.onCreate();

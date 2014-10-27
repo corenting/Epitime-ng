@@ -18,7 +18,7 @@
     <string name="drawer_close">Fermer le menu de navigation</string>
 
     <string name="no_internet">Connexion à Internet impossible</string>
-    <string name="loading">Chargement en cours...</string>
+    <string name="loading">Chargement en cours…</string>
 
     <string name="dialog_lecture_dots">" : "</string>
 
@@ -37,15 +37,17 @@
     <string name="no_blacklisted_class">Aucun cours ignoré</string>
     <string name="activate_toast">Activer les toasts</string>
     <string name="toasts_activated">Les toasts ont été activés !</string>
-    <string name="toast_desactivated">Les Toasts ont été désactivés !</string>
-    <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion</string>
+    <string name="toast_desactivated">Les toasts ont été désactivés !</string>
+    <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion.</string>
     <string name="chronos_error">Erreur Chronos</string>
     <string name="chronos_incorrect_data">Les données transmises par Chronos sont incorrectes</string>
-    <string name="error_getting_list">Impossible de récuperer la liste des</string>
-    <string name="rooms">salles</string>
-    <string name="teachers">enseignants</string>
-    <string name="students">groupes étudiants</string>
+    <string name="error_getting_list">Impossible de récupérer la liste des</string>
+    <string name="rooms">salles.</string>
+    <string name="teachers">enseignants.</string>
+    <string name="students">groupes d\'étudiants.</string>
     <string name="reload">Recharger</string>
     <string name="cancel">Annuler</string>
     <string name="Teachers">Enseignants</string>
+    <string name="validate">Valider</string>
+    <string name="connection_required">Connexion à Internet requise</string>
 </resources>

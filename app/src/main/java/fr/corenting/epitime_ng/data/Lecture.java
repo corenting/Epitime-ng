@@ -71,12 +71,8 @@ public class Lecture implements Serializable {
 	}
 
     public String getTrainee(String delimiter) { return this.getTrainee(delimiter, this.trainee.size());  }
-    public String getTrainee(int size)       { return this.getTrainee(" ", size);  }
-    public String getTrainee()               { return this.getTrainee(" ", this.trainee.size()); }
 
     public String getRoom(String delimiter) { return this.getRoom(delimiter, this.room.size());  }
-    public String getRoom(int size)       { return this.getRoom(" ", size);  }
-    public String getRoom()               { return this.getRoom(" ", this.room.size()); }
 
     public String getTrainee(String delimiter, int size) {
         String value = "";
