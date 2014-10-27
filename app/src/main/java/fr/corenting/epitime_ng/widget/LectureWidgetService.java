@@ -114,7 +114,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         } else {
             rv.setTextViewText(R.id.CourseTitle, item.title);
             rv.setTextViewText(R.id.CourseTime, item.getBegin() + " - " + item.getEnd());
-            rv.setTextViewText(R.id.CourseRoom, item.room.get(0));
+            rv.setTextViewText(R.id.CourseRoom, item.getRoom(", "));
         }
 
         Intent intent = new Intent();

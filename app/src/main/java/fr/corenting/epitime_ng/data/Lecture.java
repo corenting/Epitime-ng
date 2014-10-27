@@ -90,7 +90,6 @@ public class Lecture implements Serializable {
         for (int i = 0; i < size && i < this.room.size(); i++) {
             value += delimiter + this.room.get(i);
         }
-
-        return value.length() == 0 ? value : value.substring(1);
+        return value.length() == 0 ? value.trim() : value.substring(1).trim();
     }
 }

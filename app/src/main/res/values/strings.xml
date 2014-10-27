@@ -35,9 +35,7 @@
     <string name="group">&lt;b>Groupe : &lt;/b></string>
     <string name="room">&lt;b>"Salle : &lt;/b></string>
     <string name="no_blacklisted_class">Aucun cours ignoré</string>
-    <string name="activate_toast">Activer les toasts</string>
-    <string name="toasts_activated">Les toasts ont été activés !</string>
-    <string name="toast_desactivated">Les toasts ont été désactivés !</string>
+    <string name="activate_toast">Avertir des cours blacklistés</string>
     <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion.</string>
     <string name="chronos_error">Erreur Chronos</string>
     <string name="chronos_incorrect_data">Les données transmises par Chronos sont incorrectes</string>

@@ -2,9 +2,7 @@ package fr.corenting.epitime_ng.activities;
 
 import android.os.Bundle;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
@@ -50,8 +48,6 @@ public class BlackListActivity extends DrawerActivity {
 
         ((CheckBox) disableToastHeader.getLayout().findViewById(R.id.group_select_list_checkbox))
                 .setChecked(EpiTime.getInstance().getScheduleManager().getHasToastActive());
-        ((CheckBox) disableToastHeader.getLayout().findViewById(R.id.group_select_list_checkbox))
-                .setOnCheckedChangeListener(new CheckToastChangedListener());
 
         disableToastHeader.addHeader(this.blacklist);
 
@@ -59,19 +55,6 @@ public class BlackListActivity extends DrawerActivity {
             disableToastHeader.hideHeader();
         }
 
-    }
-
-    private class CheckToastChangedListener implements CompoundButton.OnCheckedChangeListener {
-
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-            EpiTime.getInstance().getScheduleManager().setHasToastActive(isChecked);
-            if(isChecked) {
-                Toast.makeText(EpiTime.getInstance().getCurrentActivity(), getString(R.string.toasts_activated), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(EpiTime.getInstance().getCurrentActivity(), getString(R.string.toast_desactivated), Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
 

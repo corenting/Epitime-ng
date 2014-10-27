@@ -1,6 +1,7 @@
 package fr.corenting.epitime_ng.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -121,6 +123,12 @@ public class GroupListActivity extends DrawerActivity {
 	private class OnGroupListItemClick implements OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+            //Hide the keyboard
+            EditText myEditText = (EditText) findViewById(R.id.group_select_list_section_input);
+            InputMethodManager imm = (InputMethodManager)getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
 
             // Header items (Search, connecting, no Internet)
             GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position - 1);

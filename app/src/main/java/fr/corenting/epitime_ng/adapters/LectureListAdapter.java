@@ -42,9 +42,18 @@ public class LectureListAdapter extends BaseAdapter {
             ((TextView)view.findViewById(R.id.CourseTime)     ).setText("");
             ((TextView)view.findViewById(R.id.CourseRoom)     ).setText("");
         } else {
+            String displayedRooms = "";
+            if(item.room.size() > 4)
+            {
+                displayedRooms = item.getRoom(", ",4) + "...";
+            }
+            else
+            {
+                displayedRooms = item.getRoom(", ");
+            }
             ((TextView)view.findViewById(R.id.CourseTitle)    ).setText(item.title);
             ((TextView)view.findViewById(R.id.CourseTime)).setText(item.getBegin() + " - " + item.getEnd());
-            ((TextView)view.findViewById(R.id.CourseRoom)     ).setText(item.getRoom(", "));
+            ((TextView)view.findViewById(R.id.CourseRoom)     ).setText(displayedRooms);
         }
 
         return view;
