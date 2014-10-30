@@ -22,6 +22,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -182,6 +188,25 @@ public class TinyDB {
         }
     }
 
+    public Dictionary<String, List<String>> getBlacklistDictionnary(List<String> keys) {
+        Dictionary<String, List<String>> dic = new Hashtable<String, List<String>>();
+        for (String key : keys)
+        {
+            List<String> values = getList("blacklist_dic_" + key);
+            dic.put(key, values);
+        }
+        return dic;
+    }
+
+    public void putBlacklistDictionnary(Dictionary<String, List<String>> dic) {
+        List<String> keys = Collections.list(dic.keys());
+        for(String key: keys)
+        {
+            List<String> values = dic.get(key);
+            putList("blacklist_dic_" + key, new ArrayList<String>(values));
+        }
+    }
+
     public void putInt(String key, int value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(key, value);
@@ -286,6 +311,10 @@ public class TinyDB {
 
     public boolean getBoolean(String key) {
         return preferences.getBoolean(key, false);
+    }
+
+    public boolean getBooleanDefaultTrue(String key) {
+        return preferences.getBoolean(key, true);
     }
 
     public void putFloat(String key, float value) {

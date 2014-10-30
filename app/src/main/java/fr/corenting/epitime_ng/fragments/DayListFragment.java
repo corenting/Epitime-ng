@@ -74,7 +74,7 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
             this.lectureList.setAdapter(new LectureListAdapter(error));
 
         } else {
-            this.displayed = this.manager.getNonBlacklistedLectures(this.day.lectures);
+            this.displayed = this.manager.getNonBlacklistedLectures(EpiTime.getInstance().getScheduleManager().getGroup(), this.day.lectures);
             this.setLectureListAdapter(this.displayed);
         }
     }
@@ -147,14 +147,14 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
 
-            EpiTime.getInstance().getScheduleManager().addToBlackList(DayListFragment.this.lectureSelected);
+            EpiTime.getInstance().getScheduleManager().addToBlackList(DayListFragment.this.lectureSelected, EpiTime.getInstance().getScheduleManager().getGroup());
 
             Calendar cal = Calendar.getInstance(Locale.FRANCE);
             cal.setTime(DayListFragment.this.day.date);
             DayListFragment.this.manager.updateWidget(cal);
 
             DayListFragment.this.updateFragment(DayListFragment.this.day);
-            ToastMaker.makeToast("Le cours " + DayListFragment.this.lectureSelected + " a été ignoré", 750);
+            ToastMaker.makeToast("Le cours " + DayListFragment.this.lectureSelected + " a été ignoré");
 
         }
     }

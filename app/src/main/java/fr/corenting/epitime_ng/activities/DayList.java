@@ -1,6 +1,5 @@
 package fr.corenting.epitime_ng.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,7 +8,6 @@ import android.support.v7.internal.view.menu.ActionMenuItemView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.security.acl.Group;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.ViewPagerAdapter;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
-import fr.corenting.epitime_ng.utils.TinyDB;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
 public class DayList extends DrawerActivity {
@@ -103,13 +100,11 @@ public class DayList extends DrawerActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem favoriteButton = menu.getItem(0);
 
-        if(manager.isFavoriteGroup(manager.getGroup())) {
+        if (manager.isFavoriteGroup(manager.getGroup())) {
 
             favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_important));
 
-        }
-        else
-        {
+        } else {
             favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_not_important));
         }
 
@@ -125,6 +120,10 @@ public class DayList extends DrawerActivity {
                 return true;
             case R.id.menu_item_favorite:
                 this.onMenuItemFavoriteCLick();
+            case R.id.menu_item_previous_week:
+                this.dayChanged(-7);
+            case R.id.menu_item_next_week:
+                this.dayChanged(+7);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -134,13 +133,12 @@ public class DayList extends DrawerActivity {
         String group = this.manager.getGroup();
         ActionMenuItemView favoriteButton = (ActionMenuItemView) findViewById(R.id.menu_item_favorite);
 
-        if(manager.isFavoriteGroup(group)) {
-            //favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_not_important));
+        if (manager.isFavoriteGroup(group)) {
             manager.removeFavoriteGroup(group);
-        }
-        else {
-            //favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_important));
+            ToastMaker.makeToast(group + getString(R.string.favorite_deleted));
+        } else {
             manager.addFavoriteGroup(group);
+            ToastMaker.makeToast(group + getString(R.string.favorite_added));
         }
         invalidateOptionsMenu();
     }
@@ -183,7 +181,7 @@ public class DayList extends DrawerActivity {
 
     public void makeBlacklistInfoToast(int index) {
 
-        if (EpiTime.getInstance().getScheduleManager().getBlacklistSize() == 0
+        if (EpiTime.getInstance().getScheduleManager().getBlacklistSize(EpiTime.getInstance().getScheduleManager().getGroup()) == 0
                 || !EpiTime.getInstance().getScheduleManager().getHasToastActive()
                 || this.pageChangeListener.toastShown) {
             return;
@@ -197,9 +195,9 @@ public class DayList extends DrawerActivity {
         this.pageChangeListener.toastShown = true;
 
         if (blacklisted == 1) {
-            ToastMaker.makeToast("1 cours a été ignoré", 700);
+            ToastMaker.makeToast("1 cours a été ignoré");
         } else if (blacklisted > 1) {
-            ToastMaker.makeToast(blacklisted + " cours ont été ignorés", 700);
+            ToastMaker.makeToast(blacklisted + " cours ont été ignorés");
         }
 
     }

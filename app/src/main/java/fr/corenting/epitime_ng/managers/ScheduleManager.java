@@ -12,6 +12,7 @@ import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.parser.chronos.ChronosLectureParser;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
+import fr.corenting.epitime_ng.utils.BlackListType;
 import fr.corenting.epitime_ng.utils.FileUtils;
 import fr.corenting.epitime_ng.utils.SaveUtils;
 import fr.corenting.epitime_ng.utils.TinyDB;
@@ -28,18 +29,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 public class ScheduleManager {
 
     private final Context context;
-    private Set<String> lectureBlacklisted = new HashSet<String>();
+    private BlackListType lectureBlacklisted = new BlackListType();
     private final Calendar selectedDate;
     private final Map<String, SparseArray<Day>> lectures = new HashMap<String, SparseArray<Day>>();
     private static final Date FIRST_WEEK;
 
     public int offset = 0;
-    public ConfigManager configs;
+    private TinyDB tinyDB;
     public final SparseBooleanArray fetchingWeek;
     public static final String defaultGroup = "NotAGroup";
 
@@ -62,23 +62,20 @@ public class ScheduleManager {
 
     public ScheduleManager(Context c) {
         this.context = c;
-        this.configs      = new ConfigManager();
+        this.tinyDB      = new TinyDB(c);
         this.selectedDate = Calendar.getInstance(Locale.FRANCE);
         this.fetchingWeek = new SparseBooleanArray();
-
     }
 
-    public void load() {
-        this.readBlacklist();
+    public void setGroup         (String group)  { this.tinyDB.putString("group", group);           }
+
+    public String getGroup() {
+        String group;
+        group = this.tinyDB.getString("group");
+        return !group.equals("") ? group : defaultGroup;
     }
 
-    public void setIsTeacher     (boolean value) { this.configs.writeBoolean("isTeacher", value);      }
-    public void setGroup         (String group)  { this.configs.writeString("group", group);           }
-    public void setHasToastActive(boolean value) { this.configs.writeBoolean("hasToastActive", value); }
-
-    public String getGroup()           { return this.configs.readString("group", defaultGroup);   }
-    public boolean getIsTeacher()      { return this.configs.readBoolean("isTeacher", false);     }
-    public boolean getHasToastActive() { return this.configs.readBoolean("hasToastActive", true); }
+    public boolean getHasToastActive() { return this.tinyDB.getBooleanDefaultTrue("hasToastActive"); }
 
 
     public void addToCalendar(int days) {
@@ -170,9 +167,9 @@ public class ScheduleManager {
         return this.selectedDate.getTime();
     }
 
-    public void addToBlackList(String lecture) {
-        this.lectureBlacklisted.add(lecture);
-        this.saveBlackList();
+    public void addToBlackList(String lecture, String group) {
+        this.lectureBlacklisted.addBlacklistedLecture(group, lecture);
+        lectureBlacklisted.saveBlacklist();
     }
 
     public boolean isFavoriteGroup(String group) {
@@ -200,24 +197,24 @@ public class ScheduleManager {
         tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<String>(favorites));
     }
 
-    public boolean isLectureBlacklisted(String lecture) {
-        return this.lectureBlacklisted.contains(lecture);
+    public boolean isLectureBlacklisted(String lecture, String group) {
+        return this.lectureBlacklisted.isBlacklisted(group, lecture);
     }
 
-    public void removeFromBlacklist(String lecture) {
-        this.lectureBlacklisted.remove(lecture);
-        this.saveBlackList();
+    public void removeFromBlacklist(String group, String lecture) {
+        this.lectureBlacklisted.removeBlacklistedLecture(group, lecture);
+        lectureBlacklisted.saveBlacklist();
     }
 
-    public int getBlacklistSize() {
-        return this.lectureBlacklisted.size();
+    public int getBlacklistSize(String group) {
+        return this.lectureBlacklisted.getSize(group);
     }
 
-    public List<Lecture> getNonBlacklistedLectures(List<Lecture> lectures) {
+    public List<Lecture> getNonBlacklistedLectures(String group, List<Lecture> lectures) {
         List<Lecture> display = new ArrayList<Lecture>();
 
         for (Lecture l : lectures) {
-            if (!this.isLectureBlacklisted(l)) {
+            if (!this.isLectureBlacklisted(l.title, group)) {
                 display.add(l);
             }
         }
@@ -227,35 +224,11 @@ public class ScheduleManager {
 
     public List<Lecture> getNonBlacklistedLectures(String group, Date date, int offset) {
         Day d = this.getLectures(group, date, offset);
-        return d == null ? null : this.getNonBlacklistedLectures(d.lectures);
+        return d == null ? null : this.getNonBlacklistedLectures(group, d.lectures);
     }
 
-    public List<String> getBlacklist() {
-        List<String> blacklist = new ArrayList<String>();
-        for (String s : this.lectureBlacklisted) {
-            blacklist.add(s);
-        }
-        return blacklist;
-    }
-
-    public boolean isLectureBlacklisted(Lecture lecture) {
-        return this.isLectureBlacklisted(lecture.title);
-    }
-
-    private void saveBlackList() {
-        SaveUtils save = new SaveUtils(EpiTime.getInstance().getCurrentActivity());
-
-        save.putInt("blacklist length", this.lectureBlacklisted.size());
-        save.putSet("blacklist", this.lectureBlacklisted);
-        save.commit();
-    }
-
-    private void readBlacklist() {
-
-        SaveUtils save = new SaveUtils(EpiTime.getInstance().getCurrentActivity());
-
-        int size = save.readInt("blacklist length", -1); if(size == -1) { return; }
-        this.lectureBlacklisted = save.readSet("blacklist", "NotAGroup", size);
+    public List<String> getBlacklist(String group) {
+        return lectureBlacklisted.getBlacklistedLectures(group);
     }
 
     public boolean hasCache(int week, String group) {

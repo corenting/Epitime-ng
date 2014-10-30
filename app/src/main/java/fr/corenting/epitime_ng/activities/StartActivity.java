@@ -19,7 +19,6 @@ public class StartActivity extends Activity {
         setContentView(R.layout.activity_splash_screen);
         EpiTime.getInstance().setCurrentActivity(this);
         ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
-        manager.load();
 
         EpiTime.getInstance().getGroupManager().getGroups();
 

@@ -63,7 +63,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         for(Lecture l : this.pages.get(index).lectures) {
-            if(EpiTime.getInstance().getScheduleManager().isLectureBlacklisted(l)) {
+            if(EpiTime.getInstance().getScheduleManager().isLectureBlacklisted(l.title,EpiTime.getInstance().getScheduleManager().getGroup())) {
                 ++num;
             }
         }

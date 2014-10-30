@@ -32,28 +32,25 @@ public class BlackListActivity extends DrawerActivity {
     }
 
     private void addHeaders() {
-        this.noBlacklistHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
-                R.id.group_select_list_section_text);
-        this.noBlacklistHeader.setLongTitleText(getString(R.string.no_blacklisted_class));
-        this.noBlacklistHeader.addHeader(this.blacklist);
-        if(EpiTime.getInstance().getScheduleManager().getBlacklist().size() > 0) {
-            this.noBlacklistHeader.hideHeader();
-        }
-
         GroupListHeader disableToastHeader = new GroupListHeader(this.getLayoutInflater(),
                 R.layout.group_select_list_item_checkbox, R.id.group_select_list_section_checkbox_layout,
                 R.id.group_select_list_connecting_text);
         disableToastHeader.setLongTitleText(getString(R.string.activate_toast));
-
         ((CheckBox) disableToastHeader.getLayout().findViewById(R.id.group_select_list_checkbox))
                 .setChecked(EpiTime.getInstance().getScheduleManager().getHasToastActive());
 
         disableToastHeader.addHeader(this.blacklist);
 
-        if(EpiTime.getInstance().getScheduleManager().getBlacklist().size() == 0) {
-            disableToastHeader.hideHeader();
-        }
+
+        this.noBlacklistHeader = new GroupListHeader(this.getLayoutInflater(),
+                R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
+                R.id.group_select_list_section_text);
+        this.noBlacklistHeader.setLongTitleText(getString(R.string.no_blacklisted_class));
+        this.noBlacklistHeader.addHeader(this.blacklist);
+
+        /*if(EpiTime.getInstance().getScheduleManager().getBlacklist(EpiTime.getInstance().getScheduleManager().getGroup()).size() > 0) {
+            this.noBlacklistHeader.hideHeader();
+        }*/
 
     }
 

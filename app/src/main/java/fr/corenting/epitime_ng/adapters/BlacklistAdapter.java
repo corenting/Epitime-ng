@@ -32,7 +32,7 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
     private GroupListHeader noBlacklistHeader;
 
     public BlacklistAdapter(GroupListHeader noBlacklistHeader) {
-        this.lecturesBlacklisted = EpiTime.getInstance().getScheduleManager().getBlacklist();
+        this.lecturesBlacklisted = EpiTime.getInstance().getScheduleManager().getBlacklist(EpiTime.getInstance().getScheduleManager().getGroup());
         this.inflater            = (LayoutInflater)EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.noBlacklistHeader   = noBlacklistHeader;
         this.items = new ArrayList<GroupItem>();
@@ -110,8 +110,7 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
     }
 
     private void onRemoveLecture(int index) {
-        EpiTime.getInstance().getScheduleManager().removeFromBlacklist(this.lecturesBlacklisted.get(index));
-        this.lecturesBlacklisted.remove(index);
+        EpiTime.getInstance().getScheduleManager().removeFromBlacklist(EpiTime.getInstance().getScheduleManager().getGroup(), this.lecturesBlacklisted.get(index));
         this.makeItems();
         this.notifyDataSetChanged();
 
