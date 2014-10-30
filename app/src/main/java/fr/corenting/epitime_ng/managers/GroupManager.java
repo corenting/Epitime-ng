@@ -1,22 +1,28 @@
 package fr.corenting.epitime_ng.managers;
 
-import fr.corenting.epitime_ng.EpiTime;
-import fr.corenting.epitime_ng.activities.DrawerActivity;
-import fr.corenting.epitime_ng.activities.GroupListActivity;
-import fr.corenting.epitime_ng.data.School;
-import fr.corenting.epitime_ng.tasks.QueryGroups;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.activities.DrawerActivity;
+import fr.corenting.epitime_ng.activities.GroupListActivity;
+import fr.corenting.epitime_ng.data.School;
+import fr.corenting.epitime_ng.tasks.QueryGroups;
+import fr.corenting.epitime_ng.utils.TinyDB;
+
 public class GroupManager {
 	
 	private final Map<String, School> groups = new HashMap<String, School>();
 	private final List<String> schoolNames = new ArrayList<String>();
-	
+
 	public GroupManager() {
-	}
+    }
 		
 	public List<String> getSchools() {
 		return schoolNames;
@@ -36,13 +42,20 @@ public class GroupManager {
             }
 
         }
-		this.reloadListViews();
+
+        //Put teachers and rooms on top of the list
+        schoolNames.remove("Enseignants");
+        schoolNames.remove("Salles");
+        schoolNames.add(schoolNames.size(), "Enseignants");
+        schoolNames.add(schoolNames.size(), "Salles");
+
+        this.reloadListViews();
         EpiTime.getInstance().updateWidget();
     }
 	
 	public void getGroups() {
-		new QueryGroups().execute("trainnees");
 		new QueryGroups().execute("instructors");
+        new QueryGroups().execute("trainnees");
 		new QueryGroups().execute("rooms");
 		this.reloadListViews();
 	}

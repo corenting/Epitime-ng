@@ -1,15 +1,19 @@
 package fr.corenting.epitime_ng.tasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.activities.DrawerActivity;
+import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.parser.chronos.ChronosRoomParser;
 import fr.corenting.epitime_ng.parser.chronos.ChronosSchoolsParser;
 import fr.corenting.epitime_ng.parser.chronos.ChronosTeacherParser;
 import fr.corenting.epitime_ng.utils.FileUtils;
 import fr.corenting.epitime_ng.utils.InternetUtils;
+import fr.corenting.epitime_ng.utils.TinyDB;
 import fr.corenting.epitime_ng.utils.UrlUtils;
 
 import org.w3c.dom.Document;
@@ -27,7 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class QueryGroups extends AsyncTask<String, String, String> {
 
-	private List<School> group;
+	private List<School> groups;
     private String groupName;
 
 	private static DocumentBuilder documentBuilder;
@@ -48,11 +52,24 @@ public class QueryGroups extends AsyncTask<String, String, String> {
 	@Override
 	protected String doInBackground(String... params) {
         this.groupName = params[0];
-		this.group = new ArrayList<School>();
+		this.groups = new ArrayList<School>();
+
 		
 		try                    { this.setGroup(this.groupName) ; }
 		catch (IOException e)  { return "IOException" ; }
 		catch (SAXException e) { return "SAXException"; }
+
+        Context c = EpiTime.getInstance();
+
+        TinyDB tinydb = new TinyDB(c);
+        List<String> FavoriteStringList = tinydb.getList(c.getString(R.string.tinydb_favorites));
+        List<GroupItem> favoritesGroups = new ArrayList<GroupItem>();
+        for(String favorite : FavoriteStringList)
+        {
+            favoritesGroups.add(new GroupItem(favorite));
+        }
+        School favoritesSchool = new School(EpiTime.getInstance().getString(R.string.Favorites), favoritesGroups);
+        groups.add(0,favoritesSchool);
 		
 		return "Ok";
 	}
@@ -61,7 +78,9 @@ public class QueryGroups extends AsyncTask<String, String, String> {
 	protected void onPostExecute(String result) {
 		--instances;
 		if(result.equals("Ok")) {
-			EpiTime.getInstance().getGroupManager().setGroup(this.group);
+            //Add favorite groups
+
+            EpiTime.getInstance().getGroupManager().setGroup(this.groups);
 			return;
 		}
 		
@@ -92,9 +111,9 @@ public class QueryGroups extends AsyncTask<String, String, String> {
 	void parseGroup(String group, InputStream is) throws SAXException, IOException {
 		Document xml = documentBuilder.parse(is);
 		
-		if(group.equals("instructors"))    { this.group.add(   new ChronosTeacherParser().parse(xml)); }
-		else if(group.equals("rooms"))     { this.group.add(   new ChronosRoomParser().parse(xml)); }
-		else if(group.equals("trainnees")) { this.group.addAll(new ChronosSchoolsParser().parse(xml)); }
+		if(group.equals("instructors"))    { this.groups.add(new ChronosTeacherParser().parse(xml)); }
+		else if(group.equals("rooms"))     { this.groups.add(new ChronosRoomParser().parse(xml)); }
+		else if(group.equals("trainnees")) { this.groups.addAll(new ChronosSchoolsParser().parse(xml)); }
 	}
 	
 	private void setGroupsFromInternet(String group) throws IOException, SAXException {

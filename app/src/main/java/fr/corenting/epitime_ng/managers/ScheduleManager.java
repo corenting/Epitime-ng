@@ -6,6 +6,7 @@ import android.util.SparseBooleanArray;
 import android.widget.Toast;
 
 import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
@@ -13,6 +14,7 @@ import fr.corenting.epitime_ng.parser.chronos.ChronosLectureParser;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
 import fr.corenting.epitime_ng.utils.FileUtils;
 import fr.corenting.epitime_ng.utils.SaveUtils;
+import fr.corenting.epitime_ng.utils.TinyDB;
 
 import org.w3c.dom.Document;
 
@@ -146,6 +148,7 @@ public class ScheduleManager {
         days.put(cal.get(Calendar.DAY_OF_YEAR), value);
     }
 
+
     public void setLectures(String group, Date date, Day value) {
 
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
@@ -170,6 +173,31 @@ public class ScheduleManager {
     public void addToBlackList(String lecture) {
         this.lectureBlacklisted.add(lecture);
         this.saveBlackList();
+    }
+
+    public boolean isFavoriteGroup(String group) {
+        TinyDB tinyDB = new TinyDB(context);
+        List<String> favorites = tinyDB.getList(context.getString(R.string.tinydb_favorites));
+        for (String favoritesGroup : favorites) {
+            if (favoritesGroup.equals(group)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addFavoriteGroup(String group) {
+        TinyDB tinyDB = new TinyDB(context);
+        List<String> favorites = tinyDB.getList(context.getString(R.string.tinydb_favorites));
+        favorites.add(group);
+        tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<String>(favorites));
+    }
+
+    public void removeFavoriteGroup(String group) {
+        TinyDB tinyDB = new TinyDB(context);
+        List<String> favorites = tinyDB.getList(context.getString(R.string.tinydb_favorites));
+        favorites.remove(group);
+        tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<String>(favorites));
     }
 
     public boolean isLectureBlacklisted(String lecture) {

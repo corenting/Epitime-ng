@@ -62,10 +62,8 @@ public class GroupListActivity extends DrawerActivity {
 		this.searchHeader    .hideHeader();
 		
 		School school = this.groupManager.getSchool(this.school);
-        if (school != null && school.groups != null && school.groups.size() != 0) {
-            this.searchHeader.showHeader();
-            this.menuTitle.setTitleBarClosed(this.school);
-        }
+        this.searchHeader.showHeader();
+        this.menuTitle.setTitleBarClosed(this.school);
         this.adapter = new GroupListAdapter(school);
 		this.groupList.setAdapter(this.adapter);
 		this.searchInputListener.setAdapter(this.adapter);

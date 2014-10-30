@@ -34,7 +34,7 @@ public class DrawerListAdapter extends BaseAdapter {
        
 		this.schoolsIcon.put("Enseignants", R.drawable.teacher);
 		this.schoolsIcon.put("Salles", R.drawable.room);
-
+        this.schoolsIcon.put("Favoris", R.drawable.ic_action_important);
 		this.schoolsIcon.put("EPITA", R.drawable.epita);
 		this.schoolsIcon.put("EPITECH", R.drawable.epitech);
 		this.schoolsIcon.put("IPSA", R.drawable.ipsa);

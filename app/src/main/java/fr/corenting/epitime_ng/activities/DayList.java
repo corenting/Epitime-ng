@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.internal.view.menu.ActionMenuItemView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.security.acl.Group;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.ViewPagerAdapter;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
+import fr.corenting.epitime_ng.utils.TinyDB;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
 public class DayList extends DrawerActivity {
@@ -42,6 +45,7 @@ public class DayList extends DrawerActivity {
         this.setUp();
 
         this.menuTitle.setTitleBarClosed(this.manager.getGroup());
+
     }
 
 
@@ -50,7 +54,6 @@ public class DayList extends DrawerActivity {
         this.getMenuInflater().inflate(R.menu.day_list, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     private void initMemberVariables() {
         this.manager = EpiTime.getInstance().getScheduleManager();
@@ -72,6 +75,7 @@ public class DayList extends DrawerActivity {
         this.pager.setAdapter(this.adapter);
         this.pager.setOffscreenPageLimit(2);
         this.manager.requestLectures(true, -1, 0, 1);
+
     }
 
     @Override
@@ -96,14 +100,49 @@ public class DayList extends DrawerActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem favoriteButton = menu.getItem(0);
+
+        if(manager.isFavoriteGroup(manager.getGroup())) {
+
+            favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_important));
+
+        }
+        else
+        {
+            favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_not_important));
+        }
+
+        groupManager.getGroups();
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_blacklist:
                 this.onMenuItemBlacklistClick();
                 return true;
+            case R.id.menu_item_favorite:
+                this.onMenuItemFavoriteCLick();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void onMenuItemFavoriteCLick() {
+        String group = this.manager.getGroup();
+        ActionMenuItemView favoriteButton = (ActionMenuItemView) findViewById(R.id.menu_item_favorite);
+
+        if(manager.isFavoriteGroup(group)) {
+            //favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_not_important));
+            manager.removeFavoriteGroup(group);
+        }
+        else {
+            //favoriteButton.setIcon(getResources().getDrawable(R.drawable.ic_action_important));
+            manager.addFavoriteGroup(group);
+        }
+        invalidateOptionsMenu();
     }
 
     private void onMenuItemBlacklistClick() {

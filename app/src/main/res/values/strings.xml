@@ -48,4 +48,7 @@
     <string name="Teachers">Enseignants</string>
     <string name="validate">Valider</string>
     <string name="connection_required">Connexion à Internet requise</string>
+    <string name="favorite_add">Ajouter aux favoris</string>
+    <string name="Favorites">Favoris</string>
+    <string name="tinydb_favorites">favoritesList</string>
 </resources>
