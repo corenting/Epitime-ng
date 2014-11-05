@@ -3,6 +3,7 @@ package fr.corenting.epitime_ng.data;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -119,8 +120,7 @@ public class GroupItem implements Serializable, Parcelable, Comparable {
         generator.newSeed(seed);
     }
 
-	public String getShortTitle()    { return this.shortTitle;       }
-	public String getLongTitle()     { return this.longTitle;        }
+    public String getLongTitle()     { return this.longTitle;        }
     public int getShortColor()       { return this.shortColor;       }
     public int getShortColorShadow() { return this.shortColorShadow; }
 
@@ -132,7 +132,7 @@ public class GroupItem implements Serializable, Parcelable, Comparable {
     public void setShortColorShadow(String shortColor)        { this.shortColorShadow = Color.parseColor(shortColor); }
 
     @Override
-    public int compareTo(Object another) {
+    public int compareTo(@NonNull Object another) {
         if(another instanceof GroupItem) {
             return this.longTitle.compareTo(((GroupItem) another).getLongTitle());
         }

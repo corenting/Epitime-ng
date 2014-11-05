@@ -2,21 +2,13 @@ package fr.corenting.epitime_ng.data;
 
 import java.util.Random;
 
-/**
- * Created by KingGreed on 08/06/2014.
- */
 public class FlatUIColor {
 
     private Random rn;
     private int currentColor = 0;
 
-    private final String[] flatUiColors       = {"#f39c12", "#d35400", "#7f8c8d", "#c0392b", "#8e44ad", "#16a085", "#2980b9", "#27ae60"};
-    private final String[] flatUiColorsShadow = {"#cf850f", "#ba4a00", "#677273", "#992d22", "#6d3485", "#12806a", "#1c5880", "#1d8046"};
-
-    public FlatUIColor() {
-        this.newRandomSeed();
-        this.nextRandomColor();
-    }
+    private final String[] flatUiColors = {"#ffc107", "#ff5722", "#9e9e9e", "#f44336", "#9c27b0", "#009688", "#2196f3", "#4caf50", "#607d8b", "#00bcd4", "#3f51b5"};
+    private final String[] flatUiColorsShadow = {"#ff8f00", "#d84315", "#424242", "#c62828", "#6a1b9a", "#00695c", "#1565c0", "#2e7d32", "#37474f", "#00838f", "#283593"};
 
     public FlatUIColor(int seed) {
         this.newSeed(seed);
@@ -46,6 +38,4 @@ public class FlatUIColor {
     public String getShadowColor() {
         return this.flatUiColorsShadow[this.currentColor];
     }
-
-
 }

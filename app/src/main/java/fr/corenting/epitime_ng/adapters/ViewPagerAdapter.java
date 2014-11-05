@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-	
-	private List<Day> pages;
+
+    private List<Day> pages;
     private int currentDayIndex;
     private DayListFragment[] fragments = new DayListFragment[3];
 
@@ -24,12 +24,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.pages = days;
     }
-	
-	public void setPagesWithDays(List<Day> days) {
-		this.pages = days;
+
+    public void setPagesWithDays(List<Day> days) {
+        this.pages = days;
 
         for (int i = 0; i < days.size(); ++i) {
-            if(this.fragments[i] == null) {
+            if (this.fragments[i] == null) {
                 this.makeFragment(i, this.pages.get(i));
             } else {
                 this.fragments[i].updateFragment(days.get(i));
@@ -49,25 +49,21 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public int getBlacklistSize(int index) {
-
-
-        if(this.pages.size() <= index) {
+        if (this.pages.size() <= index) {
             return 0;
         }
-
         int num = 0;
-        if(this.pages.get(index) == null || this.pages.get(index).lectures == null)
+        if (this.pages.get(index) == null || this.pages.get(index).lectures == null)
             return -1;
-        if(this.pages.get(index).lectures.size() == 1 && this.pages.get(index).lectures.get(0).isMessage) {
+        if (this.pages.get(index).lectures.size() == 1 && this.pages.get(index).lectures.get(0).isMessage) {
             return -1; // should not display toast for messages
         }
 
-        for(Lecture l : this.pages.get(index).lectures) {
-            if(EpiTime.getInstance().getScheduleManager().isLectureBlacklisted(l.title,EpiTime.getInstance().getScheduleManager().getGroup())) {
+        for (Lecture l : this.pages.get(index).lectures) {
+            if (EpiTime.getInstance().getScheduleManager().isLectureBlacklisted(l.title, EpiTime.getInstance().getScheduleManager().getGroup())) {
                 ++num;
             }
         }
-
         return num;
     }
 
@@ -80,10 +76,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(this.fragments[position] == null) {
+        if (this.fragments[position] == null) {
             this.makeFragment(position, this.pages.get(position));
         }
-
         return this.fragments[position];
     }
 

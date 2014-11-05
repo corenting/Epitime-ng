@@ -48,9 +48,9 @@ public class BlackListActivity extends DrawerActivity {
         this.noBlacklistHeader.setLongTitleText(getString(R.string.no_blacklisted_class));
         this.noBlacklistHeader.addHeader(this.blacklist);
 
-        /*if(EpiTime.getInstance().getScheduleManager().getBlacklist(EpiTime.getInstance().getScheduleManager().getGroup()).size() > 0) {
+        if(EpiTime.getInstance().getScheduleManager().getBlacklist(EpiTime.getInstance().getScheduleManager().getGroup()).size() > 0) {
             this.noBlacklistHeader.hideHeader();
-        }*/
+        }
 
     }
 

@@ -90,10 +90,8 @@ public class DayList extends DrawerActivity {
 
     @SuppressWarnings("SameParameterValue")
     void refreshPageViewer(boolean force) {
-
         this.manager.requestLectures(force, -1, 0, 1);
         this.updateAdapter();
-
     }
 
     @Override
@@ -131,7 +129,6 @@ public class DayList extends DrawerActivity {
 
     private void onMenuItemFavoriteCLick() {
         String group = this.manager.getGroup();
-        ActionMenuItemView favoriteButton = (ActionMenuItemView) findViewById(R.id.menu_item_favorite);
 
         if (manager.isFavoriteGroup(group)) {
             manager.removeFavoriteGroup(group);
@@ -154,7 +151,7 @@ public class DayList extends DrawerActivity {
         this.manager.addToCalendar(offset);
 
         this.manager.requestLectures(false, 1, 0, -1);
-        this.updateAdapter();
+        this.refreshPageViewer(true);
 
     }
 
@@ -162,13 +159,8 @@ public class DayList extends DrawerActivity {
         if (this.pagerScrollState != ViewPager.SCROLL_STATE_IDLE) {
             return;
         }
-        int num = this.adapter.getCount();
         this.adapter.setPagesWithDays(days);
-
-        if (num != this.adapter.getCount()) {
-            this.adapter.notifyDataSetChanged();
-        }
-
+        this.adapter.notifyDataSetChanged();
         this.pager.setCurrentItem(1, false);
         this.pageChangeListener.offset = 0;
     }

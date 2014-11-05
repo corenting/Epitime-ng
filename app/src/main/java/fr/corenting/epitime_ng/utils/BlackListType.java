@@ -22,7 +22,8 @@ public class BlackListType {
 
     public List<String> getBlacklistedLectures(String group)
     {
-        return values.get(group);
+        List<String> ret = values.get(group);
+        return ret != null ? ret : new LinkedList<String>();
     }
 
 
