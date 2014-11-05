@@ -45,27 +45,27 @@ public class EpitimeWidgetProvider extends AppWidgetProvider {
 
 
         // update each of the widgets with the remote adapter
-        for (int i = 0; i < appWidgetIds.length; ++i) {
+        for (int appWidgetId : appWidgetIds) {
 
 
-            Intent intent  = new Intent(context, LectureWidgetService.class);
+            Intent intent = new Intent(context, LectureWidgetService.class);
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_lecture_list);
 
-            String day  = new SimpleDateFormat("EEEE dd MMMM yyyy", Locale.FRANCE).format(this.manager.getDay());
-            day         = day.substring(0, 1).toUpperCase(Locale.FRANCE) + day.substring(1);
+            String day = new SimpleDateFormat("EEEE dd MMMM yyyy", Locale.FRANCE).format(this.manager.getDay());
+            day = day.substring(0, 1).toUpperCase(Locale.FRANCE) + day.substring(1);
 
             rv.setTextViewText(R.id.widget_lecture_group_title, this.manager.getGroup().equals(ScheduleManager.defaultGroup) ?
                     "Pas de groupe" : this.manager.getGroup());
             rv.setTextViewText(R.id.widget_lecture_day, day);
 
-            rv.setRemoteAdapter(appWidgetIds[i], R.id.widget_lecture_list, intent);
+            rv.setRemoteAdapter(appWidgetId, R.id.widget_lecture_list, intent);
 
-            Intent configIntent               = new Intent(context, StartActivity.class);
+            Intent configIntent = new Intent(context, StartActivity.class);
             PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
 
             rv.setPendingIntentTemplate(R.id.widget_lecture_list, configPendingIntent);
 
-            appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
+            appWidgetManager.updateAppWidget(appWidgetId, rv);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
