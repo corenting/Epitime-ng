@@ -118,10 +118,13 @@ public class DayList extends DrawerActivity {
                 return true;
             case R.id.menu_item_favorite:
                 this.onMenuItemFavoriteCLick();
+                return true;
             case R.id.menu_item_previous_week:
                 this.dayChanged(-7);
+                return true;
             case R.id.menu_item_next_week:
                 this.dayChanged(+7);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
