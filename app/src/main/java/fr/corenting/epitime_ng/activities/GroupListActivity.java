@@ -79,7 +79,7 @@ public class GroupListActivity extends DrawerActivity {
     private void addHeaders() {
 
         this.searchHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_search, R.id.group_select_list_section_short_image,
+                R.layout.group_select_list_item_search,
                 R.id.group_select_list_section_input);
         EditText search = (EditText) this.searchHeader.longTitle;
         this.searchInputListener = new InputListener(this.adapter);

@@ -33,8 +33,8 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
 
     public BlacklistAdapter(GroupListHeader noBlacklistHeader) {
         this.lecturesBlacklisted = EpiTime.getInstance().getScheduleManager().getBlacklist(EpiTime.getInstance().getScheduleManager().getGroup());
-        this.inflater            = (LayoutInflater)EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.noBlacklistHeader   = noBlacklistHeader;
+        this.inflater = (LayoutInflater) EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.noBlacklistHeader = noBlacklistHeader;
         this.items = new ArrayList<GroupItem>();
 
         this.makeItems();
@@ -68,33 +68,28 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
 
     @Override
     public View getView(int index, View convertView, ViewGroup parent) {
-        View view = convertView == null ? inflater.inflate(R.layout.group_select_list_item_image, null) : convertView;
+        View view = convertView == null ? inflater.inflate(R.layout.group_select_list_item, null) : convertView;
 
         GroupItem item = this.items.get(index);
 
-        ImageView iv = (ImageView)view.findViewById(R.id.group_select_list_section_short_image);
-        TextView  tv = (TextView)view.findViewById(R.id.group_select_list_section_text);
+        TextView tv = (TextView) view.findViewById(R.id.group_select_list_section_long);
 
-        iv.setImageResource(R.drawable.ic_action_cancel);
         tv.setText(item.getLongTitle());
 
-        iv.setTag(index); iv.setOnClickListener(this);
-
-        GroupListAdapter.setBackground((LayerDrawable)iv.getBackground(), item.getShortColor(), item.getShortColorShadow());
+        tv.setTag(index);
+        tv.setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.group_select_list_section_short_image: this.onCancelClick((Integer)v.getTag()); break;
-            default: break;
-        }
+        this.onCancelClick((Integer) v.getTag());
     }
 
+
     private void onCancelClick(int index) {
-        Activity context = (Activity)EpiTime.getInstance().getCurrentActivity();
+        Activity context = (Activity) EpiTime.getInstance().getCurrentActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setPositiveButton(context.getString(R.string.validate), new RemoveLectureListener(index));
@@ -114,7 +109,7 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
         this.makeItems();
         this.notifyDataSetChanged();
 
-        if(this.lecturesBlacklisted.size() == 0) {
+        if (this.lecturesBlacklisted.size() == 0) {
             this.noBlacklistHeader.showHeader();
         }
     }

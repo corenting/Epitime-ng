@@ -34,8 +34,8 @@ public class BlackListActivity extends DrawerActivity {
     private void addHeaders() {
 
         this.noBlacklistHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
-                R.id.group_select_list_section_text);
+                R.layout.group_select_list_item,
+                R.id.group_select_list_section_long);
         this.noBlacklistHeader.setLongTitleText(getString(R.string.no_blacklisted_class));
         this.noBlacklistHeader.addHeader(this.blacklist);
 
