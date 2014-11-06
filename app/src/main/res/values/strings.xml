@@ -56,4 +56,5 @@
     <string name="today">Aujourd\'hui</string>
     <string name="favorite_deleted">" supprimé des favoris"</string>
     <string name="favorite_added">" ajouté aux favoris"</string>
+    <string name="settings">Paramètres</string>
 </resources>

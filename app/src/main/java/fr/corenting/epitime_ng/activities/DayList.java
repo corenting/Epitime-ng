@@ -15,6 +15,7 @@ import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.ViewPagerAdapter;
 import fr.corenting.epitime_ng.data.Day;
+import fr.corenting.epitime_ng.fragments.SettingsFragment;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
@@ -114,7 +115,10 @@ public class DayList extends DrawerActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_blacklist:
-                this.onMenuItemBlacklistClick();
+                this.startActivity(new Intent(this, BlackListActivity.class));
+                return true;
+            case R.id.menu_item_settings:
+                this.startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.menu_item_favorite:
                 this.onMenuItemFavoriteCLick();
@@ -141,10 +145,6 @@ public class DayList extends DrawerActivity {
             ToastMaker.makeToast(group + getString(R.string.favorite_added));
         }
         invalidateOptionsMenu();
-    }
-
-    private void onMenuItemBlacklistClick() {
-        this.startActivity(new Intent(this, BlackListActivity.class));
     }
 
     void dayChanged(int offset) {

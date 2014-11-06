@@ -1,15 +1,12 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
-    <color name="group_background">#1d8046</color>
     <color name="list_background">#323a45</color>
-    <color name="group_background_pressed">#27ae60</color>
     <color name="date_background">#91a7ff</color>
     <color name="date_background_pressed">#d13e2f</color>
     
 	<color name="drawer_list_background">#303030</color>
 	<color name="list_background_pressed">#992416</color>
-
 	<color name="drawerlist_color">#eaedf2</color>
 	<color name="drawerlist_transparent">#00eaedf2</color>
 </resources>
