@@ -12,9 +12,7 @@ import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.parser.chronos.ChronosLectureParser;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
-import fr.corenting.epitime_ng.utils.BlackListType;
 import fr.corenting.epitime_ng.utils.FileUtils;
-import fr.corenting.epitime_ng.utils.SaveUtils;
 import fr.corenting.epitime_ng.utils.TinyDB;
 
 import org.w3c.dom.Document;
@@ -33,7 +31,7 @@ import java.util.Map;
 public class ScheduleManager {
 
     private final Context context;
-    private BlackListType lectureBlacklisted = new BlackListType();
+    private BlacklistManager lectureBlacklisted = new BlacklistManager();
     private final Calendar selectedDate;
     private final Map<String, SparseArray<Day>> lectures = new HashMap<String, SparseArray<Day>>();
     private static final Date FIRST_WEEK;

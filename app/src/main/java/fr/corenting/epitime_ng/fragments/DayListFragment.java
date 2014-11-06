@@ -50,8 +50,6 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         this.initMemberVariables(inflater, container);
         this.setup();
         this.setListeners();
-
-
         return view;
     }
 

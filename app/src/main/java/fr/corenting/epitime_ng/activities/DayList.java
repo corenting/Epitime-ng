@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.internal.view.menu.ActionMenuItemView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,9 +14,10 @@ import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.ViewPagerAdapter;
 import fr.corenting.epitime_ng.data.Day;
-import fr.corenting.epitime_ng.fragments.SettingsFragment;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.utils.ToastMaker;
+
+
 
 public class DayList extends DrawerActivity {
 

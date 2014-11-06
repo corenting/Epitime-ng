@@ -23,8 +23,6 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LectureWidgetService extends RemoteViewsService {
 
-
-
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new LectureWidgetFactory(this.getApplicationContext());

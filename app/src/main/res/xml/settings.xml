@@ -4,8 +4,8 @@
         android:title="@string/blacklist">
         <CheckBoxPreference
             android:key="hasToastActive"
-            android:summary="Afficher une notification lorsque la journée comporte des cours ignorés"
-            android:title="Avertir des cours blacklistés"
+            android:summary="@string/settings_blacklist_summary"
+            android:title="@string/settings_blacklist_title"
             android:defaultValue="true"
             />
     </PreferenceCategory>
