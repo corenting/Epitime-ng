@@ -57,4 +57,6 @@
     <string name="favorite_deleted">" supprimé des favoris"</string>
     <string name="favorite_added">" ajouté aux favoris"</string>
     <string name="settings">Paramètres</string>
+    <string name="about">À propos</string>
+    <string name="about_text">Epitime-ng est un fork créé par corenting de l\'application Epitime créée par Greed.\n</string>
 </resources>

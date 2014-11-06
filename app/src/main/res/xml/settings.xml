@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:key="hasToastActive"
-        android:summary="Afficher une notification lorsque la journée comporte des cours ignorés"
-        android:title="Avertir des cours blacklistés"
-        android:defaultValue="true"
-        />
+    <PreferenceCategory
+        android:title="@string/blacklist">
+        <CheckBoxPreference
+            android:key="hasToastActive"
+            android:summary="Afficher une notification lorsque la journée comporte des cours ignorés"
+            android:title="Avertir des cours blacklistés"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/app_name">
+        <Preference
+            android:title="@string/about"
+            android:key="@string/about"/>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -32,15 +32,6 @@ public class BlackListActivity extends DrawerActivity {
     }
 
     private void addHeaders() {
-        GroupListHeader disableToastHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_checkbox, R.id.group_select_list_section_checkbox_layout,
-                R.id.group_select_list_connecting_text);
-        disableToastHeader.setLongTitleText(getString(R.string.activate_toast));
-        ((CheckBox) disableToastHeader.getLayout().findViewById(R.id.group_select_list_checkbox))
-                .setChecked(EpiTime.getInstance().getScheduleManager().getHasToastActive());
-
-        disableToastHeader.addHeader(this.blacklist);
-
 
         this.noBlacklistHeader = new GroupListHeader(this.getLayoutInflater(),
                 R.layout.group_select_list_item_image, R.id.group_select_list_section_short_image,
