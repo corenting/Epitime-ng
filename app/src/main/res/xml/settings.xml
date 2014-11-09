@@ -12,6 +12,10 @@
     <PreferenceCategory
         android:title="@string/app_name">
         <Preference
+            android:title="@string/settings_delete_cache_title"
+            android:summary="@string/settings_delete_cache_summary"
+            android:key="@string/settings_delete_cache_title"/>
+        <Preference
             android:title="@string/about"
             android:key="@string/about"/>
     </PreferenceCategory>

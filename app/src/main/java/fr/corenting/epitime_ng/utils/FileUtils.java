@@ -7,10 +7,31 @@ import fr.corenting.epitime_ng.tasks.CacheLecturesTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class FileUtils {
+
+    public static boolean deleteAllFiles() {
+        try {
+            Context curr = EpiTime.getInstance().getCurrentActivity();
+            File dir = curr.getFilesDir();
+            File[] subFiles = dir.listFiles();
+            Boolean ret = true;
+
+            if (subFiles != null && subFiles.length > 0) {
+                for (File file : subFiles) {
+                    if (!file.delete()) {
+                        ret = false;
+                    }
+                }
+            }
+            return ret;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 	
 	//Returns an InputStream to the file. Can be null if file isn't available
 	public static InputStream getFromFile(String filename) throws IOException {

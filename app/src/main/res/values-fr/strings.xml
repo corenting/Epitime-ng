@@ -17,12 +17,12 @@
     <string name="choose_school">Choisissez une école</string>
     <string name="blacklist">Blacklist</string>
     <string name="ok">OK</string>
-    <string name="ignore_class">Blacklister ce cours</string>
-    <string name="teacher">&lt;b>Enseignant : &lt;/b></string>
-    <string name="schedule">&lt;b>Horaires : &lt;/b></string>
-    <string name="group">&lt;b>Groupe : &lt;/b></string>
-    <string name="Room">&lt;b>"Salle : &lt;/b></string>
-    <string name="Rooms">&lt;b>"Salles : &lt;/b></string>
+    <string name="details_ignore_class">Blacklister ce cours</string>
+    <string name="details_teacher">&lt;b>Enseignant : &lt;/b></string>
+    <string name="details_schedule">&lt;b>Horaires : &lt;/b></string>
+    <string name="details_group">&lt;b>Groupe : &lt;/b></string>
+    <string name="details_room">&lt;b>"Salle : &lt;/b></string>
+    <string name="details_rooms">&lt;b>"Salles : &lt;/b></string>
     <string name="no_blacklisted_class">Aucun cours ignoré</string>
     <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion.</string>
     <string name="chronos_error">Erreur Chronos</string>
@@ -47,4 +47,11 @@
     <string name="settings">Paramètres</string>
     <string name="settings_blacklist_summary">Afficher une notification lorsque la journée comporte des cours blacklistés</string>
     <string name="settings_blacklist_title">Avertir des cours blacklistés</string>
+    <string name="Rooms">Salles</string>
+    <string name="Teachers">Enseignants</string>
+    <string name="settings_delete_cache_title">Supprimer le cache</string>
+    <string name="settings_delete_cache_summary">Cela va supprimer toutes les données du cache (groupes, emplois du temps...)</string>
+    <string name="settings_delete_cache_dialog">Êtes-vous sûr de vouloir supprimer le cache ?</string>
+    <string name="settings_cache_fail">Erreur lors de la suppression du cache</string>
+    <string name="settings_cache_success">Cache supprimé avec succès</string>
 </resources>

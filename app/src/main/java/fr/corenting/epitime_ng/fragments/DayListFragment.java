@@ -117,16 +117,16 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             String dialogText = "";
             if (item.instructor.length() > 0)
-                dialogText = context.getString(string.teacher) + item.instructor + "<br />";
-            dialogText += context.getString(string.schedule) + item.getBegin() + "-" + item.getEnd();
+                dialogText = context.getString(string.details_teacher) + item.instructor + "<br />";
+            dialogText += context.getString(string.details_schedule) + item.getBegin() + "-" + item.getEnd();
             if (item.getTrainee(", ").length() > 0)
-                dialogText += "<br />" + context.getString(string.group) + item.getTrainee(", ");
+                dialogText += "<br />" + context.getString(string.details_group) + item.getTrainee(", ");
             if (item.getRoom(", ").length() > 0) {
-                dialogText += item.getRoom(", ").length() > 1 ? "<br />" + context.getString(string.Rooms) + item.getRoom(", ") : "<br />" + context.getString(string.Room) + item.getRoom(", ");
+                dialogText += item.getRoom(", ").length() > 1 ? "<br />" + context.getString(string.details_rooms) + item.getRoom(", ") : "<br />" + context.getString(string.details_room) + item.getRoom(", ");
             }
 
             builder.setPositiveButton(context.getString(string.ok), null);
-            builder.setNeutralButton(context.getString(string.ignore_class), new onBlacklistClick());
+            builder.setNeutralButton(context.getString(string.details_ignore_class), new onBlacklistClick());
             builder.setMessage(Html.fromHtml(dialogText));
             builder.setTitle(item.title);
 

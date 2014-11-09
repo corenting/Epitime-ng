@@ -50,7 +50,6 @@ public class GroupItem implements Serializable, Parcelable, Comparable {
 		this.setShortColorShadow(in.readInt());
     }
 
-    @SuppressWarnings("unused")
     public GroupItem(String longTitle, String shortColor, String shortColorShadow) {
     	this.shortTitle = "";
 		this.longTitle = longTitle;
@@ -102,7 +101,6 @@ public class GroupItem implements Serializable, Parcelable, Comparable {
         this.setShortColorShadow(generator.getShadowColor());
 	}
 
-    @SuppressWarnings("unused")
 	public GroupItem(String shortTitle, String longTitle, String shortColor, String shortColorShadow) {
         this.setShortTitle(shortTitle);
         this.setLongTitle(longTitle);
@@ -111,18 +109,11 @@ public class GroupItem implements Serializable, Parcelable, Comparable {
 		this.setShortColorShadow(shortColorShadow);
 	}
 
-    @SuppressWarnings("unused")
-    public static void newRandomSeedColor() {
-        generator.newRandomSeed();
-    }
-
     public static void newSeedColor(int seed) {
         generator.newSeed(seed);
     }
 
     public String getLongTitle()     { return this.longTitle;        }
-    public int getShortColor()       { return this.shortColor;       }
-    public int getShortColorShadow() { return this.shortColorShadow; }
 
     public void setShortTitle(String shortTitle)              { this.shortTitle       = shortTitle;                   }
     public void setLongTitle(String longTitle)                { this.longTitle        = longTitle;                    }

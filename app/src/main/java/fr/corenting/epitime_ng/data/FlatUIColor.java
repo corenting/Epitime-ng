@@ -15,10 +15,6 @@ public class FlatUIColor {
         this.nextRandomColor();
     }
 
-    public void newRandomSeed() {
-        this.rn = new Random();
-    }
-
     public void newSeed(int seed) {
         this.rn = new Random(seed);
     }

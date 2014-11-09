@@ -31,10 +31,11 @@ public class DrawerListAdapter extends BaseAdapter {
 	public DrawerListAdapter(List<String> schools) {
 		this.schools = schools;
 		this.inflater = (LayoutInflater)EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Context context = EpiTime.getInstance();
        
-		this.schoolsIcon.put("Enseignants", R.drawable.teacher);
-		this.schoolsIcon.put("Salles", R.drawable.room);
-        this.schoolsIcon.put("Favoris", R.drawable.ic_action_important);
+		this.schoolsIcon.put(context.getString(R.string.Teachers), R.drawable.teacher);
+		this.schoolsIcon.put(context.getString(R.string.Rooms), R.drawable.room);
+        this.schoolsIcon.put(context.getString(R.string.Favorites), R.drawable.ic_action_important);
 		this.schoolsIcon.put("EPITA", R.drawable.epita);
 		this.schoolsIcon.put("EPITECH", R.drawable.epitech);
 		this.schoolsIcon.put("IPSA", R.drawable.ipsa);

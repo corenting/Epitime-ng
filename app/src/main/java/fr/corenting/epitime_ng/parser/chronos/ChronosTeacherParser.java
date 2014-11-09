@@ -1,5 +1,9 @@
 package fr.corenting.epitime_ng.parser.chronos;
 
+import android.content.Context;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
 
@@ -21,7 +25,7 @@ public class ChronosTeacherParser {
 			String name = n.getFirstChild().getNodeValue();
 			groups.add(new GroupItem(name, (int)name.toUpperCase().charAt(0)));
 		}
-		
-		return new School("Enseignants", groups);
+
+		return new School(EpiTime.getInstance().getString(R.string.Teachers), groups);
 	}
 }

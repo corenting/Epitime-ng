@@ -43,11 +43,12 @@ public class GroupManager {
 
         }
 
+        Context context = EpiTime.getInstance();
         //Put teachers and rooms on top of the list
-        schoolNames.remove("Enseignants");
-        schoolNames.remove("Salles");
-        schoolNames.add(schoolNames.size(), "Enseignants");
-        schoolNames.add(schoolNames.size(), "Salles");
+        schoolNames.remove(context.getString(R.string.Teachers));
+        schoolNames.remove(context.getString(R.string.Rooms));
+        schoolNames.add(schoolNames.size(), context.getString(R.string.Teachers));
+        schoolNames.add(schoolNames.size(), context.getString(R.string.Rooms));
 
         this.reloadListViews();
         EpiTime.getInstance().updateWidget();

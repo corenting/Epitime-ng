@@ -78,8 +78,6 @@ public class QueryGroups extends AsyncTask<String, String, String> {
 	protected void onPostExecute(String result) {
 		--instances;
 		if(result.equals("Ok")) {
-            //Add favorite groups
-
             EpiTime.getInstance().getGroupManager().setGroup(this.groups);
 			return;
 		}

@@ -1,5 +1,7 @@
 package fr.corenting.epitime_ng.parser.chronos;
 
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.utils.ParserUtils;
@@ -15,7 +17,7 @@ public class ChronosRoomParser {
 	private final School result;
 	
 	public ChronosRoomParser() {
-		this.result = new School("Salles", new ArrayList<GroupItem>());
+		this.result = new School(EpiTime.getInstance().getString(R.string.Rooms), new ArrayList<GroupItem>());
 	}
 	
 	public School parse(Document xml) {
