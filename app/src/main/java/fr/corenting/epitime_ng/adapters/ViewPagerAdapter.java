@@ -17,7 +17,6 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Day> pages;
-    private int currentDayIndex;
     private DayListFragment[] fragments = new DayListFragment[3];
 
     public ViewPagerAdapter(FragmentManager fm, List<Day> days) {
@@ -42,7 +41,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         Bundle args = new Bundle();
         args.putParcelable("Day", d);
-        currentDayIndex = position - 1;
+        int currentDayIndex = position - 1;
         args.putInt("DateOffset", currentDayIndex);
 
         this.fragments[position].setArguments(args);

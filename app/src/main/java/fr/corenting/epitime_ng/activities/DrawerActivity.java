@@ -221,11 +221,6 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			if(EpiTime.getInstance().hasInternet()) {
 				DrawerActivity.this.groupManager.getGroups();
 			} else {
-				
-				if(DrawerActivity.this instanceof GroupListActivity) {
-					GroupListActivity context = (GroupListActivity) DrawerActivity.this;
-				}
-				
 				Handler handler   = new Handler ();
 		    	Runnable runnable = new Runnable() { 
 		    		public void run() { 
@@ -236,8 +231,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			        		 GroupListActivity context = (GroupListActivity) DrawerActivity.this;
 						}
 			         } 
-			    }; 
-
+			    };
 				handler.postDelayed(runnable, 450);
 			}
 			

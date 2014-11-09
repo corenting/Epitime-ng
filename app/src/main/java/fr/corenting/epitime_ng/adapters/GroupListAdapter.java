@@ -2,7 +2,6 @@ package fr.corenting.epitime_ng.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,19 +25,8 @@ public class GroupListAdapter extends BaseAdapter {
 	
 	private LayoutInflater inflater = null;
 	private int previousConstraintLenght = -1;
-	
-	public GroupListAdapter(List<GroupItem> groups) {
-		if(groups != null) {
-			this.groups = groups;
-			this.groupsSelected = groups;
-		} else {
-			this.groups = new ArrayList<GroupItem>();
-			this.groupsSelected = new ArrayList<GroupItem>();
-		}
-		this.inflater = (LayoutInflater)EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
-	
-	public GroupListAdapter(School school) {
+
+    public GroupListAdapter(School school) {
 		if(school != null) {
 			this.groups = school.groups;
 			this.groupsSelected = school.groups;
@@ -131,13 +119,5 @@ public class GroupListAdapter extends BaseAdapter {
 
 		return view;
 	}
-	
-	public static void setBackground(LayerDrawable ld, String shortColor, String shortColorShadow) {
-		setBackground(ld, Color.parseColor(shortColor), Color.parseColor(shortColorShadow));
-	}
 
-    //TODO : remove
-    public static void setBackground(LayerDrawable ld, int shortColor, int shortColorShadow) {
-	}
-	
 }

@@ -1,65 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">EpiTime-ng</string>
-    <string name="preference_file_key">fr.corenting.epitime_ng.data</string>
-
-    <string name="api_url">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;num={3}&amp;group={1}&amp;week={2}</string>
-    <string name="api_key">3piko</string>
-
-    <string name="api_groups">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;getMenu={1}</string>
-
-    <string name="group_selection">Choisissez Votre Groupe</string>
+    <string name="app_name" translatable="false">EpiTime-ng</string>
+    <string name="preference_file_key" translatable="false">fr.corenting.epitime_ng.data</string>
+    <string name="api_url" translatable="false">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;num={3}&amp;group={1}&amp;week={2}</string>
+    <string name="api_key" translatable="false">3piko</string>
+    <string name="api_groups" translatable="false">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;getMenu={1}</string>
 
 
-    <string name="search">Rechercher</string>
+    <string name="group_selection">Choose your group</string>
+    <string name="search">Search</string>
 
-    <string name="drawer_open">Ouvrir le menu de navigation</string>
-    <string name="drawer_close">Fermer le menu de navigation</string>
+    <string name="drawer_open">Open the navigation drawer</string>
+    <string name="drawer_close">Close the navigation drawer</string>
 
-    <string name="no_internet">Connexion à Internet impossible</string>
-    <string name="loading">Chargement en cours…</string>
-
-    <string name="dialog_lecture_dots">" : "</string>
+    <string name="no_internet">Can not connect to Internet</string>
+    <string name="loading">Loading…</string>
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
-    <string name="dialog_alert_blacklist_text">Voulez-vous vraiment rétablir ce cours ?</string>
-    <string name="widget_no_group">Aucun groupe sélectionné !</string>
-    <string name="widget_touch_to_select">Cliquez pour le sélectionner</string>
-    <string name="choose_school">Choisissez une école</string>
+    <string name="dialog_alert_blacklist_text">Do you really want to re-establish this course?</string>
+    <string name="widget_no_group">No group selected !</string>
+    <string name="widget_touch_to_select">Click to select it</string>
+    <string name="choose_school">Choose a school</string>
     <string name="blacklist">Blacklist</string>
     <string name="ok">OK</string>
-    <string name="ignore_class">Ignorer ce cours</string>
-    <string name="teacher">&lt;b>Enseignant : &lt;/b></string>
-    <string name="schedule">&lt;b>Horaires : &lt;/b></string>
-    <string name="group">&lt;b>Groupe : &lt;/b></string>
-    <string name="room">&lt;b>"Salle : &lt;/b></string>
-    <string name="no_blacklisted_class">Aucun cours ignoré</string>
-    <string name="activate_toast">Avertir des cours blacklistés</string>
-    <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion.</string>
-    <string name="chronos_error">Erreur Chronos</string>
-    <string name="chronos_incorrect_data">Les données transmises par Chronos sont incorrectes</string>
-    <string name="error_getting_list">Impossible de récupérer la liste des</string>
-    <string name="rooms">salles.</string>
-    <string name="teachers">enseignants.</string>
-    <string name="students">groupes d\'étudiants.</string>
-    <string name="reload">Recharger</string>
-    <string name="cancel">Annuler</string>
-    <string name="Teachers">Enseignants</string>
-    <string name="validate">Valider</string>
-    <string name="connection_required">Connexion à Internet requise</string>
-    <string name="favorite_add">Ajouter aux favoris</string>
+    <string name="ignore_class">Blacklist this course</string>
+    <string name="teacher">&lt;b>Teacher : &lt;/b></string>
+    <string name="schedule">&lt;b>Schedule : &lt;/b></string>
+    <string name="group">&lt;b>Group : &lt;/b></string>
+    <string name="Room">&lt;b>"Room : &lt;/b></string>
+    <string name="no_blacklisted_class">No course ignored</string>
+    <string name="no_internet_msg">Can not connect, please check your connection.</string>
+    <string name="chronos_error">Chronos error</string>
+    <string name="chronos_incorrect_data">Datas sent by Chronos are incorrect</string>
+    <string name="error_getting_list">Error while downloading the list of</string>
+    <string name="rooms">rooms.</string>
+    <string name="teachers">teachers.</string>
+    <string name="students">students groups.</string>
+    <string name="reload">Reload</string>
+    <string name="cancel">Cancel</string>
+    <string name="validate">Validate</string>
+    <string name="favorite_add">Add to favorites</string>
     <string name="Favorites">Favoris</string>
-    <string name="tinydb_favorites">favoritesList</string>
-    <string name="previous_week">Semaine précédente</string>
-    <string name="next_week">Semaine suivante</string>
-    <string name="today">Aujourd\'hui</string>
-    <string name="favorite_deleted">" supprimé des favoris"</string>
-    <string name="favorite_added">" ajouté aux favoris"</string>
+    <string name="tinydb_favorites" translatable="false">favoritesList</string>
+    <string name="previous_week">Previous week</string>
+    <string name="next_week">Next week</string>
+    <string name="favorite_deleted">" deleted from the favorites"</string>
+    <string name="favorite_added">" added to the favorites"</string>
     <string name="about">À propos</string>
     <string name="about_text">Epitime-ng est un fork créé par corenting de l\'application Epitime créée par Greed.\n</string>
 
-    <string name="settings">Paramètres</string>
-    <string name="settings_blacklist_summary">Afficher une notification lorsque la journée comporte des cours ignorés</string>
-    <string name="settings_blacklist_title">Avertir des cours blacklistés</string>
+    <string name="settings">Settings</string>
+    <string name="settings_blacklist_summary">Display a notification when the day includes blacklisted courses</string>
+    <string name="settings_blacklist_title">Blacklisted courses warning</string>
+    <string name="Rooms">&lt;b>"Rooms : &lt;/b></string>
 </resources>

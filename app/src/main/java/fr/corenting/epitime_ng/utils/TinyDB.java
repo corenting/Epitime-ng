@@ -107,8 +107,7 @@ public class TinyDB {
                 // Toast("Default Save Path Creation Error");
             }
         }
-        String savePath = mFolder.getPath() + '/' + imageName;
-        return savePath;
+        return mFolder.getPath() + '/' + imageName;
     }
 
     private boolean saveBitmapPNG(String strFileName, Bitmap bitmap) {
@@ -247,9 +246,8 @@ public class TinyDB {
         // seprating the items in the list
         String[] mylist = TextUtils
                 .split(preferences.getString(key, ""), "‚‗‚");
-        ArrayList<String> gottenlist = new ArrayList<String>(
+        return new ArrayList<String>(
                 Arrays.asList(mylist));
-        return gottenlist;
     }
 
     public void putListInt(String key, ArrayList<Integer> marray) {
@@ -281,7 +279,7 @@ public class TinyDB {
     public void putListBoolean(String key, ArrayList<Boolean> marray){
         ArrayList<String> origList = new ArrayList<String>();
         for(Boolean b : marray){
-            if(b==true){
+            if(b){
                 origList.add("true");
             }else{
                 origList.add("false");
@@ -335,8 +333,7 @@ public class TinyDB {
 
     public Boolean deleteImage(String path){
         File tobedeletedImage = new File(path);
-        Boolean isDeleted = tobedeletedImage.delete();
-        return isDeleted;
+        return tobedeletedImage.delete();
     }
 
     public void clear() {
