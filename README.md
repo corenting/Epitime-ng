@@ -6,3 +6,7 @@ This is the repository of EpiTime-ng, a fork of R-enaud's [EpiTime](https://gith
 
  - New look
  - Removed Google Analytic 
+ - Favorites manager
+ - Per-group blacklist
+ - Reduced size
+ - ...
