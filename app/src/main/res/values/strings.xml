@@ -48,8 +48,6 @@
     <string name="next_week">Next week</string>
     <string name="favorite_deleted">" deleted from the favorites"</string>
     <string name="favorite_added">" added to the favorites"</string>
-    <string name="about">About</string>
-    <string name="about_text">Epitime-ng is a fork created by corenting of Greed\'s Eptime application.\n</string>
 
     <string name="settings">Settings</string>
     <string name="settings_blacklist_summary">Display a notification when the day includes blacklisted courses</string>

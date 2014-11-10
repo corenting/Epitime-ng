@@ -116,13 +116,13 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
             DayListFragment.this.lectureSelected = item.title;
 
             String dialogText = "";
-            if (item.instructor.length() > 0)
+            if (item.instructor != null && item.instructor.length() > 0)
                 dialogText = context.getString(string.details_teacher) + item.instructor + "<br />";
             dialogText += context.getString(string.details_schedule) + item.getBegin() + "-" + item.getEnd();
-            if (item.getTrainee(", ").length() > 0)
+            if (item.trainee.size() > 0)
                 dialogText += "<br />" + context.getString(string.details_group) + item.getTrainee(", ");
-            if (item.getRoom(", ").length() > 0) {
-                dialogText += item.getRoom(", ").length() > 1 ? "<br />" + context.getString(string.details_rooms) + item.getRoom(", ") : "<br />" + context.getString(string.details_room) + item.getRoom(", ");
+            if (item.room.size() > 0) {
+                dialogText += item.room.size() > 1 ? "<br />" + context.getString(string.details_rooms) + item.getRoom(", ") : "<br />" + context.getString(string.details_room) + item.getRoom(", ");
             }
 
             builder.setPositiveButton(context.getString(string.ok), null);

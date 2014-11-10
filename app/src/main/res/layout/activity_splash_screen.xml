@@ -2,14 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#233140"
+    android:background="@color/list_background_2"
     tools:context=".SplashScreen" >
-	
+
     <ImageView
         android:layout_width="128dp"
 		android:layout_height="128dp"
-		android:layout_gravity="center"
-		android:src="@drawable/hourglass_logo"
+		android:layout_gravity="center_horizontal|top"
+		android:src="@drawable/ic_launcher"
      />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/loading"
+        android:id="@+id/loadingText"
+        android:layout_gravity="center" />
 
 </FrameLayout>

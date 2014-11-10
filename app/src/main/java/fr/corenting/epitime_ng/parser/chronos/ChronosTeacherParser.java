@@ -1,18 +1,16 @@
 package fr.corenting.epitime_ng.parser.chronos;
 
-import android.content.Context;
-
-import fr.corenting.epitime_ng.EpiTime;
-import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.data.GroupItem;
-import fr.corenting.epitime_ng.data.School;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.data.GroupItem;
+import fr.corenting.epitime_ng.data.School;
 
 public class ChronosTeacherParser {
 	public School parse(Document xml) {

@@ -1,7 +1,6 @@
 package fr.corenting.epitime_ng.managers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.activities.GroupListActivity;
 import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
-import fr.corenting.epitime_ng.utils.TinyDB;
 
 public class GroupManager {
 	

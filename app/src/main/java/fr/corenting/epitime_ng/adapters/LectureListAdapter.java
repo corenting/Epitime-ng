@@ -33,8 +33,9 @@ public class LectureListAdapter extends BaseAdapter {
         View view = convertView == null ? inflater.inflate(R.layout.lecture_item, null) : convertView;
         Lecture item = this.lectures.get(index);
 
+
         if(index % 2 == 0) {
-            view.findViewById(R.id.lecture_item_background).setBackgroundColor(Color.parseColor("#2c333d"));
+            view.findViewById(R.id.lecture_item_background).setBackgroundColor(EpiTime.getInstance().getResources().getColor(R.color.list_background_2));
         }
 
         if(item.isMessage) {
@@ -42,7 +43,7 @@ public class LectureListAdapter extends BaseAdapter {
             ((TextView)view.findViewById(R.id.CourseTime)     ).setText("");
             ((TextView)view.findViewById(R.id.CourseRoom)     ).setText("");
         } else {
-            String displayedRooms = "";
+            String displayedRooms;
             if(item.room.size() > 4)
             {
                 displayedRooms = item.getRoom(", ",4) + "...";

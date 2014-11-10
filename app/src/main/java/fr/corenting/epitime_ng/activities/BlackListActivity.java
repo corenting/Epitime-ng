@@ -1,7 +1,6 @@
 package fr.corenting.epitime_ng.activities;
 
 import android.os.Bundle;
-import android.widget.CheckBox;
 import android.widget.ListView;
 
 import fr.corenting.epitime_ng.EpiTime;

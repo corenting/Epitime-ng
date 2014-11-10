@@ -23,11 +23,9 @@ public class ChronosSchoolsParser {
 
     public List<School> parse(Document xml) {
         this.exploreRoot(xml.getFirstChild());
-        for (int i = 0; i < this.result.size(); ++i)
-        {
-            if (this.result.get(i).name.equals("EPITA"))
-            {
-                Collections.sort(this.result.get(i).groups);
+        for (School aResult : this.result) {
+            if (aResult.name.equals("EPITA")) {
+                Collections.sort(aResult.groups);
             }
 
         }

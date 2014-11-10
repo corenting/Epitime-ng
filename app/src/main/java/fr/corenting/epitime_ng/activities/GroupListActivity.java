@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -23,7 +22,6 @@ import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.headers.GroupListHeader;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
-import fr.corenting.epitime_ng.tasks.QueryGroups;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
 
 public class GroupListActivity extends DrawerActivity {

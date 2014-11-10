@@ -29,8 +29,7 @@ public class Day implements Serializable, Parcelable {
 	public void writeToParcel(Parcel dst, int flags) {
 		dst.writeValue(this.date);
         dst.writeInt(this.lectures.size());
-        for (int i = 0; i < this.lectures.size(); ++i)
-            dst.writeValue(this.lectures.get(i));
+        for (Lecture lecture : this.lectures) dst.writeValue(lecture);
 	}
 	
 	public static final Parcelable.Creator<Day> CREATOR = new Parcelable.Creator<Day>() {

@@ -2,7 +2,6 @@ package fr.corenting.epitime_ng.managers;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 

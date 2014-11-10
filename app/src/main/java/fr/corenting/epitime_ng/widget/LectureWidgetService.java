@@ -101,7 +101,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         RemoteViews rv = new RemoteViews(this.context.getPackageName(), R.layout.lecture_item);
 
         if(index % 2 == 0) {
-            rv.setInt(R.id.lecture_item_background, "setBackgroundColor", Color.parseColor("#2c333d"));
+            rv.setInt(R.id.lecture_item_background, "setBackgroundColor", EpiTime.getInstance().getResources().getColor(R.color.list_background_2));
         }
 
 

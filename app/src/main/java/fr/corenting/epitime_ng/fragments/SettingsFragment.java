@@ -2,13 +2,11 @@ package fr.corenting.epitime_ng.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
 import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.activities.AboutActivity;
 import fr.corenting.epitime_ng.utils.FileUtils;
 import fr.corenting.epitime_ng.utils.ToastMaker;
 
@@ -18,15 +16,6 @@ public class SettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
-
-        Preference aboutPref = findPreference(getString(R.string.about));
-        aboutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                getActivity().startActivity(new Intent(getActivity(), AboutActivity.class));
-                return false;
-            }
-        });
 
         Preference deletePref = findPreference(getString(R.string.settings_delete_cache_title));
         deletePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
