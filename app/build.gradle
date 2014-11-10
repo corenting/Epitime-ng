@@ -13,10 +13,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("n")
-            storePassword "n"
-            keyAlias "n"
-            keyPassword "n"
+            storeFile file("null")
+            storePassword "null"
+            keyAlias "null"
+            keyPassword "null"
         }
     }
 
@@ -25,7 +25,7 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
 }

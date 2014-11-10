@@ -36,7 +36,6 @@
     <string name="validate">Valider</string>
     <string name="favorite_add">Ajouter aux favoris</string>
     <string name="Favorites">Favoris</string>
-    <string name="tinydb_favorites">favoritesList</string>
     <string name="previous_week">Semaine précédente</string>
     <string name="next_week">Semaine suivante</string>
     <string name="favorite_deleted">" supprimé des favoris"</string>

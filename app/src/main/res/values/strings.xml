@@ -6,6 +6,7 @@
     <string name="api_url" translatable="false">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;num={3}&amp;group={1}&amp;week={2}</string>
     <string name="api_key" translatable="false">3piko</string>
     <string name="api_groups" translatable="false">http://webservices.chronos.epita.net/GetWeeks.aspx?auth={0}&amp;getMenu={1}</string>
+    <string name="tinydb_favorites" translatable="false">favoritesList</string>
 
 
     <string name="group_selection">Choose your group</string>
@@ -43,7 +44,6 @@
     <string name="validate">Validate</string>
     <string name="favorite_add">Add to favorites</string>
     <string name="Favorites">Favorites</string>
-    <string name="tinydb_favorites" translatable="false">favoritesList</string>
     <string name="previous_week">Previous week</string>
     <string name="next_week">Next week</string>
     <string name="favorite_deleted">" deleted from the favorites"</string>
