@@ -28,7 +28,7 @@ import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
-import fr.corenting.epitime_ng.utils.ToastMaker;
+import fr.corenting.epitime_ng.utils.MiscUtils;
 
 import static fr.corenting.epitime_ng.R.id;
 import static fr.corenting.epitime_ng.R.layout;
@@ -152,7 +152,7 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
             DayListFragment.this.manager.updateWidget(cal);
 
             DayListFragment.this.updateFragment(DayListFragment.this.day);
-            ToastMaker.makeToast("Le cours " + DayListFragment.this.lectureSelected + " a été ignoré");
+            MiscUtils.makeToast("Le cours " + DayListFragment.this.lectureSelected + " a été ignoré");
 
         }
     }

@@ -8,7 +8,7 @@ import android.support.v4.preference.PreferenceFragment;
 
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.utils.FileUtils;
-import fr.corenting.epitime_ng.utils.ToastMaker;
+import fr.corenting.epitime_ng.utils.MiscUtils;
 
 public class SettingsFragment extends PreferenceFragment {
 
@@ -27,9 +27,9 @@ public class SettingsFragment extends PreferenceFragment {
                         .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 if (FileUtils.deleteAllFiles()) {
-                                    ToastMaker.makeToast(getString(R.string.settings_cache_success));
+                                    MiscUtils.makeToast(getString(R.string.settings_cache_success));
                                 } else {
-                                    ToastMaker.makeToast(getString(R.string.settings_cache_fail));
+                                    MiscUtils.makeToast(getString(R.string.settings_cache_fail));
                                 }
                             }
                         })

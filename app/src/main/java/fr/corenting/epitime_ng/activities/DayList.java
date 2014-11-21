@@ -15,8 +15,7 @@ import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.ViewPagerAdapter;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
-import fr.corenting.epitime_ng.utils.ToastMaker;
-
+import fr.corenting.epitime_ng.utils.MiscUtils;
 
 
 public class DayList extends DrawerActivity {
@@ -139,10 +138,10 @@ public class DayList extends DrawerActivity {
 
         if (manager.isFavoriteGroup(group)) {
             manager.removeFavoriteGroup(group);
-            ToastMaker.makeToast(group + getString(R.string.favorite_deleted));
+            MiscUtils.makeToast(group + getString(R.string.favorite_deleted));
         } else {
             manager.addFavoriteGroup(group);
-            ToastMaker.makeToast(group + getString(R.string.favorite_added));
+            MiscUtils.makeToast(group + getString(R.string.favorite_added));
         }
         invalidateOptionsMenu();
     }
@@ -190,9 +189,9 @@ public class DayList extends DrawerActivity {
         this.pageChangeListener.toastShown = true;
 
         if (blacklisted == 1) {
-            ToastMaker.makeToast("1 cours a été ignoré");
+            MiscUtils.makeToast("1 cours a été ignoré");
         } else if (blacklisted > 1) {
-            ToastMaker.makeToast(blacklisted + " cours ont été ignorés");
+            MiscUtils.makeToast(blacklisted + " cours ont été ignorés");
         }
 
     }

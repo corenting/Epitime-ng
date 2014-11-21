@@ -29,6 +29,7 @@ import fr.corenting.epitime_ng.managers.GroupManager;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
 import fr.corenting.epitime_ng.utils.ActionBarTitleSetter;
 import fr.corenting.epitime_ng.utils.DialogUtils;
+import fr.corenting.epitime_ng.utils.MiscUtils;
 
 
 /*
@@ -60,6 +61,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
     
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        super.setTheme(MiscUtils.getTheme(this));
 		setContentView(this.layout);
 		
 		EpiTime.getInstance().setCurrentActivity(this);
