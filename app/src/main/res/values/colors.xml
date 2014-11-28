@@ -1,5 +1,6 @@
 <resources>
 
+    <!--TODO : replace with function for list background and widget colors-->
     <color name="list_background">#616161</color>
     <color name="list_background_2">#212121</color>
     <color name="date_background">#5677fc</color>

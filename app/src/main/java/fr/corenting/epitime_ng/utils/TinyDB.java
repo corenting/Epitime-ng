@@ -56,8 +56,7 @@ public class TinyDB {
         Bitmap theGottenBitmap = null;
         try {
             theGottenBitmap = BitmapFactory.decodeFile(path);
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (Exception ignored) {
         }
         return theGottenBitmap;
     }
@@ -126,7 +125,6 @@ public class TinyDB {
         try {
             bSuccess1 = saveFile.createNewFile();
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
@@ -154,7 +152,6 @@ public class TinyDB {
                 try {
                     out.close();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
