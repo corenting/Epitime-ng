@@ -77,9 +77,6 @@ public class DrawerListAdapter extends BaseAdapter {
 	   
 	   String item = schools.get(position);
 	   ((TextView)view.findViewById(R.id.drawer_item_title)).setText(item);
-	   
-	   int color = Color.parseColor(this.flatUiColors[rn.nextInt(this.flatUiColors.length)]);
-	   
 	   ImageView icon = (ImageView) view.findViewById(R.id.drawer_icon);
 	   
 	   if(this.schoolsIcon.containsKey(item)) {
@@ -87,13 +84,6 @@ public class DrawerListAdapter extends BaseAdapter {
 	   } else {
 		   icon.setImageResource(R.drawable.transparent);
 	   }
-	   
-	   ImageView img = (ImageView) view.findViewById(R.id.drawer_colored_box);
-	   GradientDrawable gd = (GradientDrawable) img.getDrawable();
-
-	   PorterDuff.Mode mode = PorterDuff.Mode.SRC_ATOP;
-	   gd.setColorFilter(color, mode);
-	   
 	   
        return view;
    }

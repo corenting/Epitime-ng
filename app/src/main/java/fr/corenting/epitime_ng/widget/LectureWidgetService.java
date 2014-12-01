@@ -3,7 +3,6 @@ package fr.corenting.epitime_ng.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -12,6 +11,7 @@ import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
+import fr.corenting.epitime_ng.utils.Colors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,7 +101,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         RemoteViews rv = new RemoteViews(this.context.getPackageName(), R.layout.lecture_item);
 
         if(index % 2 == 0) {
-            rv.setInt(R.id.lecture_item_background, "setBackgroundColor", EpiTime.getInstance().getResources().getColor(R.color.list_background_2));
+            rv.setInt(R.id.lecture_item_background, "setBackgroundColor", Colors.getBackgroundVariantColor(EpiTime.getInstance()));
         }
 
 

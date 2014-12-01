@@ -60,7 +60,7 @@ public class DayList extends DrawerActivity {
     }
 
     private void initAdapter() {
-        this.adapter = new ViewPagerAdapter(this.getSupportFragmentManager(), ScheduleManager.makeLoadingDays(new Date()));
+        this.adapter = new ViewPagerAdapter(this.getSupportFragmentManager(), ScheduleManager.makeLoadingDays(getApplicationContext(), new Date()));
     }
 
     private void setListeners() {

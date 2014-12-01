@@ -2,6 +2,7 @@ package fr.corenting.epitime_ng.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
@@ -24,7 +26,6 @@ import java.util.List;
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.DrawerListAdapter;
-import fr.corenting.epitime_ng.headers.DrawerListHeader;
 import fr.corenting.epitime_ng.managers.GroupManager;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
 import fr.corenting.epitime_ng.utils.ActionBarTitleSetter;
@@ -47,7 +48,6 @@ import fr.corenting.epitime_ng.utils.MiscUtils;
 public abstract class DrawerActivity extends ActionBarActivity {
 
 	private ListView drawerList;
-    private DrawerListHeader drawerListConnectingHeader;
     private List<String> schools;
 
     public boolean noInternetShown = false;
@@ -57,9 +57,12 @@ public abstract class DrawerActivity extends ActionBarActivity {
     DrawerLayout drawerLayout;
     ActionBarTitleSetter menuTitle;
     DrawerActionBarToggle drawerToggle;
-    DrawerListHeader drawerListNoConnectionHeader;
-    
-	protected void onCreate(Bundle savedInstanceState) {
+    ProgressDialog progressDialog;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.loading));
+
 		super.onCreate(savedInstanceState);
         super.setTheme(MiscUtils.getTheme(this));
 		setContentView(this.layout);
@@ -81,8 +84,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
         this.menuTitle = new ActionBarTitleSetter(getSupportActionBar(), this.drawerToggle,
 				getApplicationContext());
 		this.menuTitle.setTitle();
-        
-        this.addHeaders();
+
         this.reloadDrawerList();
         
         this.drawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -99,14 +101,14 @@ public abstract class DrawerActivity extends ActionBarActivity {
 	
 	public void reloadDrawerList() {
 		this.schools = this.groupManager.getSchools();
-		
-		this.drawerListConnectingHeader.hideHeader(); this.drawerListNoConnectionHeader.hideHeader();
+
+		this.progressDialog.hide();
 		
 		if(this.schools != null && this.schools.size() != 0) {
 			this.resetDividerColor();
 			
-			if(QueryGroups.isLoading()) {
-				this.drawerListConnectingHeader.showHeader();
+			if(QueryGroups.isLoading() && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                progressDialog.show();
 			}
 			
 			this.drawerList.setAdapter(new DrawerListAdapter(this.schools));
@@ -116,10 +118,13 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			this.setDividerTransparent();
 			
 			if(QueryGroups.isLoading()) {
-				this.drawerListConnectingHeader.showHeader();
-				this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.loading));
+                if(drawerLayout.isDrawerOpen(GravityCompat.START))
+                {
+                    progressDialog.show();
+
+                }this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.loading));
 			} else {
-				this.drawerListNoConnectionHeader.showHeader();
+                DialogUtils.displaySimpleAlert(getString(R.string.no_internet), getString(R.string.no_internet_msg));
 				this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.no_internet));
 			}
 			
@@ -135,21 +140,8 @@ public abstract class DrawerActivity extends ActionBarActivity {
 		this.drawerList.setDivider(new ColorDrawable(this.getResources().getColor(R.color.drawerlist_color)));
 	}
 	
-	private void addHeaders() {
-		this.drawerListConnectingHeader = new DrawerListHeader(this.getLayoutInflater(),
-				R.layout.header_item_connecting, R.id.drawer_header_text, 0, R.id.drawer_header_spinner);
-		this.drawerListConnectingHeader.addHeader(this.drawerList);
-		
-		this.drawerListNoConnectionHeader = new DrawerListHeader(this.getLayoutInflater(),
-				R.layout.header_item_no_connection, R.id.drawer_header_no_connection_text,
-				R.id.drawer_header_no_connection_about, R.id.drawer_header_no_connection_button);
-		this.drawerListNoConnectionHeader.addHeader(this.drawerList);
-		this.drawerListNoConnectionHeader.specialItem.setOnClickListener(new OnReloadListener());
-				
-	}
-	
 	private void setUp() {
-        android.support.v7.app.ActionBar ac = getSupportActionBar();
+        ActionBar ac = getSupportActionBar();
     	ac.setDisplayShowTitleEnabled(true);
         ac.setDisplayHomeAsUpEnabled(true);
         ac.setHomeButtonEnabled(true);
@@ -184,7 +176,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
     }
 
     public void noInternetConnexion(final String groupFailed) {
-        this.drawerListNoConnectionHeader.showHeader();
+        DialogUtils.displaySimpleAlert(getString(R.string.no_internet), getString(R.string.no_internet_msg));
 
         String message = getString(R.string.no_internet) + "\n";
         if(groupFailed.equals("trainnees")) {
@@ -212,35 +204,8 @@ public abstract class DrawerActivity extends ActionBarActivity {
                 }).setNegativeButton(getString(R.string.cancel), null).create().show();
 
     }
-	
-	private class OnReloadListener implements OnClickListener {
-		
-		@Override
-		public void onClick(View v) {
-			DrawerActivity.this.drawerListConnectingHeader  .showHeader();
-			DrawerActivity.this.drawerListNoConnectionHeader.hideHeader();
-			
-			if(EpiTime.getInstance().hasInternet()) {
-				DrawerActivity.this.groupManager.getGroups();
-			} else {
-				Handler handler   = new Handler ();
-		    	Runnable runnable = new Runnable() { 
-		    		public void run() { 
-			        	 DrawerActivity.this.drawerListConnectingHeader  .hideHeader();
-			        	 DrawerActivity.this.drawerListNoConnectionHeader.showHeader();
-			        	 
-			        	 if(DrawerActivity.this instanceof GroupListActivity) {
-			        		 GroupListActivity context = (GroupListActivity) DrawerActivity.this;
-						}
-			         } 
-			    };
-				handler.postDelayed(runnable, 450);
-			}
-			
-		}
-	}
-	
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         	

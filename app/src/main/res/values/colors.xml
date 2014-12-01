@@ -1,8 +1,6 @@
 <resources>
 
-    <!--TODO : replace with function for list background and widget colors-->
-    <color name="list_background">#616161</color>
-    <color name="list_background_2">#212121</color>
+    <!--TODO : replace with function for widget colors-->
     <color name="date_background">#5677fc</color>
     <color name="group_background">#2a36b1</color>
 	<color name="drawerlist_color">#b0bec5</color>

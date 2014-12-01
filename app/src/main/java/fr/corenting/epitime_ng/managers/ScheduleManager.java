@@ -327,7 +327,7 @@ public class ScheduleManager {
                 context.noInternetConnexion();
             }
             for (Integer week : weeksToUpdate) {
-                this.setWeekTo(week, this.getGroup(), makeNoInternetDay(getWeek(week)));
+                this.setWeekTo(week, this.getGroup(), makeNoInternetDay(context, getWeek(week)));
             }
             return;
         }
@@ -336,23 +336,23 @@ public class ScheduleManager {
                 continue;
             }
 
-            this.setWeekTo(week, this.getGroup(), makeLoadingDay(getWeek(week)));
+            this.setWeekTo(week, this.getGroup(), makeLoadingDay(context, getWeek(week)));
             this.fetchingWeek.put(week, true);
             new QueryLecturesNewTask(context, this, week, this.getGroup()).execute();
         }
     }
 
 
-    public static Day makeLoadingDay(Date date) {
+    public static Day makeLoadingDay(Context c, Date date) {
         ArrayList<Lecture> loading = new ArrayList<Lecture>
-                (Arrays.asList(new Lecture("En cours de chargement !", true)));
+                (Arrays.asList(new Lecture(c.getString(R.string.loading), true)));
 
         return new Day(date, loading);
     }
 
-    public static Day makeNoInternetDay(Date date) {
+    public static Day makeNoInternetDay(Context c, Date date) {
         ArrayList<Lecture> loading = new ArrayList<Lecture>
-                (Arrays.asList(new Lecture("Connection internet requise !", true)));
+                (Arrays.asList(new Lecture(c.getString(R.string.no_internet), true)));
 
         return new Day(date, loading);
     }
@@ -371,14 +371,14 @@ public class ScheduleManager {
 
     // Returns 3 days with message loading
     // Date of these days are as follows : [date - 1 day; date; date + 1 day]
-    public static List<Day> makeLoadingDays(Date date) {
+    public static List<Day> makeLoadingDays(Context c, Date date) {
         Calendar cal = Calendar.getInstance(); cal.setTime(date);
         cal.add(Calendar.DATE, -1);
 
         List<Day> days = new ArrayList<Day>();
-        days.add(makeLoadingDay(cal.getTime())); cal.add(Calendar.DATE, 1);
-        days.add(makeLoadingDay(cal.getTime())); cal.add(Calendar.DATE, 1);
-        days.add(makeLoadingDay(cal.getTime()));
+        days.add(makeLoadingDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
+        days.add(makeLoadingDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
+        days.add(makeLoadingDay(c, cal.getTime()));
 
         return days;
     }
@@ -386,14 +386,14 @@ public class ScheduleManager {
     // Returns 3 days with message no internet
     // Date of these days are as follows : [date - 1 day; date; date + 1 day]
     @SuppressWarnings("unused")
-    public static List<Day> makeNoInternetDays(Date date) {
+    public static List<Day> makeNoInternetDays(Context c, Date date) {
         Calendar cal = Calendar.getInstance(); cal.setTime(date);
         cal.add(Calendar.DATE, -1);
 
         List<Day> days = new ArrayList<Day>();
-        days.add(makeNoInternetDay(cal.getTime())); cal.add(Calendar.DATE, 1);
-        days.add(makeNoInternetDay(cal.getTime())); cal.add(Calendar.DATE, 1);
-        days.add(makeNoInternetDay(cal.getTime()));
+        days.add(makeNoInternetDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
+        days.add(makeNoInternetDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
+        days.add(makeNoInternetDay(c, cal.getTime()));
 
         return days;
     }
