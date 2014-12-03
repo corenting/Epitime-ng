@@ -10,7 +10,6 @@ import android.widget.TextView;
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.Lecture;
-import fr.corenting.epitime_ng.utils.Colors;
 import fr.corenting.epitime_ng.utils.MiscUtils;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class LectureListAdapter extends BaseAdapter {
 
 
         if(index % 2 == 0) {
-            view.findViewById(R.id.lecture_item_background).setBackgroundColor(Colors.getBackgroundVariantColor(EpiTime.getInstance()));
+            view.findViewById(R.id.lecture_item_background).setBackgroundColor(R.color.background_variant);
         }
 
         if(item.isMessage) {

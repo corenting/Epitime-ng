@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Blue" parent="Theme.AppCompat">
-        <!-- Main theme colors -->
-        <!--   your app branding color for the app bar -->
         <item name="colorPrimary">#2196f3</item>
-        <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">#0d47a1</item>
-        <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">#bbdefb</item>
     </style>
     <style name="BlueGray" parent="Theme.AppCompat">
-        <!-- Main theme colors -->
-        <!--   your app branding color for the app bar -->
         <item name="colorPrimary">#607d8b</item>
-        <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">#263238</item>
-        <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">#cfd8dc</item>
     </style>
     <style name="Orange" parent="Theme.AppCompat">
-        <!-- Main theme colors -->
-        <!--   your app branding color for the app bar -->
         <item name="colorPrimary">#ff9800</item>
-        <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">#e65100</item>
-        <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">#ffe0b2</item>
     </style>
     <style name="Red" parent="Theme.AppCompat">
-        <!-- Main theme colors -->
-        <!--   your app branding color for the app bar -->
         <item name="colorPrimary">#f44336</item>
-        <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">#b71c1c</item>
-        <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">#ffcdd2</item>
     </style>
     <style name="SettingsTheme" parent="Blue">

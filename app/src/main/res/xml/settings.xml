@@ -3,7 +3,7 @@
     <PreferenceCategory
         android:title="@string/settings_theme_title">
         <ListPreference android:key="appTheme"
-            android:title="@string/settings_action_bar"
+            android:title="@string/settings_theme"
             android:entries="@array/settings_theme_human_values"
             android:entryValues="@array/settings_theme_phone_values"
             android:defaultValue="Blue">

@@ -14,15 +14,16 @@ public class MiscUtils{
     public static int getTheme(Context c)
     {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        String pref = sp.getString("appTheme", "Blue");
 
-        if (sp.getString("appTheme", "Blue").equals("BlueGray")) {
+        if (pref.equals("BlueGray")) {
             return R.style.BlueGray;
         }
-        if (sp.getString("appTheme", "Blue").equals("Red"))
+        if (pref.equals("Red"))
         {
             return R.style.Red;
         }
-        if (sp.getString("appTheme", "Blue").equals("Orange"))
+        if (pref.equals("Orange"))
         {
             return R.style.Orange;
         }

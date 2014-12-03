@@ -52,13 +52,13 @@
     <string name="settings_cache_fail">Erreur lors de la suppression du cache</string>
     <string name="settings_cache_success">Cache supprimé avec succès</string>
     <string name="settings_theme_title">Apparence</string>
-    <string name="settings_action_bar">Couleur de l\'action bar</string>
-    <string-array name="settings_theme__values">
+    <string name="settings_theme">Thème</string>
+    <string-array name="settings_theme_human_values">
         <item>Bleu</item>
         <item>Bleu Gris</item>
         <item>Orange</item>
         <item>Rouge</item>
     </string-array>
     <string name="ok_reboot">OK, redémarrer !</string>
-    <string name="settings_reboot_msg">L\'app va maintenant redémarrer pour appliquer le nouveau thème.</string>
+    <string name="settings_reboot_msg">L\'application va maintenant redémarrer pour appliquer le nouveau thème.</string>
 </resources>

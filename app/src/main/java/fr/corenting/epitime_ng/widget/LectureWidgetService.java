@@ -11,7 +11,6 @@ import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
-import fr.corenting.epitime_ng.utils.Colors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -101,7 +100,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         RemoteViews rv = new RemoteViews(this.context.getPackageName(), R.layout.lecture_item);
 
         if(index % 2 == 0) {
-            rv.setInt(R.id.lecture_item_background, "setBackgroundColor", Colors.getBackgroundVariantColor(EpiTime.getInstance()));
+            rv.setInt(R.id.lecture_item_background, "setBackgroundColor",R.color.background_variant);
         }
 
 

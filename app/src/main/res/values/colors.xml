@@ -1,6 +1,7 @@
 <resources>
 
     <!--TODO : replace with function for widget colors-->
+    <color name="background_variant">#212121</color>
     <color name="date_background">#5677fc</color>
     <color name="group_background">#2a36b1</color>
 	<color name="drawerlist_color">#b0bec5</color>
