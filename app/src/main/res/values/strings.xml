@@ -59,4 +59,21 @@
     <string name="settings_delete_cache_dialog">Are you sure you want to delete the cache?</string>
     <string name="settings_cache_success">Cache deleted successfully</string>
     <string name="settings_cache_fail">Error while deleting the cache</string>
+    <string name="settings_theme_title">Theme</string>
+    <string name="settings_action_bar">Action bar color</string>
+
+    <string name="ok_reboot">OK, restart !</string>
+    <string name="settings_reboot_msg">The app will now restart to apply the new theme.</string>
+    <string-array name="settings_theme_human_values">
+        <item>Blue</item>
+        <item>Blue Gray</item>
+        <item>Orange</item>
+        <item>Red</item>
+    </string-array>
+    <string-array name="settings_theme_phone_values" translatable="false">
+        <item>Blue</item>
+        <item>Blue Gray</item>
+        <item>Orange</item>
+        <item>Red</item>
+    </string-array>
 </resources>

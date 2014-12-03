@@ -14,7 +14,19 @@ public class MiscUtils{
     public static int getTheme(Context c)
     {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
-        return sp.getInt("appTheme", R.style.Orange);
+
+        if (sp.getString("appTheme", "Blue").equals("BlueGray")) {
+            return R.style.BlueGray;
+        }
+        if (sp.getString("appTheme", "Blue").equals("Red"))
+        {
+            return R.style.Red;
+        }
+        if (sp.getString("appTheme", "Blue").equals("Orange"))
+        {
+            return R.style.Orange;
+        }
+        return R.style.Blue;
     }
 
     public static void makeToast(String message) {

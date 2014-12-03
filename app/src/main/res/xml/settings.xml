@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
+        android:title="@string/settings_theme_title">
+        <ListPreference android:key="appTheme"
+            android:title="@string/settings_action_bar"
+            android:entries="@array/settings_theme_human_values"
+            android:entryValues="@array/settings_theme_phone_values"
+            android:defaultValue="Blue">
+        </ListPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/blacklist">
         <CheckBoxPreference
             android:key="hasToastActive"

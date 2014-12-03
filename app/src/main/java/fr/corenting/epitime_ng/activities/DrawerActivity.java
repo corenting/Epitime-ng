@@ -209,9 +209,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         	
-        	if(position == 0 || position == 1) { return ; }
-        	
-        	String schoolName = DrawerActivity.this.schools.get(position - 2);
+        	String schoolName = DrawerActivity.this.schools.get(position);
         	if(DrawerActivity.this instanceof GroupListActivity) {
         		GroupListActivity context = (GroupListActivity) DrawerActivity.this;
         		if(context.school.equals(schoolName)) {
