@@ -65,7 +65,7 @@ public class EpitimeWidgetProvider extends AppWidgetProvider {
 
             //Set theme
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-            String pref = sp.getString("appTheme", "Blue");
+            String pref = sp.getString("widgetTheme", "Blue");
             rv.setInt(R.id.widget_lecture_day,"setBackgroundResource", MiscUtils.getWidgetDateBackground(pref));
             rv.setInt(R.id.menu_title_layout,"setBackgroundResource", MiscUtils.getWidgetGroupBackground(pref));
             rv.setInt(R.id.widget_lecture_group_title,"setBackgroundResource", MiscUtils.getWidgetGroupBackground(pref));

@@ -64,6 +64,7 @@
 
     <string name="ok_reboot">OK, restart !</string>
     <string name="settings_reboot_msg">The application will now restart to apply the new theme.</string>
+    <string name="settings_widget_theme">WIdget theme</string>
     <string-array name="settings_theme_human_values">
         <item>Blue</item>
         <item>Blue Gray</item>

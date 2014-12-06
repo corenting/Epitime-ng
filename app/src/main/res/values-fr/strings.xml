@@ -61,4 +61,5 @@
     </string-array>
     <string name="ok_reboot">OK, redémarrer !</string>
     <string name="settings_reboot_msg">L\'application va maintenant redémarrer pour appliquer le nouveau thème.</string>
+    <string name="settings_widget_theme">Thème du widget</string>
 </resources>
