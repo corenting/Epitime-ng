@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/menu_title_layout"
-        android:background="@color/group_background"
         android:orientation="horizontal">
 
         <TextView
@@ -32,7 +31,6 @@
         android:id="@+id/widget_lecture_day"
         android:layout_width="fill_parent"
         android:layout_height="38dp"
-        android:background="@color/date_background"
         android:textColor="#fff"
         android:textSize="18sp"
         android:gravity="center"

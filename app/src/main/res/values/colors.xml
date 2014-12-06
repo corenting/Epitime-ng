@@ -1,9 +1,22 @@
 <resources>
 
-    <!--TODO : replace with function for widget colors-->
     <color name="background_variant">#212121</color>
-    <color name="date_background">#5677fc</color>
-    <color name="group_background">#2a36b1</color>
 	<color name="drawerlist_color">#b0bec5</color>
 	<color name="drawerlist_transparent">#00eaedf2</color>
+
+    <!--Blue-->
+    <color name="blue_primary">#2196f3</color>
+    <color name="blue_primary_dark">#0d47a1</color>
+
+    <!--BlueGray-->
+    <color name="bluegray_primary">#607d8b</color>
+    <color name="bluegray_primary_dark">#263238</color>
+
+    <!--Orange-->
+    <color name="orange_primary">#ff9800</color>
+    <color name="orange_primary_dark">#e65100</color>
+
+    <!--Red-->
+    <color name="red_primary">#f44336</color>
+    <color name="red_primary_dark">#b71c1c</color>
 </resources>

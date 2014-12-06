@@ -110,6 +110,10 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			if(QueryGroups.isLoading() && drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 progressDialog.show();
 			}
+            else
+            {
+                progressDialog.hide();
+            }
 			
 			this.drawerList.setAdapter(new DrawerListAdapter(this.schools));
 

@@ -3,7 +3,10 @@ package fr.corenting.epitime_ng.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -11,6 +14,7 @@ import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
+import fr.corenting.epitime_ng.utils.MiscUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,13 +102,12 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     private RemoteViews getLectureView(Lecture item, int index) {
 
         RemoteViews rv = new RemoteViews(this.context.getPackageName(), R.layout.lecture_item);
-
-        if(index % 2 == 0) {
-            rv.setInt(R.id.lecture_item_background, "setBackgroundColor",R.color.background_variant);
+        if (index % 2 == 0) {
+            rv.setInt(R.id.lecture_item_background, "setBackgroundColor", R.color.background_variant);
         }
 
 
-        if(item.isMessage) {
+        if (item.isMessage) {
             rv.setTextViewText(R.id.CourseTitle, item.title);
             rv.setTextViewText(R.id.CourseTime, "");
             rv.setTextViewText(R.id.CourseRoom, "");

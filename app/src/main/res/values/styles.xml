@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Blue" parent="Theme.AppCompat">
-        <item name="colorPrimary">#2196f3</item>
-        <item name="colorPrimaryDark">#0d47a1</item>
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryDark">@color/blue_primary_dark</item>
         <item name="colorAccent">#bbdefb</item>
     </style>
     <style name="BlueGray" parent="Theme.AppCompat">
-        <item name="colorPrimary">#607d8b</item>
-        <item name="colorPrimaryDark">#263238</item>
+        <item name="colorPrimary">@color/bluegray_primary</item>
+        <item name="colorPrimaryDark">@color/bluegray_primary_dark</item>
         <item name="colorAccent">#cfd8dc</item>
     </style>
     <style name="Orange" parent="Theme.AppCompat">
-        <item name="colorPrimary">#ff9800</item>
-        <item name="colorPrimaryDark">#e65100</item>
+        <item name="colorPrimary">@color/orange_primary</item>
+        <item name="colorPrimaryDark">@color/orange_primary_dark</item>
         <item name="colorAccent">#ffe0b2</item>
     </style>
     <style name="Red" parent="Theme.AppCompat">
-        <item name="colorPrimary">#f44336</item>
-        <item name="colorPrimaryDark">#b71c1c</item>
+        <item name="colorPrimary">@color/red_primary</item>
+        <item name="colorPrimaryDark">@color/red_primary_dark</item>
         <item name="colorAccent">#ffcdd2</item>
     </style>
     <style name="SettingsTheme" parent="Blue">
