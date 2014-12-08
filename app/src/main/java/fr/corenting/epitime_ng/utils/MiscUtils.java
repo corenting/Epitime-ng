@@ -1,47 +1,22 @@
 package fr.corenting.epitime_ng.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.activities.SettingsActivity;
+import fr.corenting.epitime_ng.fragments.SettingsFragment;
 
 
 public class MiscUtils {
-
-    public static int getTheme(Context c) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
-        String pref = sp.getString("appTheme", "Blue");
-        return getThemeFromString(pref);
-    }
-
-    public static int getWidgetDateBackground(String theme) {
-        if (theme.equals("BlueGray")) {
-            return R.color.bluegray_primary;
-        }
-        if (theme.equals("Red")) {
-            return R.color.red_primary;
-        }
-        if (theme.equals("Orange")) {
-            return R.color.orange_primary;
-        }
-        return R.color.blue_primary;
-    }
-
-    public static int getWidgetGroupBackground(String theme) {
-        if (theme.equals("BlueGray")) {
-            return R.color.bluegray_primary_dark;
-        }
-        if (theme.equals("Red")) {
-            return R.color.red_primary_dark;
-        }
-        if (theme.equals("Orange")) {
-            return R.color.orange_primary_dark;
-        }
-        return R.color.blue_primary_dark;
-    }
 
     public static void makeToast(String message) {
         final Toast toast = Toast.makeText(EpiTime.getInstance().getCurrentActivity(),
@@ -49,16 +24,12 @@ public class MiscUtils {
         toast.show();
     }
 
-    private static int getThemeFromString(String theme) {
-        if (theme.equals("BlueGray")) {
-            return R.style.BlueGray;
-        }
-        if (theme.equals("Red")) {
-            return R.style.Red;
-        }
-        if (theme.equals("Orange")) {
-            return R.style.Orange;
-        }
-        return R.style.Blue;
+    public static void reloadActivity(Activity a, Class classToStart)
+    {
+        a.finish();
+        Intent intent = new Intent(a, classToStart);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        a.startActivity(intent);
     }
 }

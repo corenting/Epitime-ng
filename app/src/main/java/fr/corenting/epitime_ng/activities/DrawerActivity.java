@@ -5,10 +5,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -25,6 +25,7 @@ import java.util.List;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.utils.ThemeUtils;
 import fr.corenting.epitime_ng.adapters.DrawerListAdapter;
 import fr.corenting.epitime_ng.managers.GroupManager;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
@@ -64,14 +65,13 @@ public abstract class DrawerActivity extends ActionBarActivity {
         progressDialog.setMessage(getString(R.string.loading));
 
 		super.onCreate(savedInstanceState);
-        super.setTheme(MiscUtils.getTheme(this));
+        super.setTheme(ThemeUtils.getTheme(this));
 		setContentView(this.layout);
 		
 		EpiTime.getInstance().setCurrentActivity(this);
 		this.groupManager = EpiTime.getInstance().getGroupManager();
 				
 		this.setUp();
-		
 		        
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         this.drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -93,6 +93,14 @@ public abstract class DrawerActivity extends ActionBarActivity {
 
     @Override
     protected void onResume() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int saved =  ThemeUtils.getThemeFromString(sp.getString("appTheme", "Blue"));
+        int current = ThemeUtils.getCurrentThemeId(this);
+
+        if(saved != current)
+        {
+            MiscUtils.reloadActivity(this, this.getClass());
+        }
         super.onResume();
         EpiTime.getInstance().setCurrentActivity(this);
         this.noInternetShown = false;
@@ -134,6 +142,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
 			
 			this.drawerList.setAdapter(new DrawerListAdapter());
 		}
+        this.progressDialog.hide();
 	}
 	
 	private void setDividerTransparent() {
@@ -162,6 +171,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         this.drawerToggle.onConfigurationChanged(newConfig); // Pass any configuration change to the drawer toggls
     }
+
 	
 	
 	@Override

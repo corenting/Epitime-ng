@@ -15,6 +15,7 @@ import android.widget.RemoteViews;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.activities.SettingsActivity;
 import fr.corenting.epitime_ng.utils.DialogUtils;
 import fr.corenting.epitime_ng.utils.FileUtils;
 import fr.corenting.epitime_ng.utils.MiscUtils;
@@ -56,19 +57,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     {
         if (key.equals("appTheme"))
         {
-            final Activity c = getActivity();
-            new AlertDialog.Builder(c)
-                    .setMessage(c.getString(R.string.settings_reboot_msg))
-                    .setCancelable(false)
-                    .setPositiveButton(c.getString(R.string.ok_reboot), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent i = c.getBaseContext().getPackageManager()
-                                    .getLaunchIntentForPackage(c.getBaseContext().getPackageName());
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-                        }
-                    })
-                    .show();
+            MiscUtils.reloadActivity(getActivity(), SettingsActivity.class);
         }
     }
 

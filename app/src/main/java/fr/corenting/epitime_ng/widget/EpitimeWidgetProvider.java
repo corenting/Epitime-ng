@@ -17,9 +17,9 @@ import java.util.Locale;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.utils.ThemeUtils;
 import fr.corenting.epitime_ng.activities.StartActivity;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
-import fr.corenting.epitime_ng.utils.MiscUtils;
 
 /**
  * Created by KingGreed on 03/06/2014.
@@ -66,9 +66,9 @@ public class EpitimeWidgetProvider extends AppWidgetProvider {
             //Set theme
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             String pref = sp.getString("widgetTheme", "Blue");
-            rv.setInt(R.id.widget_lecture_day,"setBackgroundResource", MiscUtils.getWidgetDateBackground(pref));
-            rv.setInt(R.id.menu_title_layout,"setBackgroundResource", MiscUtils.getWidgetGroupBackground(pref));
-            rv.setInt(R.id.widget_lecture_group_title,"setBackgroundResource", MiscUtils.getWidgetGroupBackground(pref));
+            rv.setInt(R.id.widget_lecture_day,"setBackgroundResource", ThemeUtils.getWidgetDateBackground(pref));
+            rv.setInt(R.id.menu_title_layout,"setBackgroundResource", ThemeUtils.getWidgetGroupBackground(pref));
+            rv.setInt(R.id.widget_lecture_group_title,"setBackgroundResource", ThemeUtils.getWidgetGroupBackground(pref));
 
 
             rv.setRemoteAdapter(appWidgetId, R.id.widget_lecture_list, intent);
