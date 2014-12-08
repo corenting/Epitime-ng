@@ -10,7 +10,6 @@ import android.widget.TextView;
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.Lecture;
-import fr.corenting.epitime_ng.utils.MiscUtils;
 
 import java.util.List;
 

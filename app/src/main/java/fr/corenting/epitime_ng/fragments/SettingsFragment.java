@@ -1,26 +1,16 @@
 package fr.corenting.epitime_ng.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
-import android.widget.RemoteViews;
 
-import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.activities.SettingsActivity;
-import fr.corenting.epitime_ng.utils.DialogUtils;
 import fr.corenting.epitime_ng.utils.FileUtils;
 import fr.corenting.epitime_ng.utils.MiscUtils;
-import fr.corenting.epitime_ng.widget.EpitimeWidgetProvider;
-import fr.corenting.epitime_ng.widget.LectureWidgetService;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 

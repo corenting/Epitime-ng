@@ -7,19 +7,18 @@
         android:title="@string/favorite_add"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/menu_item_previous_week"
-        android:icon="@drawable/ic_action_double_previous_item"
         android:title="@string/previous_week"
         app:showAsAction="never"/>
+    <item android:id="@+id/menu_item_today"
+        android:title="@string/today"
+        app:showAsAction="never"/>
     <item android:id="@+id/menu_item_next_week"
-        android:icon="@drawable/ic_action_double_next_item"
         android:title="@string/next_week"
         app:showAsAction="never"/>
     <item android:id="@+id/menu_item_blacklist"
-        android:icon="@drawable/ic_action_cancel"
         android:title="@string/blacklist"
         app:showAsAction="never"/>
     <item android:id="@+id/menu_item_settings"
-        android:icon="@drawable/ic_action_settings"
         android:title="@string/settings"
         app:showAsAction="never"/>
 </menu>

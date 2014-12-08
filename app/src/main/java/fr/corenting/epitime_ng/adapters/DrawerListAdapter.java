@@ -1,9 +1,6 @@
 package fr.corenting.epitime_ng.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +20,7 @@ public class DrawerListAdapter extends BaseAdapter {
     
 	private final List<String> schools;
 	private LayoutInflater inflater = null;
-	
-	private final String[] flatUiColors = {"#f39c12", "#c0392b", "#8e44ad", "#27ae60", "#2980b9", "#7f8c8d"};
-	private static final Random rn = new Random(42);
-		private final HashMap<String, Integer> schoolsIcon =  new HashMap<String, Integer>();
+    private final HashMap<String, Integer> schoolsIcon =  new HashMap<String, Integer>();
     
 	public DrawerListAdapter(List<String> schools) {
 		this.schools = schools;

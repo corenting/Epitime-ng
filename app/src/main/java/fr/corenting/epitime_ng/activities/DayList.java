@@ -125,6 +125,10 @@ public class DayList extends DrawerActivity {
             case R.id.menu_item_previous_week:
                 this.dayChanged(-7);
                 return true;
+            case R.id.menu_item_today:
+                this.manager.resetCalendar();
+                this.updateAdapter();
+                return true;
             case R.id.menu_item_next_week:
                 this.dayChanged(+7);
                 return true;

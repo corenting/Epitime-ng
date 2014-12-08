@@ -50,7 +50,7 @@ public class QueryLecturesNewTask extends AsyncTask<Object, Void, String> {
     }
 
 
-    public QueryLecturesNewTask(Context c, ScheduleManager manager, int week, String group) {
+    public QueryLecturesNewTask(ScheduleManager manager, int week, String group) {
         super();
         this.scheduleManager = manager;
         this.week = week;
@@ -103,10 +103,7 @@ public class QueryLecturesNewTask extends AsyncTask<Object, Void, String> {
             if (EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
                 Log.e(TAG, "An error occured while retrieving the lecture list : " + resultMessage);
                 DrawerActivity context = (DrawerActivity) EpiTime.getInstance().getCurrentActivity();
-                if (resultMessage.equals("BadUrl")) {
-                    //This shouldn't happen in production (because it means the coded url
-                    //or url in the resource isn't good (as in syntax error not api error)
-                } else if (resultMessage.equals("ParseException") || resultMessage.equals("SAXException")) {
+                if (resultMessage.equals("ParseException") || resultMessage.equals("SAXException")) {
                     context.chronosError();
                 } else if (resultMessage.equals("IOException")) {
                     context.noInternetConnexion();

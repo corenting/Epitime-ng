@@ -2,8 +2,6 @@ package fr.corenting.epitime_ng.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextThemeWrapper;

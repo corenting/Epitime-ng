@@ -60,11 +60,13 @@
     <string name="settings_cache_success">Cache deleted successfully</string>
     <string name="settings_cache_fail">Error while deleting the cache</string>
     <string name="settings_theme_title">Theme</string>
-    <string name="settings_theme">Theme</string>
+    <string name="settings_theme">Application theme</string>
 
     <string name="ok_reboot">OK, restart !</string>
     <string name="settings_reboot_msg">The application will now restart to apply the new theme.</string>
-    <string name="settings_widget_theme">WIdget theme</string>
+    <string name="settings_widget_theme">Widget theme</string>
+    <string name="today">Today</string>
+    <string name="list_error">An error occured</string>
     <string-array name="settings_theme_human_values">
         <item>Blue</item>
         <item>Blue Gray</item>
@@ -77,4 +79,5 @@
         <item>Orange</item>
         <item>Red</item>
     </string-array>
+    <string name="list_please_reload">Please reload the list</string>
 </resources>

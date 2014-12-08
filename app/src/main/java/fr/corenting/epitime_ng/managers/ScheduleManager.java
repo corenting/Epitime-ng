@@ -338,7 +338,7 @@ public class ScheduleManager {
 
             this.setWeekTo(week, this.getGroup(), makeLoadingDay(context, getWeek(week)));
             this.fetchingWeek.put(week, true);
-            new QueryLecturesNewTask(context, this, week, this.getGroup()).execute();
+            new QueryLecturesNewTask(this, week, this.getGroup()).execute();
         }
     }
 

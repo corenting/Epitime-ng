@@ -17,14 +17,7 @@ public class GroupListHeader {
         this.longTitle  = this.layout.findViewById(longTitleId);
     }
 
-    //Header version, for the blacklist
-	public GroupListHeader(LayoutInflater inflator, int layoutId, int shortTitleId, int longTitleId) {
-		this.layout = inflator.inflate(layoutId, null);
-        this.shortTitle = this.layout.findViewById(shortTitleId);
-		this.longTitle  = this.layout.findViewById(longTitleId);
-	}
-	
-	//Sets long title to @text iaoi the longTitle element is a TextView
+    //Sets long title to @text iaoi the longTitle element is a TextView
 	public void setLongTitleText(String text) {
 		if(this.longTitle instanceof TextView) {
 			((TextView)this.longTitle).setText(text);

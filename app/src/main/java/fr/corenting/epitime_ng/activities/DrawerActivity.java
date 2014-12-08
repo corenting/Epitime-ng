@@ -169,7 +169,7 @@ public abstract class DrawerActivity extends ActionBarActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        this.drawerToggle.onConfigurationChanged(newConfig); // Pass any configuration change to the drawer toggls
+        this.drawerToggle.onConfigurationChanged(newConfig); // Pass any configuration change to the drawer toggle
     }
 
 	

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.activities.DayList;
 import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.adapters.LectureListAdapter;
@@ -66,16 +67,16 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void setup() {
-        ArrayList<Lecture> list = new ArrayList<Lecture>
-                (Arrays.asList(new Lecture("Une erreur est survenue"), new Lecture("Veuillez recharger la liste")));
+        List<Lecture> list = new ArrayList<Lecture>
+                (Arrays.asList(new Lecture(getActivity().getString(R.string.list_error)), new Lecture(getActivity().getString(R.string.list_please_reload))));
         if (this.day == null) {
-            this.lectureList.setAdapter(new LectureListAdapter(list));
+            this.setLectureListAdapter(list);
         } else {
             try {
                 this.displayed = this.manager.getNonBlacklistedLectures(EpiTime.getInstance().getScheduleManager().getGroup(), this.day.lectures);
                 this.setLectureListAdapter(this.displayed);
             } catch (Exception e) {
-                this.lectureList.setAdapter(new LectureListAdapter(list));
+                this.setLectureListAdapter(list);
             }
         }
     }
