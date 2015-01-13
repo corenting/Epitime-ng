@@ -67,17 +67,18 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void setup() {
-        List<Lecture> list = new ArrayList<Lecture>
-                (Arrays.asList(new Lecture(getActivity().getString(R.string.list_error)), new Lecture(getActivity().getString(R.string.list_please_reload))));
-        if (this.day == null) {
-            this.setLectureListAdapter(list);
-        } else {
-            try {
+        try {
+            List<Lecture> errorList = new ArrayList<>
+                    (Arrays.asList(new Lecture(getActivity().getString(R.string.list_error)), new Lecture(getActivity().getString(R.string.list_please_reload))));
+            if (this.day == null) {
+                this.lectureList.setAdapter(new LectureListAdapter(errorList));
+            } else {
                 this.displayed = this.manager.getNonBlacklistedLectures(EpiTime.getInstance().getScheduleManager().getGroup(), this.day.lectures);
                 this.setLectureListAdapter(this.displayed);
-            } catch (Exception e) {
-                this.setLectureListAdapter(list);
             }
+        }
+        catch (Exception ignored)
+        {
         }
     }
 

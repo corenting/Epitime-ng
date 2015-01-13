@@ -16,8 +16,8 @@ import fr.corenting.epitime_ng.tasks.QueryGroups;
 
 public class GroupManager {
 	
-	private final Map<String, School> groups = new HashMap<String, School>();
-	private final List<String> schoolNames = new ArrayList<String>();
+	private final Map<String, School> groups = new HashMap<>();
+	private final List<String> schoolNames = new ArrayList<>();
 
 	public GroupManager() {
     }

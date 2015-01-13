@@ -52,7 +52,7 @@ public class QueryGroups extends AsyncTask<String, String, String> {
 	@Override
 	protected String doInBackground(String... params) {
         this.groupName = params[0];
-		this.groups = new ArrayList<School>();
+		this.groups = new ArrayList<>();
 
 		
 		try                    { this.setGroup(this.groupName) ; }

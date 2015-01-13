@@ -65,4 +65,7 @@
     <string name="today">Aujourd\'hui</string>
     <string name="list_please_reload">Veuillez recharger la liste</string>
     <string name="list_error">Une erreur est survenue</string>
+    <string name="No">Non</string>
+    <string name="Yes">Oui</string>
+    <string name="dialog_remove_favorite">Voulez-vous enlever %s des favoris ?</string>
 </resources>

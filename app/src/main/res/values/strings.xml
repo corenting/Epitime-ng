@@ -66,7 +66,7 @@
     <string name="settings_reboot_msg">The application will now restart to apply the new theme.</string>
     <string name="settings_widget_theme">Widget theme</string>
     <string name="today">Today</string>
-    <string name="list_error">An error occured</string>
+    <string name="list_error">An error occurred</string>
     <string-array name="settings_theme_human_values">
         <item>Blue</item>
         <item>Blue Gray</item>
@@ -80,4 +80,7 @@
         <item>Red</item>
     </string-array>
     <string name="list_please_reload">Please reload the list</string>
+    <string name="No">No</string>
+    <string name="Yes">Yes</string>
+    <string name="dialog_remove_favorite">Do you want to remove %s from the favorites ?</string>
 </resources>
