@@ -1,5 +1,6 @@
 package fr.corenting.epitime_ng.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
@@ -13,6 +14,9 @@ public class SettingsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setTheme(ThemeUtils.getTheme(this));
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            ThemeUtils.setStatusBarColor(this);
+        }
         setContentView(R.layout.blank);
         // Display the fragment as the main content.
         getSupportFragmentManager().beginTransaction()

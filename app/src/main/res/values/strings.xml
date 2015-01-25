@@ -72,12 +72,18 @@
         <item>Blue Gray</item>
         <item>Orange</item>
         <item>Red</item>
+        <item>Indigo</item>
+        <item>Green</item>
+        <item>Purple</item>
     </string-array>
     <string-array name="settings_theme_phone_values" translatable="false">
         <item>Blue</item>
         <item>BlueGray</item>
         <item>Orange</item>
         <item>Red</item>
+        <item>Indigo</item>
+        <item>Green</item>
+        <item>Purple</item>
     </string-array>
     <string name="list_please_reload">Please reload the list</string>
     <string name="No">No</string>

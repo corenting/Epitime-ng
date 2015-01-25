@@ -67,8 +67,8 @@ public class EpitimeWidgetProvider extends AppWidgetProvider {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             String pref = sp.getString("widgetTheme", "Blue");
             rv.setInt(R.id.widget_lecture_day,"setBackgroundResource", ThemeUtils.getWidgetDateBackground(pref));
-            rv.setInt(R.id.menu_title_layout,"setBackgroundResource", ThemeUtils.getWidgetGroupBackground(pref));
-            rv.setInt(R.id.widget_lecture_group_title,"setBackgroundResource", ThemeUtils.getWidgetGroupBackground(pref));
+            rv.setInt(R.id.menu_title_layout,"setBackgroundResource", ThemeUtils.getThemeColorDark(pref));
+            rv.setInt(R.id.widget_lecture_group_title,"setBackgroundResource", ThemeUtils.getThemeColorDark(pref));
 
 
             rv.setRemoteAdapter(appWidgetId, R.id.widget_lecture_list, intent);

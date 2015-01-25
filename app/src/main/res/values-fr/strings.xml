@@ -58,6 +58,9 @@
         <item>Bleu Gris</item>
         <item>Orange</item>
         <item>Rouge</item>
+        <item>Indigo</item>
+        <item>Vert</item>
+        <item>Violet</item>
     </string-array>
     <string name="ok_reboot">OK, redémarrer !</string>
     <string name="settings_reboot_msg">L\'application va maintenant redémarrer pour appliquer le nouveau thème.</string>
