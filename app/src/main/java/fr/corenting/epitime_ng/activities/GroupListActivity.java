@@ -2,14 +2,16 @@ package fr.corenting.epitime_ng.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.widget.SearchView;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -22,25 +24,21 @@ import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.adapters.GroupListAdapter;
 import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
-import fr.corenting.epitime_ng.headers.GroupListHeader;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
 import fr.corenting.epitime_ng.utils.MiscUtils;
 
-public class GroupListActivity extends DrawerActivity implements AdapterView.OnItemLongClickListener, OnItemClickListener {
+public class GroupListActivity extends DrawerActivity implements AdapterView.OnItemLongClickListener, OnItemClickListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     public String school;
-    private boolean hasNoGroup;
 
     private ListView groupList;
     private GroupListAdapter adapter;
-    private GroupListHeader searchHeader;
-
-    private InputListener searchInputListener;
+    private SearchView searchView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        hasNoGroup = this.getIntent().getExtras().getBoolean("NoGroup");
+        boolean hasNoGroup = this.getIntent().getExtras().getBoolean("NoGroup");
         this.school = this.getIntent().getExtras().getString("School");
         this.layout = R.layout.activity_group_select;
 
@@ -57,20 +55,17 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
             groupList.setOnItemLongClickListener(this);
         }
 
-        this.addHeaders();
         this.reloadListView();
     }
 
+
     public void reloadListView() {
-        this.searchHeader.hideHeader();
 
         School school = this.groupManager.getSchool(this.school);
-        this.searchHeader.showHeader();
         this.menuTitle.setTitleBarClosed(this.school);
         this.adapter = new GroupListAdapter(school);
         this.groupList.setAdapter(this.adapter);
         this.groupList.setOnItemClickListener(this);
-        this.searchInputListener.setAdapter(this.adapter);
     }
 
     @Override
@@ -79,19 +74,37 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
         EpiTime.getInstance().setCurrentActivity(this);
     }
 
-    private void addHeaders() {
-        this.searchHeader = new GroupListHeader(this.getLayoutInflater(),
-                R.layout.group_select_list_item_search,
-                R.id.group_select_list_section_input);
-        EditText search = (EditText) this.searchHeader.longTitle;
-        this.searchInputListener = new InputListener(this.adapter);
-        search.addTextChangedListener(this.searchInputListener);
-        this.searchHeader.addHeader(this.groupList);
+    @Override
+    public void onBackPressed() {
+        if (searchView != null && !searchView.isIconified()) {
+            searchView.setIconified(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+            // Only show items in the action bar relevant to this screen
+            // if the drawer is not showing. Otherwise, let the drawer
+            // decide what to show in the action bar.
+            getMenuInflater().inflate(R.menu.group_list, menu);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                // Associate searchable configuration with the SearchView
+                SearchManager searchManager =
+                        (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+                searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+                searchView.setSearchableInfo(
+                        searchManager.getSearchableInfo(getComponentName()));
+                searchView.setOnQueryTextListener(this);
+                searchView.setOnCloseListener(this);
+            }
+            return true;
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        final String group = ((GroupItem)GroupListActivity.this.adapter.getItem(position - 1)).getLongTitle();
+        final String group = ((GroupItem)GroupListActivity.this.adapter.getItem(position)).getLongTitle();
         final ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(String.format(getString(R.string.dialog_remove_favorite), group))
@@ -132,40 +145,20 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
         new GetDataTask().execute();
     }
 
-    private class InputListener implements TextWatcher {
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return onQueryTextChange(s);
+    }
 
-        private GroupListAdapter adapter;
-        public String value;
+    @Override
+    public boolean onQueryTextChange(String s) {
+        this.adapter.getFilter().filter(s);
+        return true;
+    }
 
-        public InputListener(GroupListAdapter adapter) {
-            super();
-            this.adapter = adapter;
-            this.value = "";
-        }
-
-        public void setAdapter(GroupListAdapter adapter) {
-            this.adapter = adapter;
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            if (this.value.equals(s.toString())) {
-                return;
-            }
-            this.value = s.toString();
-            this.adapter.getFilter().filter(s);
-
-        }
-
+    @Override
+    public boolean onClose() {
+        return false;
     }
 
     private class GetDataTask extends AsyncTask<Void, Void, String[]> {

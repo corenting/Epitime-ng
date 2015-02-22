@@ -11,6 +11,7 @@
 
     <string name="group_selection">Choose your group</string>
     <string name="search">Search</string>
+    <string name="search_hint">Group name</string>
 
     <string name="drawer_open">Open the navigation drawer</string>
     <string name="drawer_close">Close the navigation drawer</string>

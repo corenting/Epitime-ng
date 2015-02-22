@@ -71,4 +71,5 @@
     <string name="No">Non</string>
     <string name="Yes">Oui</string>
     <string name="dialog_remove_favorite">Voulez-vous enlever %s des favoris ?</string>
+    <string name="search_hint">Nom du groupe</string>
 </resources>

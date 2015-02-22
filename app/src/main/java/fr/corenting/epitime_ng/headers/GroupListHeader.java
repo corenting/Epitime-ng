@@ -8,34 +8,34 @@ import android.widget.TextView;
 public class GroupListHeader {
     public final View shortTitle;
     public final View longTitle;
-	
-	private final View layout;
+
+    private final View layout;
 
     public GroupListHeader(LayoutInflater inflator, int layoutId, int longTitleId) {
         this.layout = inflator.inflate(layoutId, null);
         this.shortTitle = null;
-        this.longTitle  = this.layout.findViewById(longTitleId);
+        this.longTitle = this.layout.findViewById(longTitleId);
     }
 
     //Sets long title to @text iaoi the longTitle element is a TextView
-	public void setLongTitleText(String text) {
-		if(this.longTitle instanceof TextView) {
-			((TextView)this.longTitle).setText(text);
+    public void setLongTitleText(String text) {
+        if (this.longTitle instanceof TextView) {
+            ((TextView) this.longTitle).setText(text);
 
-		}
-	}
-	
-	public void addHeader(ListView list) {
-		list.addHeaderView(this.layout);
-	}
+        }
+    }
+
+    public void addHeader(ListView list) {
+        list.addHeaderView(this.layout);
+    }
 
     public void hideHeader() {
-        if(shortTitle !=null) this.shortTitle.setVisibility(View.GONE);
+        if (shortTitle != null) this.shortTitle.setVisibility(View.GONE);
         this.longTitle.setVisibility(View.GONE);
     }
 
     public void showHeader() {
-        if(shortTitle !=null) this.shortTitle.setVisibility(View.VISIBLE);
+        if (shortTitle != null) this.shortTitle.setVisibility(View.VISIBLE);
         this.longTitle.setVisibility(View.VISIBLE);
     }
 
