@@ -90,4 +90,6 @@
     <string name="No">No</string>
     <string name="Yes">Yes</string>
     <string name="dialog_remove_favorite">Do you want to remove %s from the favorites ?</string>
+    <string name="llama">Llama picture</string>
+    <string name="i_am_a_llama">I\'m a llama</string>
 </resources>

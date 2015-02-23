@@ -72,4 +72,6 @@
     <string name="Yes">Oui</string>
     <string name="dialog_remove_favorite">Voulez-vous enlever %s des favoris ?</string>
     <string name="search_hint">Nom du groupe</string>
+    <string name="llama">Photo d\'un lama</string>
+    <string name="i_am_a_llama">Je suis un lama</string>
 </resources>

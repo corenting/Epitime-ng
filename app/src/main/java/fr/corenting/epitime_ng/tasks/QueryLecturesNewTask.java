@@ -1,6 +1,5 @@
 package fr.corenting.epitime_ng.tasks;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -20,7 +19,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import fr.corenting.epitime_ng.EpiTime;
-import fr.corenting.epitime_ng.activities.DayList;
+import fr.corenting.epitime_ng.activities.DayListActivity;
 import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
@@ -96,8 +95,8 @@ public class QueryLecturesNewTask extends AsyncTask<Object, Void, String> {
                 cal.add(Calendar.DAY_OF_YEAR, 1);
             }
 
-            if (EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
-                ((DayList) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
+            if (EpiTime.getInstance().getCurrentActivity() instanceof DayListActivity) {
+                ((DayListActivity) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
             }
         } else {
             if (EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {

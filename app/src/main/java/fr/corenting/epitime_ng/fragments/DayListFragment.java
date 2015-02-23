@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.activities.DayList;
+import fr.corenting.epitime_ng.activities.DayListActivity;
 import fr.corenting.epitime_ng.activities.DrawerActivity;
 import fr.corenting.epitime_ng.adapters.LectureListAdapter;
 import fr.corenting.epitime_ng.data.Day;
@@ -166,8 +166,8 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         @Override
         protected void onPostExecute(String[] result) {
-            if (EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
-                ((DayList) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
+            if (EpiTime.getInstance().getCurrentActivity() instanceof DayListActivity) {
+                ((DayListActivity) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
             }
             swipeLayout.setRefreshing(false);
             super.onPostExecute(result);

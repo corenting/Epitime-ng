@@ -7,11 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -34,7 +35,6 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
 
     private ListView groupList;
     private GroupListAdapter adapter;
-    private SearchView searchView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,36 +75,26 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
     }
 
     @Override
-    public void onBackPressed() {
-        if (searchView != null && !searchView.isIconified()) {
-            searchView.setIconified(true);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.group_list, menu);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                // Associate searchable configuration with the SearchView
-                SearchManager searchManager =
-                        (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-                searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-                searchView.setSearchableInfo(
-                        searchManager.getSearchableInfo(getComponentName()));
-                searchView.setOnQueryTextListener(this);
-                searchView.setOnCloseListener(this);
-            }
-            return true;
+        // Only show items in the action bar relevant to this screen
+        // if the drawer is not showing. Otherwise, let the drawer
+        // decide what to show in the action bar.
+        getMenuInflater().inflate(R.menu.group_list, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);
+        searchView.setIconifiedByDefault(false);
+        return true;
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        final String group = ((GroupItem)GroupListActivity.this.adapter.getItem(position)).getLongTitle();
+        final String group = ((GroupItem) GroupListActivity.this.adapter.getItem(position)).getLongTitle();
         final ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(String.format(getString(R.string.dialog_remove_favorite), group))
@@ -152,6 +142,11 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
 
     @Override
     public boolean onQueryTextChange(String s) {
+        if(s.toLowerCase().equals("upupdowndownleftrightleftrightba"))
+        {
+            Intent myIntent = new Intent(GroupListActivity.this, EasterEggActivity.class);
+            startActivity(myIntent);
+        }
         this.adapter.getFilter().filter(s);
         return true;
     }
@@ -174,12 +169,12 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
 
         @Override
         protected void onPostExecute(String[] result) {
-            if (EpiTime.getInstance().getCurrentActivity() instanceof DayList) {
-                ((DayList) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
+            if (EpiTime.getInstance().getCurrentActivity() instanceof DayListActivity) {
+                ((DayListActivity) EpiTime.getInstance().getCurrentActivity()).updateAdapter();
             }
             progressDialog.dismiss();
             super.onPostExecute(result);
-            Intent intent = new Intent(GroupListActivity.this, DayList.class);
+            Intent intent = new Intent(GroupListActivity.this, DayListActivity.class);
             startActivity(intent);
             finish();
         }

@@ -42,12 +42,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.EasterEggActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/app_name"
             android:theme="@style/SettingsTheme" >
         </activity>
         <activity
-            android:name=".activities.DayList"
+            android:name=".activities.DayListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/Blue" >

@@ -18,7 +18,7 @@ import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.utils.MiscUtils;
 
 
-public class DayList extends DrawerActivity {
+public class DayListActivity extends DrawerActivity {
 
     private int pageIndex = 0;
 
@@ -210,18 +210,18 @@ public class DayList extends DrawerActivity {
             pageIndex = index;
             this.toastShown = false;
 
-            DayList.this.makeBlacklistInfoToast(index);
+            DayListActivity.this.makeBlacklistInfoToast(index);
         }
 
         public void onPageScrolled(int arg0, float arg1, int arg2) {
         }
 
         public void onPageScrollStateChanged(int state) {
-            DayList.this.pagerScrollState = state;
+            DayListActivity.this.pagerScrollState = state;
             if (state != ViewPager.SCROLL_STATE_IDLE) {
                 return;
             }
-            DayList.this.dayChanged(this.offset);
+            DayListActivity.this.dayChanged(this.offset);
             this.offset = 0;
 
         }

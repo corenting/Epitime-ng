@@ -31,7 +31,7 @@ public class StartActivity extends Activity {
         this.destination.putExtras(b);
 
         if(!manager.getGroup().equals(ScheduleManager.defaultGroup)) {
-            this.destination = new Intent(this, DayList.class);
+            this.destination = new Intent(this, DayListActivity.class);
         }
     }
 
