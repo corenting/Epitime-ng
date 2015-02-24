@@ -55,7 +55,7 @@ public class DayListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void initMemberVariables(LayoutInflater inflater, ViewGroup container) {
-        this.view = (ViewGroup) inflater.inflate(layout.activity_week_list, container, false);
+        this.view = (ViewGroup) inflater.inflate(layout.fragment_day_list, container, false);
         this.displayed = new ArrayList<Lecture>();
         swipeLayout = (SwipeRefreshLayout) view.findViewById(id.swipe_container);
         swipeLayout.setOnRefreshListener(this);

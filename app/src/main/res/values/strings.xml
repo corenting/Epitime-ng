@@ -16,7 +16,6 @@
     <string name="drawer_open">Open the navigation drawer</string>
     <string name="drawer_close">Close the navigation drawer</string>
 
-    <string name="no_internet">Can not connect to Internet</string>
     <string name="loading">Loading…</string>
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
@@ -32,8 +31,7 @@
     <string name="details_group">&lt;b>Group : &lt;/b></string>
     <string name="details_room">&lt;b>"Room : &lt;/b></string>
     <string name="no_blacklisted_class">No course ignored</string>
-    <string name="no_internet_msg">Can not connect, please check your connection.</string>
-    <string name="chronos_error">Chronos error</string>
+    <string name="no_internet_msg">Connection failed, please check your Internet connection</string>
     <string name="chronos_incorrect_data">Datas sent by Chronos are incorrect</string>
     <string name="error_getting_list">Error while downloading the list of</string>
     <string name="rooms">rooms.</string>
@@ -92,4 +90,5 @@
     <string name="dialog_remove_favorite">Do you want to remove %s from the favorites ?</string>
     <string name="llama">Llama picture</string>
     <string name="i_am_a_llama">I\'m a llama</string>
+    <string name="no_internet">Internet connection unavailable</string>
 </resources>

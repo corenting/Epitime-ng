@@ -33,7 +33,7 @@ public class ThemeUtils {
         window.setStatusBarColor(activity.getResources().getColor(getThemeColorDark(themeName)));
     }
 
-    public static void checkTheme(Activity activity) {
+    public static void reloadWithTheme(Activity activity) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         int saved = ThemeUtils.getThemeFromString(sp.getString("appTheme", "Blue"));
         int current = ThemeUtils.getCurrentThemeId(activity);

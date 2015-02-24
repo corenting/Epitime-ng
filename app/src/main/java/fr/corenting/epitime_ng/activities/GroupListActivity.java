@@ -40,7 +40,7 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
     public void onCreate(Bundle savedInstanceState) {
         boolean hasNoGroup = this.getIntent().getExtras().getBoolean("NoGroup");
         this.school = this.getIntent().getExtras().getString("School");
-        this.layout = R.layout.activity_group_select;
+        this.layout = R.layout.activity_group_list;
 
         super.onCreate(savedInstanceState);
         EpiTime.getInstance().setCurrentActivity(this);
@@ -118,14 +118,8 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //Hide the keyboard
-        EditText myEditText = (EditText) findViewById(R.id.group_select_list_section_input);
-        InputMethodManager imm = (InputMethodManager) getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
-
         // Header items (Search, connecting, no Internet)
-        GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position - 1);
+        GroupItem item = (GroupItem) GroupListActivity.this.adapter.getItem(position);
         ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
 
         manager.setGroup(item.getLongTitle());

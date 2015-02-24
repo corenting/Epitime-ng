@@ -5,17 +5,16 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +25,12 @@ import java.util.List;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.utils.ThemeUtils;
 import fr.corenting.epitime_ng.adapters.DrawerListAdapter;
 import fr.corenting.epitime_ng.managers.GroupManager;
 import fr.corenting.epitime_ng.tasks.QueryGroups;
 import fr.corenting.epitime_ng.utils.ActionBarTitleSetter;
-import fr.corenting.epitime_ng.utils.DialogUtils;
 import fr.corenting.epitime_ng.utils.MiscUtils;
+import fr.corenting.epitime_ng.utils.ThemeUtils;
 
 
 /*
@@ -49,115 +47,117 @@ import fr.corenting.epitime_ng.utils.MiscUtils;
  */
 public abstract class DrawerActivity extends ActionBarActivity {
 
-	private ListView drawerList;
+    private ListView drawerList;
     private List<String> schools;
 
     public boolean noInternetShown = false;
-    
+
     GroupManager groupManager;
-	int layout;
+    int layout;
     DrawerLayout drawerLayout;
     ActionBarTitleSetter menuTitle;
     DrawerActionBarToggle drawerToggle;
     ProgressDialog progressDialog;
 
+    boolean backFromSettings = false;
+
     protected void onCreate(Bundle savedInstanceState) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
 
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         super.setTheme(ThemeUtils.getTheme(this));
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ThemeUtils.setStatusBarColor(this);
         }
-		setContentView(this.layout);
-		
-		EpiTime.getInstance().setCurrentActivity(this);
-		this.groupManager = EpiTime.getInstance().getGroupManager();
-				
-		this.setUp();
-		        
+        setContentView(this.layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        EpiTime.getInstance().setCurrentActivity(this);
+        this.groupManager = EpiTime.getInstance().getGroupManager();
+
+        this.setUp();
+
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         this.drawerList = (ListView) findViewById(R.id.left_drawer);
-        
+
         this.drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        
+
         this.drawerToggle = new DrawerActionBarToggle(this, this.drawerLayout);
         this.drawerLayout.setDrawerListener(this.drawerToggle);
 
         this.menuTitle = new ActionBarTitleSetter(getSupportActionBar(), this.drawerToggle,
-				getApplicationContext());
-		this.menuTitle.setTitle();
+                getApplicationContext());
+        this.menuTitle.setTitle();
 
         this.reloadDrawerList();
-        
+
         this.drawerList.setOnItemClickListener(new DrawerItemClickListener());
-		
-	}
+    }
 
     @Override
     protected void onResume() {
-        ThemeUtils.checkTheme(this);
+        ThemeUtils.reloadWithTheme(this);
         super.onResume();
         EpiTime.getInstance().setCurrentActivity(this);
         this.noInternetShown = false;
     }
 
-	
-	public void reloadDrawerList() {
-		this.schools = this.groupManager.getSchools();
 
-		this.progressDialog.hide();
-		
-		if(this.schools != null && this.schools.size() != 0) {
-			this.resetDividerColor();
-			
-			if(QueryGroups.isLoading() && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+    public void reloadDrawerList() {
+        this.schools = this.groupManager.getSchools();
+
+        this.progressDialog.hide();
+
+        if (this.schools != null && this.schools.size() != 0) {
+            this.resetDividerColor();
+
+            if (QueryGroups.isLoading() && drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 progressDialog.show();
-			}
-            else
-            {
+            } else {
                 progressDialog.hide();
             }
-			
-			this.drawerList.setAdapter(new DrawerListAdapter(this.schools));
 
-			this.menuTitle.resetTitleBarOpened();
-		} else {
-			this.setDividerTransparent();
-			
-			if(QueryGroups.isLoading()) {
-                if(drawerLayout.isDrawerOpen(GravityCompat.START))
-                {
+            this.drawerList.setAdapter(new DrawerListAdapter(this.schools));
+
+            this.menuTitle.resetTitleBarOpened();
+        } else {
+            this.setDividerTransparent();
+
+            if (QueryGroups.isLoading()) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     progressDialog.show();
 
-                }this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.loading));
-			} else {
-                DialogUtils.displaySimpleAlert(getString(R.string.no_internet), getString(R.string.no_internet_msg));
-				this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.no_internet));
-			}
-			
-			this.drawerList.setAdapter(new DrawerListAdapter());
-		}
+                }
+                this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.loading));
+            } else {
+                MiscUtils.makeToast(getString(R.string.no_internet_msg));
+                this.menuTitle.setTitleBarOpened(this.getResources().getString(R.string.no_internet));
+            }
+
+            this.drawerList.setAdapter(new DrawerListAdapter());
+        }
         this.progressDialog.hide();
-	}
-	
-	private void setDividerTransparent() {
-		this.drawerList.setDivider(new ColorDrawable(this.getResources().getColor(R.color.drawerlist_transparent)));
-	}
-	
-	private void resetDividerColor() {
-		this.drawerList.setDivider(new ColorDrawable(this.getResources().getColor(R.color.drawerlist_color)));
-	}
-	
-	private void setUp() {
+    }
+
+    private void setDividerTransparent() {
+        this.drawerList.setDivider(new ColorDrawable(this.getResources().getColor(R.color.drawerlist_transparent)));
+    }
+
+    private void resetDividerColor() {
+        this.drawerList.setDivider(new ColorDrawable(this.getResources().getColor(R.color.drawerlist_color)));
+    }
+
+    private void setUp() {
         ActionBar ac = getSupportActionBar();
-    	ac.setDisplayShowTitleEnabled(true);
+        ac.setDisplayShowTitleEnabled(true);
         ac.setDisplayHomeAsUpEnabled(true);
         ac.setHomeButtonEnabled(true);
-	}
-	
-	@Override
+    }
+
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         this.drawerToggle.syncState(); // Sync the toggle state after onRestoreInstanceState has occurred.
@@ -169,33 +169,38 @@ public abstract class DrawerActivity extends ActionBarActivity {
         this.drawerToggle.onConfigurationChanged(newConfig); // Pass any configuration change to the drawer toggle
     }
 
-	
-	
-	@Override
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return this.drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
-	
-	public void noInternetConnexion() {
-        if(this.noInternetShown) { return; }
+
+    public void noInternetConnexion() {
+        if (this.noInternetShown) {
+            return;
+        }
         this.noInternetShown = true;
-    	DialogUtils.displaySimpleAlert(getString(R.string.no_internet), getString(R.string.no_internet_msg));
+        MiscUtils.makeToast(getString(R.string.no_internet_msg));
     }
-    
+
     public void chronosError() {
-    	DialogUtils.displaySimpleAlert(getString(R.string.chronos_error), getString(R.string.chronos_incorrect_data));
+        MiscUtils.makeToast(getString(R.string.chronos_incorrect_data));
     }
 
     public void noInternetConnexion(final String groupFailed) {
-        DialogUtils.displaySimpleAlert(getString(R.string.no_internet), getString(R.string.no_internet_msg));
+        MiscUtils.makeToast(getString(R.string.no_internet_msg));
 
         String message = getString(R.string.no_internet) + "\n";
-        if(groupFailed.equals("trainnees")) {
-            message += getString(R.string.error_getting_list) + " "  + getString(R.string.students);
-        } else if(groupFailed.equals("instructors")) {
-            message += getString(R.string.error_getting_list)+ " "  + getString(R.string.teachers);
-        } else if(groupFailed.equals("rooms")) {
-            message += getString(R.string.error_getting_list) + " "  + getString(R.string.rooms);
+        switch (groupFailed) {
+            case "trainnees":
+                message += getString(R.string.error_getting_list) + " " + getString(R.string.students);
+                break;
+            case "instructors":
+                message += getString(R.string.error_getting_list) + " " + getString(R.string.teachers);
+                break;
+            case "rooms":
+                message += getString(R.string.error_getting_list) + " " + getString(R.string.rooms);
+                break;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -219,42 +224,42 @@ public abstract class DrawerActivity extends ActionBarActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        	
-        	String schoolName = DrawerActivity.this.schools.get(position);
-        	if(DrawerActivity.this instanceof GroupListActivity) {
-        		GroupListActivity context = (GroupListActivity) DrawerActivity.this;
-        		if(context.school.equals(schoolName)) {
-        			DrawerActivity.this.drawerLayout.closeDrawer(Gravity.LEFT);
-        			return ;
-        		}
-			}
-        	
-        	Intent destination = new Intent(DrawerActivity.this, GroupListActivity.class);
-        	
-        	Bundle b = new Bundle();
-    		b.putBoolean("NoGroup", false);
-    		b.putString("School", schoolName);
-    		
-        	destination.putExtras(b);
-        	startActivity(destination);
+
+            String schoolName = DrawerActivity.this.schools.get(position);
+            if (DrawerActivity.this instanceof GroupListActivity) {
+                GroupListActivity context = (GroupListActivity) DrawerActivity.this;
+                if (context.school.equals(schoolName)) {
+                    DrawerActivity.this.drawerLayout.closeDrawer(Gravity.LEFT);
+                    return;
+                }
+            }
+
+            Intent destination = new Intent(DrawerActivity.this, GroupListActivity.class);
+
+            Bundle b = new Bundle();
+            b.putBoolean("NoGroup", false);
+            b.putString("School", schoolName);
+
+            destination.putExtras(b);
+            startActivity(destination);
         }
     }
-	
-	public class DrawerActionBarToggle extends ActionBarDrawerToggle {
-		public boolean isDrawerOpened = false;
 
-		public DrawerActionBarToggle(Activity activity, DrawerLayout drawerLayout) {
-			super(activity, drawerLayout, R.string.drawer_open, R.string.drawer_close);
-		}
-		
-		public void onDrawerClosed(View view) {
-			this.isDrawerOpened = false;
-			DrawerActivity.this.menuTitle.setTitle();
+    public class DrawerActionBarToggle extends ActionBarDrawerToggle {
+        public boolean isDrawerOpened = false;
+
+        public DrawerActionBarToggle(Activity activity, DrawerLayout drawerLayout) {
+            super(activity, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         }
-		
-		public void onDrawerOpened(View drawerView) {
-			this.isDrawerOpened = true;
-			DrawerActivity.this.menuTitle.setTitle();
+
+        public void onDrawerClosed(View view) {
+            this.isDrawerOpened = false;
+            DrawerActivity.this.menuTitle.setTitle();
         }
-	}
+
+        public void onDrawerOpened(View drawerView) {
+            this.isDrawerOpened = true;
+            DrawerActivity.this.menuTitle.setTitle();
+        }
+    }
 }

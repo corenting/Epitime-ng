@@ -7,7 +7,6 @@
     <string name="drawer_open">Ouvrir le menu de navigation</string>
     <string name="drawer_close">Fermer le menu de navigation</string>
 
-    <string name="no_internet">Connexion à Internet impossible</string>
     <string name="loading">Chargement en cours…</string>
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
@@ -25,7 +24,6 @@
     <string name="details_rooms">&lt;b>"Salles : &lt;/b></string>
     <string name="no_blacklisted_class">Aucun cours ignoré</string>
     <string name="no_internet_msg">Impossible de se connecter, veuillez vérifier votre connexion.</string>
-    <string name="chronos_error">Erreur Chronos</string>
     <string name="chronos_incorrect_data">Les données transmises par Chronos sont incorrectes</string>
     <string name="error_getting_list">Impossible de récupérer la liste des</string>
     <string name="rooms">salles.</string>
@@ -74,4 +72,5 @@
     <string name="search_hint">Nom du groupe</string>
     <string name="llama">Photo d\'un lama</string>
     <string name="i_am_a_llama">Je suis un lama</string>
+    <string name="no_internet">Connexion Internet indisponible</string>
 </resources>

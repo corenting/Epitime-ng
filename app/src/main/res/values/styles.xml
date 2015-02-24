@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Blue" parent="Theme.AppCompat">
+    <style name="Blue" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/blue_primary</item>
         <item name="colorPrimaryDark">@color/blue_primary_dark</item>
         <item name="colorAccent">#bbdefb</item>
     </style>
-    <style name="BlueGray" parent="Theme.AppCompat">
+    <style name="BlueGray" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/bluegray_primary</item>
         <item name="colorPrimaryDark">@color/bluegray_primary_dark</item>
         <item name="colorAccent">#cfd8dc</item>
     </style>
-    <style name="Orange" parent="Theme.AppCompat">
+    <style name="Orange" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/orange_primary</item>
         <item name="colorPrimaryDark">@color/orange_primary_dark</item>
         <item name="colorAccent">#ffe0b2</item>
     </style>
-    <style name="Red" parent="Theme.AppCompat">
+    <style name="Red" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/red_primary</item>
         <item name="colorPrimaryDark">@color/red_primary_dark</item>
         <item name="colorAccent">#ffcdd2</item>
     </style>
-    <style name="Indigo" parent="Theme.AppCompat">
+    <style name="Indigo" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/indigo_primary</item>
         <item name="colorPrimaryDark">@color/indigo_primary_dark</item>
         <item name="colorAccent">#c5cae9</item>
     </style>
-    <style name="Green" parent="Theme.AppCompat">
+    <style name="Green" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryDark">@color/green_primary_dark</item>
         <item name="colorAccent">#c8e6c9</item>
     </style>
-    <style name="Purple" parent="Theme.AppCompat">
+    <style name="Purple" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/purple_primary</item>
         <item name="colorPrimaryDark">@color/purple_primary_dark</item>
         <item name="colorAccent">#e1bee7</item>
-    </style>
-    <style name="SettingsTheme" parent="Blue">
-        <item name="android:textColor">#fff</item>
-        <item name="android:textColorSecondary">#fff</item>
     </style>
 </resources>
