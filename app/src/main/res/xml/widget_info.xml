@@ -5,6 +5,7 @@
     android:minWidth="180dp"
     android:minHeight="250dp"
     android:updatePeriodMillis="3600000"
+    android:previewImage="@drawable/widget_preview"
     android:initialLayout="@layout/widget_lecture_list"
     android:resizeMode="horizontal|vertical"
     android:autoAdvanceViewId="@id/widget_lecture_list"
