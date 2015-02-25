@@ -28,7 +28,6 @@ public class EpiTime extends Application {
     @Override
     public void onCreate() {
         EpiTime.instance = this;
-
         this.scheduleManager = new ScheduleManager(getApplicationContext());
         this.groupManager = new GroupManager();
 

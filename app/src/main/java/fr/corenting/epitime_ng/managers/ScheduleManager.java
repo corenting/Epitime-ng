@@ -5,18 +5,6 @@ import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.widget.Toast;
 
-import fr.corenting.epitime_ng.EpiTime;
-import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.activities.DrawerActivity;
-import fr.corenting.epitime_ng.data.Day;
-import fr.corenting.epitime_ng.data.GroupItem;
-import fr.corenting.epitime_ng.data.Lecture;
-import fr.corenting.epitime_ng.data.School;
-import fr.corenting.epitime_ng.parser.chronos.ChronosLectureParser;
-import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
-import fr.corenting.epitime_ng.utils.FileUtils;
-import fr.corenting.epitime_ng.utils.TinyDB;
-
 import org.w3c.dom.Document;
 
 import java.io.File;
@@ -29,6 +17,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.activities.DrawerActivity;
+import fr.corenting.epitime_ng.data.Day;
+import fr.corenting.epitime_ng.data.Lecture;
+import fr.corenting.epitime_ng.parser.chronos.ChronosLectureParser;
+import fr.corenting.epitime_ng.tasks.QueryLecturesNewTask;
+import fr.corenting.epitime_ng.utils.FileUtils;
+import fr.corenting.epitime_ng.utils.TinyDB;
 
 public class ScheduleManager {
 
@@ -62,12 +60,18 @@ public class ScheduleManager {
 
     public ScheduleManager(Context c) {
         this.context = c;
-        this.tinyDB      = new TinyDB(c);
+        this.tinyDB = new TinyDB(c);
         this.selectedDate = Calendar.getInstance(Locale.FRANCE);
         this.fetchingWeek = new SparseBooleanArray();
     }
 
-    public void setGroup         (String group)  { this.tinyDB.putString("group", group);           }
+    public void setGroup(String group) {
+        this.tinyDB.putString("group", group);
+    }
+
+    public void setWidgetGroup(String group) {
+        this.tinyDB.putString("widgetGroup", group);
+    }
 
     public String getGroup() {
         String group;
@@ -75,7 +79,15 @@ public class ScheduleManager {
         return !group.equals("") ? group : defaultGroup;
     }
 
-    public boolean getHasToastActive() { return this.tinyDB.getBooleanDefaultTrue("hasToastActive"); }
+    public String getWidgetGroup() {
+        String group;
+        group = this.tinyDB.getString("widgetGroup");
+        return !group.equals("") ? group : defaultGroup;
+    }
+
+    public boolean getHasToastActive() {
+        return this.tinyDB.getBooleanDefaultTrue("hasToastActive");
+    }
 
 
     public void addToCalendar(int days) {
@@ -83,7 +95,7 @@ public class ScheduleManager {
         this.selectedDate.add(Calendar.DATE, days);
 
         int week = getCurrentWeek(this.selectedDate.getTime());
-        if(week >= 52 || week < 0) {
+        if (week >= 52 || week < 0) {
             this.offset -= days;
             this.selectedDate.add(Calendar.DATE, -days);
         }
@@ -100,7 +112,7 @@ public class ScheduleManager {
                 -1;
     }
 
-    public static  Date getWeek(int num) {
+    public static Date getWeek(int num) {
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
         cal.setTime(FIRST_WEEK);
 
@@ -110,7 +122,8 @@ public class ScheduleManager {
 
     public int getCurrentWeek(Date selectedDate, int offset) {
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
-        cal.setTime(selectedDate); cal.add(Calendar.DATE, offset);
+        cal.setTime(selectedDate);
+        cal.add(Calendar.DATE, offset);
         return getCurrentWeek(cal.getTime());
     }
 
@@ -130,7 +143,8 @@ public class ScheduleManager {
 
     public Day getLectures(String group, Date date, int offset) {
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
-        cal.setTime(date); cal.add(Calendar.DATE, offset);
+        cal.setTime(date);
+        cal.add(Calendar.DATE, offset);
 
         return this.getLectures(group, cal);
     }
@@ -158,7 +172,8 @@ public class ScheduleManager {
     public void setLectures(String group, Date date, Integer offset, Day value) {
 
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
-        cal.setTime(date); cal.add(Calendar.DATE, offset);
+        cal.setTime(date);
+        cal.add(Calendar.DATE, offset);
 
         this.setLectures(group, cal, value);
     }
@@ -243,7 +258,9 @@ public class ScheduleManager {
 
         try {
             Document xml = QueryLecturesNewTask.retrieveXMLFromFile(week, group);
-            if(xml == null) { return false; }
+            if (xml == null) {
+                return false;
+            }
 
             List<Day> days = new ChronosLectureParser().parse(xml);
 
@@ -258,7 +275,7 @@ public class ScheduleManager {
 
             return true;
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(EpiTime.getInstance(), "Could not load lecture list from file.", Toast.LENGTH_SHORT).show();
         }
 
@@ -268,15 +285,18 @@ public class ScheduleManager {
     // Request before get !
     public List<Day> getPreviousCurrentAndNextDay(Date day, String group) {
 
-        List<Day> l = new ArrayList<Day>();
+        List<Day> l = new ArrayList<>();
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
 
 
         for (int i = -1; i <= 1; ++i) {
-            cal.setTime(day); cal.add(Calendar.DATE, i);
+            cal.setTime(day);
+            cal.add(Calendar.DATE, i);
             Date currentDay = cal.getTime();
             int w = getCurrentWeek(currentDay);
-            if(w >= 52) { continue; }
+            if (w >= 52) {
+                continue;
+            }
 
             l.add(this.getLectures(group, day, i));
 
@@ -291,19 +311,20 @@ public class ScheduleManager {
 
 
     // Loads lectures from file if they exists
-    // Else gets them from chronos.
-    // Note : While lectures are beeing downloaded day's lectures are set to "Loading"
+    // Else gets them from Chronos.
+    // Note : While lectures are being downloaded day's lectures are set to "Loading"
     void requestLectures(Date day, boolean forceUpdate, Integer... offsets) {
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
         HashSet<Integer> weeksToUpdate = new HashSet<Integer>();
 
         for (Integer offset1 : offsets) {
             //Date operations
-            cal.setTime(day); cal.add(Calendar.DATE, offset1);
+            cal.setTime(day);
+            cal.add(Calendar.DATE, offset1);
             Date currentDay = cal.getTime();
             int w = getCurrentWeek(currentDay);
 
-            if(w >= 52 || w < 0) {
+            if (w >= 52 || w < 0) {
                 continue;
             }
 
@@ -323,9 +344,9 @@ public class ScheduleManager {
             }
         }
 
-        if(!EpiTime.getInstance().hasInternet()) {
-            if(EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
-                DrawerActivity context = (DrawerActivity)EpiTime.getInstance().getCurrentActivity();
+        if (!EpiTime.getInstance().hasInternet()) {
+            if (EpiTime.getInstance().getCurrentActivity() instanceof DrawerActivity) {
+                DrawerActivity context = (DrawerActivity) EpiTime.getInstance().getCurrentActivity();
                 context.noInternetConnexion();
             }
             for (Integer week : weeksToUpdate) {
@@ -362,7 +383,7 @@ public class ScheduleManager {
     public void updateWidget(Calendar cal) {
         Calendar today = Calendar.getInstance();
 
-        if(cal.get(Calendar.DAY_OF_YEAR) != today.get(Calendar.DAY_OF_YEAR)
+        if (cal.get(Calendar.DAY_OF_YEAR) != today.get(Calendar.DAY_OF_YEAR)
                 || cal.get(Calendar.YEAR) != today.get(Calendar.YEAR)) {
             return;
         }
@@ -374,12 +395,15 @@ public class ScheduleManager {
     // Returns 3 days with message loading
     // Date of these days are as follows : [date - 1 day; date; date + 1 day]
     public static List<Day> makeLoadingDays(Context c, Date date) {
-        Calendar cal = Calendar.getInstance(); cal.setTime(date);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         cal.add(Calendar.DATE, -1);
 
         List<Day> days = new ArrayList<Day>();
-        days.add(makeLoadingDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
-        days.add(makeLoadingDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
+        days.add(makeLoadingDay(c, cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        days.add(makeLoadingDay(c, cal.getTime()));
+        cal.add(Calendar.DATE, 1);
         days.add(makeLoadingDay(c, cal.getTime()));
 
         return days;
@@ -389,12 +413,15 @@ public class ScheduleManager {
     // Date of these days are as follows : [date - 1 day; date; date + 1 day]
     @SuppressWarnings("unused")
     public static List<Day> makeNoInternetDays(Context c, Date date) {
-        Calendar cal = Calendar.getInstance(); cal.setTime(date);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         cal.add(Calendar.DATE, -1);
 
         List<Day> days = new ArrayList<Day>();
-        days.add(makeNoInternetDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
-        days.add(makeNoInternetDay(c, cal.getTime())); cal.add(Calendar.DATE, 1);
+        days.add(makeNoInternetDay(c, cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        days.add(makeNoInternetDay(c, cal.getTime()));
+        cal.add(Calendar.DATE, 1);
         days.add(makeNoInternetDay(c, cal.getTime()));
 
         return days;
@@ -403,12 +430,12 @@ public class ScheduleManager {
     public void setWeekTo(int week, String group, Day message) {
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
 
-        for(int i = 0; i < 7; ++i) {
+        for (int i = 0; i < 7; ++i) {
             cal.setTime(getWeek(week));
             cal.add(Calendar.DAY_OF_YEAR, i);
             message.date = cal.getTime();
 
-            if(this.getLectures(group, cal) == null) {
+            if (this.getLectures(group, cal) == null) {
                 this.setLectures(group, cal, message.clone());
             }
         }

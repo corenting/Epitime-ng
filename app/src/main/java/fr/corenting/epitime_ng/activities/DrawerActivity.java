@@ -59,8 +59,6 @@ public abstract class DrawerActivity extends ActionBarActivity {
     DrawerActionBarToggle drawerToggle;
     ProgressDialog progressDialog;
 
-    boolean backFromSettings = false;
-
     protected void onCreate(Bundle savedInstanceState) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));

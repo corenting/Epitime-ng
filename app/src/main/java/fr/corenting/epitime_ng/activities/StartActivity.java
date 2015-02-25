@@ -16,6 +16,7 @@ public class StartActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        boolean fromWidget = getIntent().getBooleanExtra("fromWidget", false);
         setContentView(R.layout.activity_splash_screen);
         EpiTime.getInstance().setCurrentActivity(this);
         ScheduleManager manager = EpiTime.getInstance().getScheduleManager();
@@ -32,6 +33,10 @@ public class StartActivity extends Activity {
 
         if(!manager.getGroup().equals(ScheduleManager.defaultGroup)) {
             this.destination = new Intent(this, DayListActivity.class);
+            if(fromWidget)
+            {
+                manager.resetCalendar();
+            }
         }
     }
 

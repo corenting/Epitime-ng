@@ -3,19 +3,6 @@ package fr.corenting.epitime_ng.tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import fr.corenting.epitime_ng.EpiTime;
-import fr.corenting.epitime_ng.R;
-import fr.corenting.epitime_ng.activities.DrawerActivity;
-import fr.corenting.epitime_ng.data.GroupItem;
-import fr.corenting.epitime_ng.data.School;
-import fr.corenting.epitime_ng.parser.chronos.ChronosRoomParser;
-import fr.corenting.epitime_ng.parser.chronos.ChronosSchoolsParser;
-import fr.corenting.epitime_ng.parser.chronos.ChronosTeacherParser;
-import fr.corenting.epitime_ng.utils.FileUtils;
-import fr.corenting.epitime_ng.utils.InternetUtils;
-import fr.corenting.epitime_ng.utils.TinyDB;
-import fr.corenting.epitime_ng.utils.UrlUtils;
-
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -28,6 +15,19 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import fr.corenting.epitime_ng.EpiTime;
+import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.activities.DrawerActivity;
+import fr.corenting.epitime_ng.data.GroupItem;
+import fr.corenting.epitime_ng.data.School;
+import fr.corenting.epitime_ng.parser.chronos.ChronosRoomParser;
+import fr.corenting.epitime_ng.parser.chronos.ChronosSchoolsParser;
+import fr.corenting.epitime_ng.parser.chronos.ChronosTeacherParser;
+import fr.corenting.epitime_ng.utils.FileUtils;
+import fr.corenting.epitime_ng.utils.InternetUtils;
+import fr.corenting.epitime_ng.utils.TinyDB;
+import fr.corenting.epitime_ng.utils.UrlUtils;
 
 public class QueryGroups extends AsyncTask<String, String, String> {
 
@@ -108,10 +108,18 @@ public class QueryGroups extends AsyncTask<String, String, String> {
 	
 	void parseGroup(String group, InputStream is) throws SAXException, IOException {
 		Document xml = documentBuilder.parse(is);
-		
-		if(group.equals("instructors"))    { this.groups.add(new ChronosTeacherParser().parse(xml)); }
-		else if(group.equals("rooms"))     { this.groups.add(new ChronosRoomParser().parse(xml)); }
-		else if(group.equals("trainnees")) { this.groups.addAll(new ChronosSchoolsParser().parse(xml)); }
+
+        switch (group) {
+            case "instructors":
+                this.groups.add(new ChronosTeacherParser().parse(xml));
+                break;
+            case "rooms":
+                this.groups.add(new ChronosRoomParser().parse(xml));
+                break;
+            case "trainnees":
+                this.groups.addAll(new ChronosSchoolsParser().parse(xml));
+                break;
+        }
 	}
 	
 	private void setGroupsFromInternet(String group) throws IOException, SAXException {

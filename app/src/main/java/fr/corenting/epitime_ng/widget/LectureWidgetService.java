@@ -7,18 +7,16 @@ import android.os.Build;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Created by KingGreed on 04/06/2014.
- */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LectureWidgetService extends RemoteViewsService {
 
@@ -37,7 +35,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     private List<Lecture> lectures;
 
     public LectureWidgetFactory(Context context) {
-        if(EpiTime.getInstance().getCurrentActivity() == null) {
+        if (EpiTime.getInstance().getCurrentActivity() == null) {
             EpiTime.getInstance().setCurrentActivity(context);
         }
         this.context = context;
@@ -51,27 +49,22 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     private void updateData() {
-        if(this.manager.getGroup().equals(ScheduleManager.defaultGroup)) {
-            this.lectures = new ArrayList<Lecture>
-                    (Arrays.asList(new Lecture(context.getString(R.string.widget_no_group)), new Lecture(context.getString(R.string.widget_touch_to_select))));
-        } else {
-            if(!EpiTime.getInstance().hasInternet()) {
-
-                if(this.manager.hasCache(this.manager.getCurrentWeek(this.manager.getDay(), -this.manager.offset), this.manager.getGroup())) {
-                    this.loadLectures();
-                } else {
-                    this.lectures = new ArrayList<Lecture>
-                            (Arrays.asList(new Lecture("Pas connexion internet (et pas de cache) !"), new Lecture("Cliquez pour recharger")));
-                }
-            } else {
+        if (!EpiTime.getInstance().hasInternet()) {
+            if (this.manager.hasCache(this.manager.getCurrentWeek(Calendar.getInstance().getTime(), 0), this.manager.getWidgetGroup())) {
                 this.loadLectures();
+            } else {
+                this.lectures = new ArrayList<>
+                        (Arrays.asList(new Lecture("Pas connexion internet (et pas de cache) !"), new Lecture("Cliquez pour recharger")));
             }
+        } else {
+            this.loadLectures();
         }
+
     }
 
     private void loadLectures() {
-        this.manager.requestLectures(false, -this.manager.offset);
-        this.lectures = this.manager.getNonBlacklistedLectures(this.manager.getGroup(), this.manager.getDay(), -this.manager.offset);
+        this.manager.requestLectures(false, 0);
+        this.lectures = this.manager.getNonBlacklistedLectures(this.manager.getWidgetGroup(), Calendar.getInstance().getTime(), 0);
     }
 
     @Override
@@ -80,7 +73,8 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     @Override
-    public void onDestroy() {}
+    public void onDestroy() {
+    }
 
     @Override
     public int getCount() {
@@ -89,7 +83,6 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public RemoteViews getViewAt(int index) {
-
         Lecture item = this.lectures.get(index);
         return this.getLectureView(item, index);
 
@@ -114,6 +107,7 @@ class LectureWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
         }
 
         Intent intent = new Intent();
+        intent.putExtra("fromWidget", true);
         rv.setOnClickFillInIntent(R.id.lecture_item_background, intent);
 
         return rv;

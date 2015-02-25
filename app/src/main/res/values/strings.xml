@@ -20,7 +20,7 @@
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
     <string name="dialog_alert_blacklist_text">Do you really want to re-establish this course?</string>
-    <string name="widget_no_group">No group selected !</string>
+    <string name="widget_no_group">No group selected</string>
     <string name="widget_touch_to_select">Click to select it</string>
     <string name="choose_school">Choose a school</string>
     <string name="blacklist">Blacklist</string>

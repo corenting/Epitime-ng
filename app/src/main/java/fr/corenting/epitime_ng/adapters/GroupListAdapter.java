@@ -1,6 +1,7 @@
 package fr.corenting.epitime_ng.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.utils.TinyDB;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GroupListAdapter extends BaseAdapter {
