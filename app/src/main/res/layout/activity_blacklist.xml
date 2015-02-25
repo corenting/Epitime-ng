@@ -13,6 +13,15 @@
         android:layout_height="wrap_content"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/no_blacklisted_class"
+        android:id="@android:id/empty"
+        android:gravity="fill" />
+
 	<ListView
         android:id="@+id/left_drawer"
         android:layout_width="@dimen/nav_drawer_width"

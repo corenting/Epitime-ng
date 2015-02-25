@@ -13,7 +13,6 @@ import android.widget.TextView;
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.GroupItem;
-import fr.corenting.epitime_ng.headers.GroupListHeader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +25,10 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
     private LayoutInflater inflater = null;
     private List<String> lecturesBlacklisted;
     private List<GroupItem> items;
-    private GroupListHeader noBlacklistHeader;
 
-    public BlacklistAdapter(GroupListHeader noBlacklistHeader) {
+    public BlacklistAdapter() {
         this.lecturesBlacklisted = EpiTime.getInstance().getScheduleManager().getBlacklist(EpiTime.getInstance().getScheduleManager().getGroup());
         this.inflater = (LayoutInflater) EpiTime.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.noBlacklistHeader = noBlacklistHeader;
         this.items = new ArrayList<GroupItem>();
 
         this.makeItems();
@@ -105,10 +102,6 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
         EpiTime.getInstance().getScheduleManager().removeFromBlacklist(EpiTime.getInstance().getScheduleManager().getGroup(), this.lecturesBlacklisted.get(index));
         this.makeItems();
         this.notifyDataSetChanged();
-
-        if (this.lecturesBlacklisted.size() == 0) {
-            this.noBlacklistHeader.showHeader();
-        }
     }
 
     private class RemoveLectureListener implements DialogInterface.OnClickListener {
