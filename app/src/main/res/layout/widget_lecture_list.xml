@@ -9,7 +9,7 @@
     android:color="@color/background_material_dark"
     tools:showIn="@layout/widget_info">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/menu_title_layout"

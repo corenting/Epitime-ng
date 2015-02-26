@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="group_selection">Choisissez votre groupe</string>
     <string name="search">Rechercher</string>
 
     <string name="drawer_open">Ouvrir le menu de navigation</string>
@@ -11,8 +10,6 @@
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
     <string name="dialog_alert_blacklist_text">Voulez-vous vraiment rétablir ce cours ?</string>
-    <string name="widget_no_group">Pas de groupe sélectionné</string>
-    <string name="widget_touch_to_select">Cliquez pour le sélectionner</string>
     <string name="choose_school">Choisissez une école</string>
     <string name="blacklist">Blacklist</string>
     <string name="ok">OK</string>
@@ -60,8 +57,6 @@
         <item>Vert</item>
         <item>Violet</item>
     </string-array>
-    <string name="ok_reboot">OK, redémarrer !</string>
-    <string name="settings_reboot_msg">L\'application va maintenant redémarrer pour appliquer le nouveau thème.</string>
     <string name="settings_widget_theme">Thème du widget</string>
     <string name="today">Aujourd\'hui</string>
     <string name="list_please_reload">Veuillez recharger la liste</string>

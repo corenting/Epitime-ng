@@ -21,14 +21,4 @@
         android:text="@string/no_blacklisted_class"
         android:id="@android:id/empty"
         android:gravity="fill" />
-
-	<ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="@dimen/nav_drawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="#eaedf2"
-        android:dividerHeight="1dp"
-        android:background="#303030"/>
 </LinearLayout>

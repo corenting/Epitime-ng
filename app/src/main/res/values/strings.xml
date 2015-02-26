@@ -9,7 +9,6 @@
     <string name="tinydb_favorites" translatable="false">favoritesList</string>
 
 
-    <string name="group_selection">Choose your group</string>
     <string name="search">Search</string>
     <string name="search_hint">Group name</string>
 
@@ -20,8 +19,6 @@
 
     <string name="dialog_alert_blacklist_title">Confirmation</string>
     <string name="dialog_alert_blacklist_text">Do you really want to re-establish this course?</string>
-    <string name="widget_no_group">No group selected</string>
-    <string name="widget_touch_to_select">Click to select it</string>
     <string name="choose_school">Choose a school</string>
     <string name="blacklist">Blacklist</string>
     <string name="ok">OK</string>
@@ -61,8 +58,6 @@
     <string name="settings_theme_title">Theme</string>
     <string name="settings_theme">Application theme</string>
 
-    <string name="ok_reboot">OK, restart !</string>
-    <string name="settings_reboot_msg">The application will now restart to apply the new theme.</string>
     <string name="settings_widget_theme">Widget theme</string>
     <string name="today">Today</string>
     <string name="list_error">An error occurred</string>

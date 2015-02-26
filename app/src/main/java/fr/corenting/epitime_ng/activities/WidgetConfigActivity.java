@@ -83,6 +83,9 @@ public class WidgetConfigActivity extends ActionBarActivity implements AdapterVi
         int resultCode = RESULT_OK;
         setResult(resultCode, resultValue);
         EpiTime.getInstance().updateWidget();
+        //TODO : request lectures to avoid crash if the Application is not launched before configuring the widget, try ScheduleManager's requestLectures modification
+        scheduleManager.requestLectures(true,0);
+
         finish();
     }
 }

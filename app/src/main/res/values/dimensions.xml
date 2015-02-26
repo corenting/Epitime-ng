@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dialog_lecture_title_size">24sp</dimen>
-    <dimen name="dialog_lecture_textview_size">17sp</dimen>
-    <dimen name="dialog_lecture_textview_row_padding">3dp</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
 </resources>

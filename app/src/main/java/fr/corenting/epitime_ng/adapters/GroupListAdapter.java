@@ -1,7 +1,6 @@
 package fr.corenting.epitime_ng.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.GroupItem;
 import fr.corenting.epitime_ng.data.School;
 import fr.corenting.epitime_ng.utils.TinyDB;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class GroupListAdapter extends BaseAdapter {
 
@@ -43,7 +41,7 @@ public class GroupListAdapter extends BaseAdapter {
                 this.groups = school.groups;
                 this.groupsSelected = school.groups;
             }
-        }else {
+        } else {
             this.groups = new ArrayList<>();
             this.groupsSelected = new ArrayList<>();
         }
@@ -121,10 +119,12 @@ public class GroupListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView == null ? inflater.inflate(R.layout.group_select_list_item, null) : convertView;
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.group_select_list_item, parent, false);
+        }
         GroupItem item = this.groupsSelected.get(position);
-        TextView longTitle = (TextView) view.findViewById(R.id.group_select_list_section_long);
+        TextView longTitle = (TextView) convertView.findViewById(R.id.group_select_list_section_long);
         longTitle.setText(item.getLongTitle());
-        return view;
+        return convertView;
     }
 }

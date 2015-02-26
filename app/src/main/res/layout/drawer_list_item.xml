@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="48dp"
-    android:orientation="horizontal"
-    android:gravity="start|center_vertical">
+    android:layout_width="match_parent">
 
-    <ImageView
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:id="@+id/drawer_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/epita"/>
 
     <TextView
-        android:layout_marginLeft="64dp"
         android:id="@+id/drawer_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
-        android:gravity="start|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginRight="16dp"
+        android:drawablePadding="16dp"
+        android:layout_marginEnd="16dp"
         android:textSize="14sp"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/drawer_icon"
-        android:layout_alignStart="@+id/drawer_icon" />
+        android:alpha="0.87"
+        android:gravity="center_vertical"/>
 
-</RelativeLayout>
+</LinearLayout>

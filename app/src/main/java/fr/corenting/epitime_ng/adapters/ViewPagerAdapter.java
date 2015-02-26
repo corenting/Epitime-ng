@@ -1,18 +1,19 @@
 package fr.corenting.epitime_ng.adapters;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.data.Lecture;
 import fr.corenting.epitime_ng.fragments.DayListFragment;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -69,7 +70,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         Date currentDate = pages.get(position).date;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM", Resources.getSystem().getConfiguration().locale);
         return dateFormat.format(currentDate);
     }
 

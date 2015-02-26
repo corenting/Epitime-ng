@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
 import fr.corenting.epitime_ng.data.GroupItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by KingGreed on 08/06/2014.
@@ -62,18 +62,19 @@ public class BlacklistAdapter extends BaseAdapter implements View.OnClickListene
 
     @Override
     public View getView(int index, View convertView, ViewGroup parent) {
-        View view = convertView == null ? inflater.inflate(R.layout.group_select_list_item, null) : convertView;
-
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.group_select_list_item, parent, false);
+        }
         GroupItem item = this.items.get(index);
 
-        TextView tv = (TextView) view.findViewById(R.id.group_select_list_section_long);
+        TextView tv = (TextView) convertView.findViewById(R.id.group_select_list_section_long);
 
         tv.setText(item.getLongTitle());
 
         tv.setTag(index);
         tv.setOnClickListener(this);
 
-        return view;
+        return convertView;
     }
 
     @Override
