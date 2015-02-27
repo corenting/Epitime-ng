@@ -333,11 +333,21 @@ public class ScheduleManager {
             }
 
             boolean hasLecture = this.getLectures(this.getGroup(), cal) != null;
+            boolean hasLectureWidget = this.getLectures(this.getWidgetGroup(), cal) != null;
             if (!hasLecture) {
 
                 boolean cache = this.hasCache(w, this.getGroup());
                 if (cache) {
                     this.loadLecturesFromFile(w, this.getGroup());
+                } else {
+                    weeksToUpdate.add(w);
+                }
+            }
+            if (!hasLectureWidget) {
+
+                boolean cache = this.hasCache(w, this.getWidgetGroup());
+                if (cache) {
+                    this.loadLecturesFromFile(w, this.getWidgetGroup());
                 } else {
                     weeksToUpdate.add(w);
                 }
@@ -361,9 +371,10 @@ public class ScheduleManager {
 
             this.setWeekTo(week, this.getGroup(), makeLoadingDay(context, getWeek(week)));
             this.fetchingWeek.put(week, true);
-            new QueryLecturesNewTask(this, week, this.getGroup()).execute();
+            new QueryLecturesNewTask(this, week, this.getWidgetGroup()).execute();
         }
     }
+
 
 
     public static Day makeLoadingDay(Context c, Date date) {

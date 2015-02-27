@@ -16,6 +16,7 @@ import fr.corenting.epitime_ng.adapters.ViewPagerAdapter;
 import fr.corenting.epitime_ng.data.Day;
 import fr.corenting.epitime_ng.managers.ScheduleManager;
 import fr.corenting.epitime_ng.utils.MiscUtils;
+import fr.corenting.epitime_ng.utils.NewVersionWarn;
 
 
 public class DayListActivity extends DrawerActivity {
@@ -42,6 +43,8 @@ public class DayListActivity extends DrawerActivity {
         this.setUp();
 
         this.menuTitle.setTitleBarClosed(this.manager.getGroup());
+
+        NewVersionWarn.Run(this);
 
     }
 

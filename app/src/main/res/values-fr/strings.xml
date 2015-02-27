@@ -68,4 +68,6 @@
     <string name="llama">Photo d\'un lama</string>
     <string name="i_am_a_llama">Je suis un lama</string>
     <string name="no_internet">Connexion Internet indisponible</string>
+    <string name="new_version_warn_title">Attention</string>
+    <string name="new_version_warn">À cause de la mise à jour, vous devez supprimer tout widget existant et le recréer pour que celui fonctionne de nouveau !</string>
 </resources>
