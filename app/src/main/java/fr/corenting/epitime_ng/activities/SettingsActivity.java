@@ -1,8 +1,12 @@
 package fr.corenting.epitime_ng.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +19,8 @@ import android.widget.ListView;
 
 import fr.corenting.epitime_ng.EpiTime;
 import fr.corenting.epitime_ng.R;
+import fr.corenting.epitime_ng.utils.FileUtils;
+import fr.corenting.epitime_ng.utils.MiscUtils;
 import fr.corenting.epitime_ng.utils.ThemeUtils;
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -64,6 +70,30 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         });
         addPreferencesFromResource(R.xml.settings);
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+
+        Preference deletePref = findPreference(getString(R.string.settings_delete_cache_title));
+        final Context activityContext = this;
+        deletePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                new AlertDialog.Builder(activityContext)
+                        .setMessage(getString(R.string.settings_delete_cache_dialog))
+                        .setCancelable(true)
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (FileUtils.deleteAllFiles()) {
+                                    MiscUtils.makeToast(getString(R.string.settings_cache_success));
+                                    EpiTime.getInstance().getScheduleManager().requestLectures(true, -1, 0, 1);
+                                } else {
+                                    MiscUtils.makeToast(getString(R.string.settings_cache_fail));
+                                }
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.cancel), null)
+                        .show();
+                return false;
+            }
+        });
     }
 
     @Override

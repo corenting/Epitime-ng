@@ -88,4 +88,5 @@
     <string name="no_internet">Internet connection unavailable</string>
     <string name="new_version_warn_title">Warning</string>
     <string name="new_version_warn">Due to an update to the widget, you must delete you existing widget and then recreate it for it to work !</string>
+    <string name="no_groups">No groups to display</string>
 </resources>

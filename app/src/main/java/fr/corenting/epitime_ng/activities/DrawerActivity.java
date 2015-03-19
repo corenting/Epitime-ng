@@ -240,7 +240,14 @@ public abstract class DrawerActivity extends ActionBarActivity {
 
             destination.putExtras(b);
             startActivity(destination);
+            if (DrawerActivity.this instanceof GroupListActivity) finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
+        else super.onBackPressed();
     }
 
     public class DrawerActionBarToggle extends ActionBarDrawerToggle {

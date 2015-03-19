@@ -33,7 +33,7 @@ public class ScheduleManager {
     private final Context context;
     private BlacklistManager lectureBlacklisted = new BlacklistManager();
     private final Calendar selectedDate;
-    private final Map<String, SparseArray<Day>> lectures = new HashMap<String, SparseArray<Day>>();
+    private final Map<String, SparseArray<Day>> lectures = new HashMap<>();
     private static final Date FIRST_WEEK;
 
     public int offset = 0;
@@ -153,7 +153,7 @@ public class ScheduleManager {
         this.updateWidget(cal);
         SparseArray<Day> days = this.lectures.get(group);
         if (days == null) {
-            this.lectures.put(group, days = new SparseArray<Day>());
+            this.lectures.put(group, days = new SparseArray<>());
         }
 
         days.put(cal.get(Calendar.DAY_OF_YEAR), value);
@@ -202,14 +202,14 @@ public class ScheduleManager {
         TinyDB tinyDB = new TinyDB(context);
         List<String> favorites = tinyDB.getList(context.getString(R.string.tinydb_favorites));
         favorites.add(group);
-        tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<String>(favorites));
+        tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<>(favorites));
     }
 
     public void removeFavoriteGroup(String group) {
         TinyDB tinyDB = new TinyDB(context);
         List<String> favorites = tinyDB.getList(context.getString(R.string.tinydb_favorites));
         favorites.remove(group);
-        tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<String>(favorites));
+        tinyDB.putList(context.getString(R.string.tinydb_favorites), new ArrayList<>(favorites));
     }
 
     public boolean isLectureBlacklisted(String lecture, String group) {
@@ -226,7 +226,7 @@ public class ScheduleManager {
     }
 
     public List<Lecture> getNonBlacklistedLectures(String group, List<Lecture> lectures) {
-        List<Lecture> display = new ArrayList<Lecture>();
+        List<Lecture> display = new ArrayList<>();
 
         for (Lecture l : lectures) {
             if (!this.isLectureBlacklisted(l.title, group)) {
@@ -315,7 +315,7 @@ public class ScheduleManager {
     // Note : While lectures are being downloaded day's lectures are set to "Loading"
     void requestLectures(Date day, boolean forceUpdate, Integer... offsets) {
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
-        HashSet<Integer> weeksToUpdate = new HashSet<Integer>();
+        HashSet<Integer> weeksToUpdate = new HashSet<>();
 
         for (Integer offset1 : offsets) {
             //Date operations
@@ -371,6 +371,7 @@ public class ScheduleManager {
 
             this.setWeekTo(week, this.getGroup(), makeLoadingDay(context, getWeek(week)));
             this.fetchingWeek.put(week, true);
+            new QueryLecturesNewTask(this, week, this.getGroup()).execute();
             new QueryLecturesNewTask(this, week, this.getWidgetGroup()).execute();
         }
     }
@@ -378,14 +379,14 @@ public class ScheduleManager {
 
 
     public static Day makeLoadingDay(Context c, Date date) {
-        ArrayList<Lecture> loading = new ArrayList<Lecture>
+        ArrayList<Lecture> loading = new ArrayList<>
                 (Arrays.asList(new Lecture(c.getString(R.string.loading), true)));
 
         return new Day(date, loading);
     }
 
     public static Day makeNoInternetDay(Context c, Date date) {
-        ArrayList<Lecture> loading = new ArrayList<Lecture>
+        ArrayList<Lecture> loading = new ArrayList<>
                 (Arrays.asList(new Lecture(c.getString(R.string.no_internet), true)));
 
         return new Day(date, loading);
@@ -410,7 +411,7 @@ public class ScheduleManager {
         cal.setTime(date);
         cal.add(Calendar.DATE, -1);
 
-        List<Day> days = new ArrayList<Day>();
+        List<Day> days = new ArrayList<>();
         days.add(makeLoadingDay(c, cal.getTime()));
         cal.add(Calendar.DATE, 1);
         days.add(makeLoadingDay(c, cal.getTime()));
@@ -428,7 +429,7 @@ public class ScheduleManager {
         cal.setTime(date);
         cal.add(Calendar.DATE, -1);
 
-        List<Day> days = new ArrayList<Day>();
+        List<Day> days = new ArrayList<>();
         days.add(makeNoInternetDay(c, cal.getTime()));
         cal.add(Calendar.DATE, 1);
         days.add(makeNoInternetDay(c, cal.getTime()));

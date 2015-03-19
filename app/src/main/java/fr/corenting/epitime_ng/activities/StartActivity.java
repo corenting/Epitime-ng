@@ -35,6 +35,7 @@ public class StartActivity extends Activity {
             this.destination = new Intent(this, DayListActivity.class);
             if(fromWidget)
             {
+                manager.setGroup(manager.getWidgetGroup());
                 manager.resetCalendar();
             }
         }

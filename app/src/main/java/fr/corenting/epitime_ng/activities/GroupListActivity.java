@@ -134,8 +134,7 @@ public class GroupListActivity extends DrawerActivity implements AdapterView.OnI
 
     @Override
     public boolean onQueryTextChange(String s) {
-        if(s.toLowerCase().equals("upupdowndownleftrightleftrightba"))
-        {
+        if (s.toLowerCase().equals("upupdowndownleftrightleftrightba")) {
             Intent myIntent = new Intent(GroupListActivity.this, EasterEggActivity.class);
             startActivity(myIntent);
         }
